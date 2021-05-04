@@ -1,0 +1,36 @@
+package com.example.feelslike.utilities
+
+// This Map contains several common activity levels and their corresponding met values
+val activityMap = mapOf<String, Double>(
+    "Sleeping" to 0.7,
+    "Reclining" to 0.8,
+    "Seated, quiet" to 1.0,
+    "Reading, seated" to 1.0,
+    "Writing" to 1.0,
+    "Typing" to 1.1,
+    "Standing, relaxed" to 1.2,
+    "Filing, seated" to 1.2,
+    "Filing, standing" to 1.4,
+    "Flying aircraft, routine" to 1.2,
+    "Driving a car" to 1.5,
+    "Walking about" to 1.7,
+    "Cooking" to 1.8,
+    "Table sawing" to 1.8,
+    "Walking 2mph (3.2kmh)" to 2.0,
+    "Lifting/packing" to 2.1,
+    "Seated, heavy limb movement" to 2.2,
+    "Light machine work" to 2.2,
+    "Flying aircraft, combat" to 2.4,
+    "Walking 3mph (4.8kmh)" to 2.6,
+    "House cleaning" to 2.7,
+    "Driving, heavy vehicle" to 3.2,
+    "Dancing" to 3.4,
+    "Calisthenics" to 3.5,
+    "Walking 4mph (6.4kmh)" to 3.8,
+    "Tennis" to 3.8,
+    "Heavy machine work" to 4.0,
+    "Handling 100lb (45 kg) bags" to 4.0,
+    "Pick and shovel work" to 4.4,
+    "Basketball" to 6.3,
+    "Wrestling" to 7.8
+)
