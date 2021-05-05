@@ -18,7 +18,7 @@ interface FeelsLikeDao
     suspend fun insertAll()
 
     @Query("SELECT * from feels_like")
-    fun getAllNames() : LiveData<List<FeelsLikeEntity>>
+    fun getName() : LiveData<List<FeelsLikeEntity>>
 
     /**
      * Deletes all values from the table.
