@@ -11,6 +11,10 @@ class InitialUserInputAdapter(val clickListener: InitialUserInputClickListener) 
     ListAdapter<FeelsLikeEntity, InitialUserInputAdapter.InitialUserInputViewHolder>(
         InitialUserInputDiffCallback())
 {
+    val activitiesKeyList = ArrayList(activityMaps.keys)
+    val activitiesValueList = ArrayList(activityMaps.values)
+    val activities = listOf(activitiesKeyList)
+    val adapter =
     override fun onBindViewHolder(
         holder: InitialUserInputAdapter.InitialUserInputViewHolder,
         position: Int)
