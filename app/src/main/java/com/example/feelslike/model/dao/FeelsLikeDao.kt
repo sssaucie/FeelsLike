@@ -12,10 +12,11 @@ import com.example.feelslike.model.entity.FeelsLikeEntity
  */
 
 @Dao
+
 interface FeelsLikeDao
 {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAll()
+//    @Insert(onConflict = OnConflictStrategy.IGNORE)
+//    suspend fun insertAll()
 
     @Query("SELECT * from feels_like")
     fun getName() : LiveData<List<FeelsLikeEntity>>

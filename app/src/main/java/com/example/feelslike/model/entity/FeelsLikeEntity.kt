@@ -40,10 +40,10 @@ data class FeelsLikeEntity(
     val clothing : Float,
 
     @ColumnInfo(name = "date")
-    val date : Date,
+    val date : String,
 
     @ColumnInfo(name = "time_of_day")
-    val timeOfDay : Time,
+    val timeOfDay : String,
 
     @ColumnInfo(name = "latitude")
     val latitude : Double,

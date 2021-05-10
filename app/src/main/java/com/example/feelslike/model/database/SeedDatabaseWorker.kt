@@ -21,7 +21,7 @@ class SeedDatabaseWorker(
         {
             applicationContext.assets.open(FEELS_LIKE_DATA_FILENAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
-                    database.userProfileDao().insertAll()
+//                    database.userProfileDao().insertAll()
 
                     Result.success()
                 }
