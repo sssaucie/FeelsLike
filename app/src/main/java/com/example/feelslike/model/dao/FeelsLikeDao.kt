@@ -1,10 +1,7 @@
 package com.example.feelslike.model.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.feelslike.model.entity.FeelsLikeEntity
 
 /**
@@ -15,11 +12,17 @@ import com.example.feelslike.model.entity.FeelsLikeEntity
 
 interface FeelsLikeDao
 {
-//    @Insert(onConflict = OnConflictStrategy.IGNORE)
-//    suspend fun insertAll()
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(user: List<FeelsLikeEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(user:FeelsLikeEntity)
+
+    @Update
+    suspend fun update(user: FeelsLikeEntity)
 
     @Query("SELECT * from feels_like")
-    fun getName() : LiveData<List<FeelsLikeEntity>>
+    fun getUserInfo() : LiveData<List<FeelsLikeEntity>>
 
     /**
      * Deletes all values from the table.

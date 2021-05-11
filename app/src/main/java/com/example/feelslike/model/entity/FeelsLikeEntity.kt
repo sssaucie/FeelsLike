@@ -21,8 +21,11 @@ data class FeelsLikeEntity(
     @ColumnInfo(name = "email_address")
     val emailAddress : String,
 
-    @ColumnInfo(name = "preferred_temp_set")
-    val preferredTempSet : Int,
+    @ColumnInfo(name = "preferred_temp_set_fahrenheit")
+    val preferredTempSet : Float,
+
+    @ColumnInfo(name = "preferred_temp_set_celsius")
+    val preferredTempSetCelsius : Float,
 
     @ColumnInfo(name = "favorites")
     val favorites : Boolean,
@@ -31,7 +34,13 @@ data class FeelsLikeEntity(
     val heightFeet : Int,
 
     @ColumnInfo(name = "height_inches")
-    val heightInches : Int,
+    val heightInches : Float,
+
+    @ColumnInfo(name = "height_metres")
+    val heightMetres : Float,
+
+    @ColumnInfo(name = "height_centimeters")
+    val heightCentimeters : Int,
 
     @ColumnInfo(name = "weight")
     val weight : Float,

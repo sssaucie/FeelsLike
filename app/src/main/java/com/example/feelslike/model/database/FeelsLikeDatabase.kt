@@ -26,7 +26,7 @@ abstract class FeelsLikeDatabase : RoomDatabase()
      * Connects the database to the DAO.
      */
 
-    abstract fun userProfileDao() : FeelsLikeDao
+    abstract fun feelsLikeDao() : FeelsLikeDao
     abstract fun dummyDao() : DummyDao
 
     /**

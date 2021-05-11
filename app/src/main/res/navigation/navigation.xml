@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/landing_page">
+
+    <fragment
+        android:id="@+id/landing_page"
+        android:name="com.example.feelslike.view.LandingPageFragment"
+        android:label="LandingPageFragment"
+        tools:layout="@layout/landing_page">
+        <action
+            android:id="@+id/action_landingPage_to_activityInitialUserInput"
+            app:destination="@+id/activity_initial_user_input"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popEnterAnim="@anim/nav_default_enter_anim"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/maps_fragment"
+        android:name="com.example.feelslike.view.MapsFragment"
+        android:label="MapsFragment"
+        tools:layout="@layout/fragment_maps">
+        <argument
+            android:name="currentSelection"
+            app:argType="com.example.feelslike.model.entity.FeelsLikeEntity" />
+    </fragment>
+
+</navigation>

@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.model.entity.Dummy
 import com.example.feelslike.utilities.FIRST_RUN_KEY
@@ -12,19 +13,16 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity()
 {
+    private lateinit var linearLayoutManager: LinearLayoutManager
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_initial_user_input)
+        setContentView(R.layout.activity_main)
+
+        linearLayoutManager = LinearLayoutManager(this)
 
         checkFirstRun()
     }
-
-    /**
-     * This verifies whether the app has been run before on the phone through Preferences,
-     * and populates the database if it is the first run. Additionally, it triggers the
-     * onboarding process.
-     */
 
     fun checkFirstRun()
     {

@@ -1,11 +1,10 @@
 package com.example.feelslike.model.database
 
 import android.content.Context
-import android.util.JsonReader
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.feelslike.utilities.FEELS_LIKE_DATA_FILENAME
+import com.example.feelslike.utilities.Constants
 import kotlinx.coroutines.coroutineScope
 import java.lang.Exception
 
@@ -16,16 +15,19 @@ class SeedDatabaseWorker(
 {
     override suspend fun doWork(): Result = coroutineScope {
         val database = FeelsLikeDatabase.getInstance(applicationContext)
-
         try
         {
-            applicationContext.assets.open(FEELS_LIKE_DATA_FILENAME).use { inputStream ->
-                JsonReader(inputStream.reader()).use { jsonReader ->
-//                    database.userProfileDao().insertAll()
-
-                    Result.success()
-                }
-            }
+//            applicationContext.assets.open(FEELS_LIKE_DATA_FILENAME).use { inputStream ->
+//                JsonReader(inputStream.reader()).use { jasonReader ->
+//                    val userInput = object :TypeToken<List<FeelsLikeEntity>>() {}.type
+//                    val feelsLikeList : List<FeelsLikeEntity> =Gson().fromJson(jasonReader,userInput)
+//
+//                    database.feelsLikeDao().insertAll(feelsLikeList)
+//                    Result.success()
+//                }
+//            }
+            database.feelsLikeDao().insert(Constants.DUMMY_INPUT)
+            Result.success()
         }
         catch (ex: Exception)
         {
