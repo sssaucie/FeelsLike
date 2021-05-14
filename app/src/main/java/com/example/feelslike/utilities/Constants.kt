@@ -24,8 +24,4 @@ const val AVERAGE_AIR_VELOCITY = 0.1F
 const val RELATIVE_HUMIDITY = 50 // %
 const val EULERS_NUMBER = 2.71828 // The number e, sometimes called the natural number
 
-object Constants{
-    val DUMMY_INPUT = FeelsLikeEntity(0,"Jon","Doe","example_email.@email.com",72F,25F,false,5,8F,2F,83,160F,1.2F,"1/20/40","1400",25.0,-25.0,1.3F)
-}
-
 val MET_TYPICAL_TASKS = activityMap.values

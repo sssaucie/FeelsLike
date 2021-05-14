@@ -4,9 +4,12 @@ import android.content.Context
 import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.example.feelslike.utilities.Constants
+import com.example.feelslike.model.entity.FeelsLikeEntity
+import com.example.feelslike.utilities.FEELS_LIKE_DATA_FILENAME
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.google.gson.stream.JsonReader
 import kotlinx.coroutines.coroutineScope
-import java.lang.Exception
 
 class SeedDatabaseWorker(
     context: Context,
@@ -17,17 +20,16 @@ class SeedDatabaseWorker(
         val database = FeelsLikeDatabase.getInstance(applicationContext)
         try
         {
-//            applicationContext.assets.open(FEELS_LIKE_DATA_FILENAME).use { inputStream ->
-//                JsonReader(inputStream.reader()).use { jasonReader ->
-//                    val userInput = object :TypeToken<List<FeelsLikeEntity>>() {}.type
-//                    val feelsLikeList : List<FeelsLikeEntity> =Gson().fromJson(jasonReader,userInput)
-//
-//                    database.feelsLikeDao().insertAll(feelsLikeList)
-//                    Result.success()
-//                }
-//            }
-            database.feelsLikeDao().insert(Constants.DUMMY_INPUT)
-            Result.success()
+            applicationContext.assets.open(FEELS_LIKE_DATA_FILENAME).use { inputStream ->
+                JsonReader(inputStream.reader()).use { jsonReader ->
+                    val userInput = object : TypeToken<List<FeelsLikeEntity>>() {}.type
+                    val feelsLikeList : List<FeelsLikeEntity> =
+                        Gson().fromJson(jsonReader,userInput)
+
+                    database.feelsLikeDao().insertAll(feelsLikeList)
+                    Result.success()
+                }
+            }
         }
         catch (ex: Exception)
         {
