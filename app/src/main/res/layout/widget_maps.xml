@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_maps_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/fragment_maps_barrier"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="fragment_maps" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragment_maps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/fragment_maps_barrier"
+            android:name="com.example.feelslike.view.MapsFragment"
+            tools:layout="@layout/widget_maps" />
+
+        <!--This used to be part of the fragment view before I changed it to FragmentContainerView-->
+        <!--        class="com.google.android.gms.maps.SupportMapFragment"-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

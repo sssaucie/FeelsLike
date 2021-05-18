@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="fontStyleNormal">
+        <item name="android:fontFamily">@font/font_family</item>
+        <item name="android:textSize">@dimen/font_size_normal</item>
+    </style>
+
+    <style name="errorHeaderCalculateButtonStyleText" parent="fontStyleNormal">
+        <item name="android:textSize">@dimen/font_size_calculate_button_error_text</item>
+    </style>
+
+    <style name="normalButtonText" parent="fontStyleNormal">
+        <item name="android:textSize">@dimen/font_size_normal_button</item>
+    </style>
+
+    <style name="mainItemText" parent="fontStyleNormal">
+        <item name="android:textSize">@dimen/font_size_main_item</item>
+    </style>
+
+    <style name="menuHeaderText" parent="fontStyleNormal">
+        <item name="android:textSize">@dimen/font_size_menu_header</item>
+    </style>
+
+    <style name="smallButtonText" parent="fontStyleNormal">
+        <item name="android:textSize">@dimen/font_size_small_button</item>
+    </style>
+
+    <style name="resultsListAndFavoritesHeaderText" parent="fontStyleNormal">
+        <item name="android:textSize">@dimen/font_size_results_list_favorites_header</item>
+    </style>
+
+    <style name="subtextText" parent="fontStyleNormal">
+        <item name="android:textSize">@dimen/font_size_subtext</item>
+    </style>
+</resources>

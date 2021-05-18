@@ -38,7 +38,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         savedInstanceState: Bundle?
     ): View? {
         currentSelection = MapsFragmentArgs.fromBundle(requireArguments()).currentSelection
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        return inflater.inflate(R.layout.widget_maps, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

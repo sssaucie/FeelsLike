@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="spacing_google_padding">16dp</dimen>
+
+<!--    Font sizes-->
+    <dimen name="font_size_normal">8.5sp</dimen>
+    <dimen name="font_size_subtext">6.5sp</dimen>
+    <dimen name="font_size_small_button">7sp</dimen>
+    <dimen name="font_size_location_buttons">8sp</dimen>
+    <dimen name="font_size_normal_button">9.5sp</dimen>
+    <dimen name="font_size_results_list_favorites_header">10sp</dimen>
+    <dimen name="font_size_main_item">11sp</dimen>
+    <dimen name="font_size_menu_header">15sp</dimen>
+    <dimen name="font_size_calculate_button_error_text">11.5sp</dimen>
+    <dimen name="font_size_error_header">17.5sp</dimen>
+
 </resources>
