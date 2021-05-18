@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+<!--    Padding sizes-->
     <dimen name="spacing_google_padding">16dp</dimen>
 
 <!--    Font sizes-->
@@ -13,5 +14,9 @@
     <dimen name="font_size_menu_header">15sp</dimen>
     <dimen name="font_size_calculate_button_error_text">11.5sp</dimen>
     <dimen name="font_size_error_header">17.5sp</dimen>
+
+<!--    Blur settings-->
+    <dimen name="blur_footer">15.1dp</dimen>
+    <dimen name="blur_background">5.7dp</dimen>
 
 </resources>
