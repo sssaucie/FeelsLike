@@ -27,4 +27,15 @@
             app:argType="com.example.feelslike.model.entity.FeelsLikeEntity" />
     </fragment>
 
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.example.feelslike.view.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" >
+        <argument
+            android:name="firebaseAuth"
+            app:argType="com.example.feelslike.FirebaseAuth" />
+
+    </fragment>
+
 </navigation>

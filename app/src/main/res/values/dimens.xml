@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 <!--    Padding sizes-->
-    <dimen name="spacing_google_padding">16dp</dimen>
+    <dimen name="spacing_padding_small">16dp</dimen>
+    <dimen name="spacing_padding_normal">24dp</dimen>
+    <dimen name="spacing_padding_large">32dp</dimen>
+    <dimen name="spacing_padding_double">48dp</dimen>
+    <dimen name="background_shape_begin_percentage">0.22</dimen>
+    <dimen name="background_shape_end">80dp</dimen>
+    <dimen name="login_logo_padding_horizontal">72dp</dimen>
 
 <!--    Font sizes-->
     <dimen name="font_size_normal">8.5sp</dimen>
@@ -18,5 +24,9 @@
 <!--    Blur settings-->
     <dimen name="blur_footer">15.1dp</dimen>
     <dimen name="blur_background">5.7dp</dimen>
+
+<!--    FeelsLike Logo settings-->
+    <dimen name="logo_width">125dp</dimen>
+    <dimen name="logo_height">106dp</dimen>
 
 </resources>
