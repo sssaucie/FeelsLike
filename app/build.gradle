@@ -58,6 +58,7 @@ dependencies {
 
     // Support library
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    implementation "androidx.preference:preference-ktx:$preference_version"
 
     // Core with Ktx
     implementation "androidx.core:core-ktx:$core_version"
@@ -74,6 +75,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
+    implementation 'com.firebaseui:firebase-ui-auth:7.1.1'
 
     //Gson
     implementation "com.google.code.gson:gson:$gson_version"

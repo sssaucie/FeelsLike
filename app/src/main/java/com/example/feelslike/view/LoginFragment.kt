@@ -1,101 +1,116 @@
 package com.example.feelslike.view
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import com.example.feelslike.MainActivity
-import com.example.feelslike.view.LoginFragment.Companion.TAG
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import com.example.feelslike.R
+import com.example.feelslike.databinding.FragmentLoginBinding
+import com.example.feelslike.view_model.LoginViewModel
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class LoginFragment : Fragment()
 {
-    private lateinit var firebaseAuth : FirebaseAuth
+    companion object
+    {
+        const val TAG = "LoginFragment"
+        const val SIGN_IN_RESULT_CODE = 1001
+    }
+
+    // Get a reference to the ViewModel scoped to this Fragment.
+    private val viewModel by viewModels<LoginViewModel>()
+
+    private lateinit var navController : NavController
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
-        firebaseAuth = LoginFragmentArgs.fromBundle(requireArguments()).firebaseAuth
+
+        val binding = DataBindingUtil.inflate<FragmentLoginBinding>(
+            inflater, R.layout.fragment_login, container, false
+        )
+
+        binding.authButton.setOnClickListener { launchSignInFlow() }
+
+        return binding.root
     }
 
-    public override fun onStart()
-    {
-        super.onStart()
-        val currentUser = firebaseAuth.currentUser
-        if (currentUser != null)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        navController = findNavController()
+        // If the user presses the back button, bring them back to the home screen.
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner)
         {
-            reload();
+            navController.popBackStack(R.id.landingPage, false)
         }
-    }
-
-    private fun createAccount(email: String, password: String)
-    {
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful)
-                {
-                    Log.d(MainActivity.TAG, "createUserWithEmail:success")
-                    val user = firebaseAuth.currentUser
-                    updateUI(user)
-                } else
-                {
-                    Log.w(MainActivity.TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                    updateUI(null)
-                }
+        /**
+         * Observe the authentication state so we can know if the user has logged in
+         * successfully. If the user has logged in successfully, bring them back to the
+         * settings screen. If they did not log in successfully, display an error
+         * message.
+         */
+        viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authenticationState ->
+            when (authenticationState)
+            {
+                LoginViewModel.AuthenticationState.AUTHENTICATED -> navController.popBackStack()
+                else -> Log.e(
+                    TAG,
+                    "Authentication state that doesn't require any UI change $authenticationState"
+                )
             }
+        })
     }
 
-    private fun signIn(email: String, password: String)
+    private fun launchSignInFlow()
     {
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful)
-                {
-                    Log.d(MainActivity.TAG, "signInWithEmail:success")
-                    val user = firebaseAuth.currentUser
-                    updateUI(user)
-                } else
-                {
-                    Log.w(MainActivity.TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
-                    updateUI(null)
-                }
+        // Give users the option to sign in / register with their email or Google account. If users
+        // choose to register with their email, they will need to create a password as well.
+        val providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build(), AuthUI.IdpConfig.GoogleBuilder().build()
+        )
+
+        // Create and launch sign-in intent. We listen to the response of this activity with the
+        // SIGN_IN_RESULT_CODE code.
+        startActivityForResult(
+            AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(
+                providers
+            ).build(), SIGN_IN_RESULT_CODE
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SIGN_IN_RESULT_CODE) {
+            val response = IdpResponse.fromResultIntent(data)
+            if (resultCode == Activity.RESULT_OK) {
+                // Successfully signed in user.
+                Log.i(
+                    TAG,
+                    "Successfully signed in user " +
+                            "${FirebaseAuth.getInstance().currentUser?.displayName}!"
+                )
+            } else {
+                // Sign in failed. If response is null the user canceled the sign-in flow using
+                // the back button. Otherwise check response.getError().getErrorCode() and handle
+                // the error.
+                Log.i(TAG, "Sign in unsuccessful ${response?.error?.errorCode}")
             }
-    }
-
-    private fun sendEmailVerification()
-    {
-        val user = firebaseAuth.currentUser!!
-        user.sendEmailVerification()
-            .addOnCompleteListener(this) { task ->
-                // Email verification sent
-            }
-    }
-
-    private fun updateUI(user: FirebaseUser?)
-    {
-
-    }
-
-    private fun reload()
-    {
-
-    }
-
-    companion object
-    {
-        private const val TAG = "EmailPassword"
+        }
     }
 }

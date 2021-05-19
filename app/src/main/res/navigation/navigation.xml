@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/landing_page">
+    app:startDestination="@id/landingPage">
 
     <fragment
-        android:id="@+id/landing_page"
+        android:id="@+id/landingPage"
         android:name="com.example.feelslike.view.LandingPageFragment"
         android:label="LandingPageFragment"
         tools:layout="@layout/landing_page">
@@ -15,10 +15,19 @@
             app:destination="@+id/activity_initial_user_input"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:popEnterAnim="@anim/nav_default_enter_anim"/>
+        <action
+            android:id="@+id/action_landingPage_to_settingsFragment"
+            app:destination="@+id/settingsFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/maps_fragment"
+        android:id="@+id/settingsFragment"
+        android:name="com.example.feelslike.view.SettingsFragment"
+        android:label="SettingsFragment">
+    </fragment>
+
+    <fragment
+        android:id="@+id/mapsFragment"
         android:name="com.example.feelslike.view.MapsFragment"
         android:label="MapsFragment"
         tools:layout="@layout/widget_maps">
@@ -28,14 +37,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/login_fragment"
+        android:id="@+id/loginFragment"
         android:name="com.example.feelslike.view.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/fragment_login" >
-        <argument
-            android:name="firebaseAuth"
-            app:argType="com.example.feelslike.FirebaseAuth" />
-
+        tools:layout="@layout/fragment_login">
     </fragment>
 
 </navigation>
