@@ -12,54 +12,37 @@ data class FeelsLikeEntity(
     @PrimaryKey(autoGenerate = true)
     val feelsLikeId : Long = 0L,
 
-    @ColumnInfo(name = "first_name")
-    val firstName : String,
+    val first_name : String,
 
-    @ColumnInfo(name = "last_name")
-    val lastName : String,
+    val last_name : String,
 
-    @ColumnInfo(name = "email_address")
-    val emailAddress : String,
+    val email_address : String,
 
-    @ColumnInfo(name = "preferred_temp_set_fahrenheit")
-    val preferredTempSet : Float,
+    val preferred_temp_set_fahrenheit : Float,
 
-    @ColumnInfo(name = "preferred_temp_set_celsius")
-    val preferredTempSetCelsius : Float,
+    val preferred_temp_set_celsius : Float,
 
-    @ColumnInfo(name = "favorites")
     val favorites : Boolean,
 
-    @ColumnInfo(name = "height_feet")
-    val heightFeet : Int,
+    val height_feet : Int,
 
-    @ColumnInfo(name = "height_inches")
-    val heightInches : Float,
+    val height_inches : Float,
 
-    @ColumnInfo(name = "height_metres")
-    val heightMetres : Float,
+    val height_metres : Float,
 
-    @ColumnInfo(name = "height_centimeters")
-    val heightCentimeters : Int,
+    val height_centimeters : Int,
 
-    @ColumnInfo(name = "weight")
     val weight : Float,
 
-    @ColumnInfo(name = "clothing")
     val clothing : Float,
 
-    @ColumnInfo(name = "date")
     val date : String,
 
-    @ColumnInfo(name = "time_of_day")
-    val timeOfDay : String,
+    val time_of_day : String,
 
-    @ColumnInfo(name = "latitude")
     val latitude : Double,
 
-    @ColumnInfo(name = "longitude")
     val longitude : Double,
 
-    @ColumnInfo(name = "activity_level")
-    val activityLevel : Float
+    val activity_level : Float
 ) : Serializable
