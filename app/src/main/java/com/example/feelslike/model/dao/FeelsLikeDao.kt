@@ -16,7 +16,7 @@ interface FeelsLikeDao
     suspend fun insertAll(user: List<FeelsLikeEntity>)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(user:FeelsLikeEntity)
+    suspend fun insert(user: FeelsLikeEntity)
 
     @Update
     suspend fun update(user: FeelsLikeEntity)
