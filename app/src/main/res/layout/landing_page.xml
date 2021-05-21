@@ -12,22 +12,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<!--    <include-->
-<!--        android:id="@+id/fragment_maps"-->
-<!--        layout="@layout/widget_maps"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent" />-->
-
     <ImageView
         android:id="@+id/dots_bridge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/icon_location_bridge"
-        tools:layout_editor_absoluteX="180dp"
-        tools:layout_editor_absoluteY="588dp" />
+        app:layout_constraintBottom_toTopOf="@+id/input_current_location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/icon_location_bridge" />
 
     <Button
         android:id="@+id/button_calculate"
@@ -45,16 +37,63 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/input_current_location"
+        style="@style/Theme.FeelsLike"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="596dp">
+        android:hint="@string/text_current_location"
+        app:layout_constraintBottom_toTopOf="@+id/checkbox_complex_calculations"
+        app:layout_constraintEnd_toStartOf="@+id/dots_bridge"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="hint" />
-    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/input_planned_location"
+        style="@style/Theme.FeelsLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/text_planned_location"
+        app:layout_constraintBottom_toTopOf="@+id/checkbox_complex_calculations"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dots_bridge" />
+
+    <CheckBox
+        android:id="@+id/checkbox_complex_calculations"
+        style="@style/fontStyleNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/dark_grey"
+        android:text="@string/text_complex_calculations"
+        app:layout_constraintBottom_toTopOf="@+id/button_calculate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <include
+        android:id="@+id/landing_page_map"
+        layout="@layout/fragment_maps"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/spacing_padding_small"
+        android:layout_marginTop="@dimen/spacing_padding_small"
+        android:layout_marginEnd="@dimen/spacing_padding_small"
+        android:layout_marginBottom="@dimen/spacing_padding_small"
+        app:layout_constraintBottom_toTopOf="@+id/dots_bridge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/header_landing_page_menu_profile"
+        layout="@layout/widget_menu_profile_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_padding_large"
+        android:layout_marginTop="@dimen/spacing_padding_small"
+        android:layout_marginEnd="@dimen/spacing_padding_large"
+        app:layout_constraintEnd_toEndOf="@+id/landing_page_map"
+        app:layout_constraintStart_toStartOf="@+id/landing_page_map"
+        app:layout_constraintTop_toTopOf="@+id/landing_page_map">
+
+    </include>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

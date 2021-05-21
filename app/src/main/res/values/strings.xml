@@ -37,7 +37,9 @@
     <string name="description_button_continue">Continue button</string>
     <string name="description_button_edit_info">Edit Information button</string>
     <string name="description_button_email_results">E-mail Results button</string>
+    <string name="description_button_menu">Menu button</string>
     <string name="description_button_skip">Skip button</string>
+    <string name="description_profile_picture">Profile picture set in a circle</string>
     <string name="description_logo_feelslike">FeelsLike app logo</string>
 
     <!--    Arrays-->

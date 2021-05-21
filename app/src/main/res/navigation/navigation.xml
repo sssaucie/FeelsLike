@@ -30,7 +30,7 @@
         android:id="@+id/mapsFragment"
         android:name="com.example.feelslike.view.MapsFragment"
         android:label="MapsFragment"
-        tools:layout="@layout/widget_maps">
+        tools:layout="@layout/fragment_maps">
         <argument
             android:name="currentSelection"
             app:argType="com.example.feelslike.model.entity.FeelsLikeEntity" />

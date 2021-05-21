@@ -38,12 +38,12 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         savedInstanceState: Bundle?
     ): View? {
         currentSelection = MapsFragmentArgs.fromBundle(requireArguments()).currentSelection
-        return inflater.inflate(R.layout.widget_maps, container, false)
+        return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val mapFragment = childFragmentManager.findFragmentById(R.id.fragment_maps) as SupportMapFragment?
+        val mapFragment = childFragmentManager.findFragmentById(R.id.maps_fragment) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
     override fun onMapReady(googleMap: GoogleMap) {

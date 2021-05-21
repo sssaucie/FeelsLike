@@ -21,6 +21,10 @@
     <dimen name="font_size_calculate_button_error_text">20sp</dimen>
     <dimen name="font_size_error_header">25sp</dimen>
 
+<!--    Profile Photo settings-->
+    <dimen name="image_widget_profile_pic_width">75dp</dimen>
+    <dimen name="image_widget_profile_pic_height">75dp</dimen>
+    <dimen name="image_widget_profile_pic_corner_radius">50dp</dimen>
 <!--    Blur settings-->
     <dimen name="blur_footer">15.1dp</dimen>
     <dimen name="blur_background">5.7dp</dimen>
@@ -37,6 +41,6 @@
 <!--    Location Input specs-->
 
 <!--    Background arch-->
-    
+
 <!--    <dimen name="background_arch">75dp</dimen>-->
 </resources>
