@@ -1,4 +1,7 @@
 package com.example.feelslike.view_model
 
-class LandingPageViewModel {
+import androidx.lifecycle.ViewModel
+
+class LandingPageViewModel : ViewModel()
+{
 }

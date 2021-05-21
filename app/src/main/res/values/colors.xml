@@ -8,5 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+<!--    App Specific Colors-->
     <color name="clear">#00000000</color>
+    <color name="light_grey">#EAEEEF</color>
+    <color name="dark_grey">#8C8F90</color>
+    <color name="light_blue">#87B2E8</color>
+    <color name="dark_blue">#3F77BF</color>
+    <color name="light_green">#8CDEB7</color>
+    <color name="dark_green">#50A588</color>
 </resources>

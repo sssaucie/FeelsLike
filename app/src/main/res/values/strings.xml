@@ -1,8 +1,46 @@
 <resources>
     <string name="app_name">FeelsLike</string>
     <string name="title_activity_app">FeelsLike</string>
+    
+<!--    Buttons-->
+    <string name="button_back">Back</string>
+    <string name="button_calculate">Calculate</string>
+    <string name="button_continue">Continue</string>
+    <string name="button_edit_info">Edit Info…</string>
+    <string name="button_email_results">E-mail Results</string>
+    <string name="button_skip">Skip</string>
 
-<!--    Arrays-->
+<!--    TextViews-->
+    <string name="text_complex_calculations">Complex Calculations</string>
+    <string name="text_continue_with_email">Continue with E-mail</string>
+    <string name="text_continue_with_google">Continue with Google</string>
+    <string name="text_current_location">Current Location</string>
+    <string name="text_email">E-mail:</string>
+    <string name="text_favorites">Favorites</string>
+    <string name="text_feet">Feet:</string>
+    <string name="text_first_name">First Name:</string>
+    <string name="text_height">Height</string>
+    <string name="text_imperial">Imperial (US)</string>
+    <string name="text_inches">Inches:</string>
+    <string name="text_last_name">Last Name:</string>
+    <string name="text_main_page">Main Page</string>
+    <string name="text_menu">Menu</string>
+    <string name="text_metric">Metric (Eu)</string>
+    <string name="text_planned_location">Planned Location</string>
+    <string name="text_preferences">Preferences</string>
+    <string name="text_weight">Weight:</string>
+
+<!--    Content Descriptions-->
+    <string name="description_background_photo">Snowy mountain before clouds photo at sunset</string>
+    <string name="description_button_back">Back button</string>
+    <string name="description_button_calculate">Calculate button</string>
+    <string name="description_button_continue">Continue button</string>
+    <string name="description_button_edit_info">Edit Information button</string>
+    <string name="description_button_email_results">E-mail Results button</string>
+    <string name="description_button_skip">Skip button</string>
+    <string name="description_logo_feelslike">FeelsLike app logo</string>
+
+    <!--    Arrays-->
 <!--    <string-array name="menu_array">-->
 <!--        <item>Item1</item>-->
 <!--        <item>Item2</item>-->

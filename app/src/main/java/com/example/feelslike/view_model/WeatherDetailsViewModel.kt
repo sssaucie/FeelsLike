@@ -1,4 +1,7 @@
 package com.example.feelslike.view_model
 
-class WeatherDetailsViewModel {
+import androidx.lifecycle.ViewModel
+
+class WeatherDetailsViewModel : ViewModel()
+{
 }

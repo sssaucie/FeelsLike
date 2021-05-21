@@ -1,4 +1,7 @@
 package com.example.feelslike.view
 
-class WeatherDetailsFragment {
+import androidx.fragment.app.Fragment
+
+class WeatherDetailsFragment : Fragment()
+{
 }

@@ -15,6 +15,7 @@
             android:id="@+id/login_image_placeholder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/description_background_photo"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,8 +48,10 @@
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/login_guideline_background_begin"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/background_rounded_top" />
 
         <ImageView
@@ -57,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_padding_large"
             android:adjustViewBounds="true"
+            android:contentDescription="@string/description_logo_feelslike"
             android:maxWidth="@dimen/logo_width"
             android:maxHeight="@dimen/logo_height"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,10 +73,35 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_padding_double"
-            android:text="Login"
+            android:text="LoginPlaceholder"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/button_skip"
+            android:layout_width="@dimen/button_max_length"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginEnd="@dimen/spacing_padding_normal"
+            android:layout_marginBottom="@dimen/spacing_padding_double"
+            android:background="@color/clear"
+            android:contentDescription="@string/description_button_skip"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/login_image_placeholder"
+            app:srcCompat="@drawable/button_standard" />
+
+        <TextView
+            android:id="@+id/button_skip_text"
+            style="@style/normalButtonText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:text="@string/button_skip"
+            app:layout_constraintBottom_toBottomOf="@+id/button_skip"
+            app:layout_constraintEnd_toEndOf="@+id/button_skip"
+            app:layout_constraintStart_toStartOf="@+id/button_skip"
+            app:layout_constraintTop_toTopOf="@+id/button_skip" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

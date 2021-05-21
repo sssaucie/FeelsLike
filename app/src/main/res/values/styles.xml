@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+<!--    Text Styles-->
+
     <style name="fontStyleNormal">
         <item name="android:fontFamily">@font/font_family</item>
         <item name="android:textSize">@dimen/font_size_normal</item>
@@ -8,10 +10,12 @@
 
     <style name="errorHeaderCalculateButtonStyleText" parent="fontStyleNormal">
         <item name="android:textSize">@dimen/font_size_calculate_button_error_text</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="normalButtonText" parent="fontStyleNormal">
         <item name="android:textSize">@dimen/font_size_normal_button</item>
+        <item name="android:textColor">@color/dark_grey</item>
     </style>
 
     <style name="mainItemText" parent="fontStyleNormal">

@@ -10,16 +10,16 @@
     <dimen name="login_logo_padding_horizontal">72dp</dimen>
 
 <!--    Font sizes-->
-    <dimen name="font_size_normal">8.5sp</dimen>
-    <dimen name="font_size_subtext">6.5sp</dimen>
-    <dimen name="font_size_small_button">7sp</dimen>
-    <dimen name="font_size_location_buttons">8sp</dimen>
-    <dimen name="font_size_normal_button">9.5sp</dimen>
-    <dimen name="font_size_results_list_favorites_header">10sp</dimen>
-    <dimen name="font_size_main_item">11sp</dimen>
-    <dimen name="font_size_menu_header">15sp</dimen>
-    <dimen name="font_size_calculate_button_error_text">11.5sp</dimen>
-    <dimen name="font_size_error_header">17.5sp</dimen>
+    <dimen name="font_size_normal">13sp</dimen>
+    <dimen name="font_size_subtext">11sp</dimen>
+    <dimen name="font_size_small_button">11.5sp</dimen>
+    <dimen name="font_size_location_buttons">12.5sp</dimen>
+    <dimen name="font_size_normal_button">15sp</dimen>
+    <dimen name="font_size_results_list_favorites_header">14.5sp</dimen>
+    <dimen name="font_size_main_item">15.5sp</dimen>
+    <dimen name="font_size_menu_header">19.5sp</dimen>
+    <dimen name="font_size_calculate_button_error_text">20sp</dimen>
+    <dimen name="font_size_error_header">25sp</dimen>
 
 <!--    Blur settings-->
     <dimen name="blur_footer">15.1dp</dimen>
@@ -29,4 +29,14 @@
     <dimen name="logo_width">125dp</dimen>
     <dimen name="logo_height">106dp</dimen>
 
+<!--    Button specs-->
+    <dimen name="button_corners">24dp</dimen>
+    <dimen name="button_height">35dp</dimen>
+    <dimen name="button_max_length">75dp</dimen>
+
+<!--    Location Input specs-->
+
+<!--    Background arch-->
+    
+<!--    <dimen name="background_arch">75dp</dimen>-->
 </resources>
