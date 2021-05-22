@@ -3,7 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/landingPage">
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/initialUserInputFragment"
+        android:name="com.example.feelslike.view.InitialUserInputFragment"
+        android:label="InitialUserInputFragment"
+        tools:layout="@layout/fragment_initial_user_input">
+        <action
+            android:id="@+id/action_initialUserInputFragment_to_landingPage"
+            app:destination="@+id/landingPage" />
+        <action
+            android:id="@+id/action_initialUserInputFragment_to_loginFragment"
+            app:destination="@+id/loginFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/landingPage"
@@ -34,6 +47,9 @@
         <argument
             android:name="currentSelection"
             app:argType="com.example.feelslike.model.entity.FeelsLikeEntity" />
+        <action
+            android:id="@+id/action_mapsFragment_to_landingPage"
+            app:destination="@+id/landingPage" />
     </fragment>
 
     <fragment
@@ -41,6 +57,9 @@
         android:name="com.example.feelslike.view.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_initialUserInputFragment"
+            app:destination="@+id/initialUserInputFragment" />
     </fragment>
 
 </navigation>
