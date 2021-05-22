@@ -22,7 +22,7 @@
         android:layout_width="@dimen/image_widget_profile_pic_width"
         android:layout_height="@dimen/image_widget_profile_pic_height"
         app:cardCornerRadius="@dimen/image_widget_profile_pic_corner_radius"
-        app:circularflow_viewCenter="true"
+        app:flow_verticalAlign="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

@@ -19,7 +19,7 @@ class InitialUserInputFragment : Fragment()
     ): View?
     {
         val binding : ViewDataBinding? = DataBindingUtil.inflate(
-            inflater, R.layout.activity_initial_user_input, container, false)
+            inflater, R.layout.fragment_initial_user_input, container, false)
 
         val application = requireNotNull(this.activity).application
 

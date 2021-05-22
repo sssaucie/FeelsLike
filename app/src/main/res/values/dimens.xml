@@ -37,6 +37,8 @@
     <dimen name="button_corners">24dp</dimen>
     <dimen name="button_height">35dp</dimen>
     <dimen name="button_max_length">75dp</dimen>
+    <dimen name="text_box_height">35dp</dimen>
+    <dimen name="check_box_height">25dp</dimen>
 
 <!--    Location Input specs-->
 
