@@ -42,8 +42,8 @@
 
         <ImageView
             android:id="@+id/login_background_rounded_top"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="@dimen/spacing_none"
+            android:layout_height="@dimen/spacing_none"
             android:layout_marginTop="@dimen/background_shape_end"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"

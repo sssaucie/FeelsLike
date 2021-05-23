@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/menu_row_layout_height"
+    android:orientation="horizontal"
+    android:padding="@dimen/menu_row_padding"
+    android:paddingStart="@dimen/menu_row_padding_start"
+    android:paddingEnd="@dimen/spacing_none">
+
+    <ImageView
+        android:id="@+id/navigation_icon"
+        android:layout_width="@dimen/button_height"
+        android:layout_height="@dimen/button_height"
+        android:layout_gravity="center_vertical"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_menu_button"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/navigation_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/text_box_height"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/spacing_menu_margin"
+        android:gravity="center_vertical"
+        android:text="Custom Navigation Drawer Row"
+        android:textSize="@dimen/font_size_main_item" />
+
+</LinearLayout>

@@ -4,13 +4,19 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.model.entity.Dummy
 import com.example.feelslike.utilities.FIRST_RUN_KEY
+import com.example.feelslike.utilities.MenuDrawerAdapter
 import com.example.feelslike.utilities.SHARED_PREFS_KEY
+import com.example.feelslike.view_model.MenuDrawerViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -20,6 +26,7 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity()
 {
     private lateinit var linearLayoutManager: LinearLayoutManager
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="spacing_none">0dp</dimen>
 <!--    Padding sizes-->
+    <dimen name="spacing_menu_margin">7dp</dimen>
     <dimen name="spacing_padding_small">16dp</dimen>
     <dimen name="spacing_padding_normal">24dp</dimen>
     <dimen name="spacing_padding_large">32dp</dimen>
@@ -40,6 +42,16 @@
     <dimen name="text_box_height">35dp</dimen>
     <dimen name="check_box_height">25dp</dimen>
 
+<!--    Menu specs-->
+    <dimen name="menu_drawer_width">260dp</dimen>
+    <dimen name="menu_drawer_height">100dp</dimen>
+    <dimen name="menu_header_image_padding">10dp</dimen>
+    <dimen name="menu_header_text_size">30sp</dimen>
+    <dimen name="menu_text_margin_padding">12sp</dimen>
+    <dimen name="menu_bottom_padding">5dp</dimen>
+    <dimen name="menu_row_layout_height">44dp</dimen>
+    <dimen name="menu_row_padding">3dp</dimen>
+    <dimen name="menu_row_padding_start">10dp</dimen>
 <!--    Location Input specs-->
 
 <!--    Background arch-->

@@ -39,14 +39,17 @@
     <string name="description_button_email_results">E-mail Results button</string>
     <string name="description_button_menu">Menu button</string>
     <string name="description_button_skip">Skip button</string>
+    <string name="navigation_drawer_close">Close menu drawer</string>
+    <string name="navigation_drawer_open">Open menu drawer</string>
     <string name="description_profile_picture">Profile picture set in a circle</string>
     <string name="description_logo_feelslike">FeelsLike app logo</string>
 
-    <!--    Arrays-->
-<!--    <string-array name="menu_array">-->
-<!--        <item>Item1</item>-->
-<!--        <item>Item2</item>-->
-<!--        <item>Item3</item>-->
-<!--        <item>Item4</item>-->
-<!--    </string-array>-->
+<!--        Arrays-->
+    <string-array name="menu_array">
+        <item>Main Page</item>
+        <item>Preferences</item>
+        <item>Favorites</item>
+        <item>Profile</item>
+        <item>App Settings</item>
+    </string-array>
 </resources>
