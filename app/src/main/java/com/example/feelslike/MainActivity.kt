@@ -2,25 +2,13 @@ package com.example.feelslike
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.feelslike.model.database.FeelsLikeDatabase
+import com.example.feelslike.model.database.UserDatabase
 import com.example.feelslike.model.entity.Dummy
 import com.example.feelslike.utilities.FIRST_RUN_KEY
-import com.example.feelslike.utilities.MenuDrawerAdapter
 import com.example.feelslike.utilities.SHARED_PREFS_KEY
-import com.example.feelslike.view_model.MenuDrawerViewModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity()
@@ -61,12 +49,12 @@ class MainActivity : AppCompatActivity()
     }
 
     /**
-     * In this function, we're calling the getInstance function from [FeelsLikeDatabase].
+     * In this function, we're calling the getInstance function from [UserDatabase].
      * The context is itself, so we tell it that this is the context.
      */
     private suspend fun forceDatabaseInit()
     {
-        val db = FeelsLikeDatabase.getInstance(this)
+        val db = UserDatabase.getInstance(this)
 
         val dummy = Dummy("dummy")
 

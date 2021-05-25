@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.feelslike.view_model.InitialUserInputViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activity_initial_user_input"
@@ -69,7 +74,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_first_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textShortMessage|textPersonName"
+                android:text="@={viewModel.firstName}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -103,7 +110,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_last_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textShortMessage|textPersonName"
+                android:text="@={viewModel.lastName}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -136,7 +145,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textWebEmailAddress"
+                android:text="@={viewModel.email}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -177,6 +188,7 @@
             android:text="@string/text_feet"
             android:textAppearance="@style/fontStyleNormal"
             android:textSize="@dimen/font_size_normal"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/input_height_feet_metres"
             app:layout_constraintStart_toStartOf="@+id/input_height_feet_metres"
             app:layout_constraintTop_toBottomOf="@+id/input_checkbox_measurement_type" />
@@ -185,6 +197,7 @@
             android:id="@+id/input_height_feet_metres"
             android:layout_width="0dp"
             android:layout_height="@dimen/text_box_height"
+            android:visibility="visible"
             app:boxBackgroundColor="@color/clear"
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/dark_grey"
@@ -198,7 +211,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_height_feet_metres"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@{String.valueOf(viewModel.heightFeet)}"
+                android:visibility="visible" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -210,6 +226,7 @@
             android:text="@string/text_inches"
             android:textAppearance="@style/fontStyleNormal"
             android:textSize="@dimen/font_size_normal"
+            android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/input_height_inches_centimetres"
             app:layout_constraintStart_toStartOf="@+id/input_height_inches_centimetres"
             app:layout_constraintTop_toBottomOf="@+id/input_height_feet_metres" />
@@ -218,6 +235,7 @@
             android:id="@+id/input_height_inches_centimetres"
             android:layout_width="0dp"
             android:layout_height="@dimen/text_box_height"
+            android:visibility="visible"
             app:boxBackgroundColor="@color/clear"
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/dark_grey"
@@ -231,7 +249,10 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_height_inches_centimetres"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@{String.valueOf(viewModel.heightInches)}"
+                android:visibility="visible" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -240,7 +261,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/font_family"
-            android:text="@string/text_weight"
+            android:text="@string/text_weight_pounds"
             android:textAppearance="@style/fontStyleNormal"
             android:textSize="@dimen/font_size_normal"
             app:layout_constraintBottom_toTopOf="@+id/input_weight"
@@ -264,7 +285,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_weight"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="@{String.valueOf(viewModel.weightPounds)}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
@@ -289,6 +312,7 @@
             android:text="@string/button_continue"
             android:textColor="@color/dark_grey"
             app:backgroundTint="@color/light_grey"
+            android:onClick="@{() -> viewModel.onContinueButtonClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -296,14 +320,14 @@
             app:layout_constraintTop_toBottomOf="@+id/input_checkbox_complex_calc" />
 
         <Button
-            android:id="@+id/input_button_back"
+            android:id="@+id/input_button_skip"
             style="@style/normalButtonText"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/button_height"
             android:layout_marginBottom="@dimen/spacing_padding_small"
             android:background="@drawable/button_standard"
             android:backgroundTint="@color/light_grey"
-            android:text="@string/button_back"
+            android:text="@string/button_skip"
             android:textColor="@color/dark_grey"
             app:backgroundTint="@color/light_grey"
             app:layout_constraintBottom_toBottomOf="parent"

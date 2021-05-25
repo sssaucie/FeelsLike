@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/initialUserInputFragment">
 
     <fragment
         android:id="@+id/initialUserInputFragment"
@@ -31,6 +31,9 @@
         <action
             android:id="@+id/action_landingPage_to_settingsFragment"
             app:destination="@+id/settingsFragment" />
+        <action
+            android:id="@+id/action_landingPage_to_mapsFragment"
+            app:destination="@+id/maps_fragment" />
     </fragment>
 
     <fragment

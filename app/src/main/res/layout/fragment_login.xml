@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:id="@+id/login_fragment">
 
         <ImageView
             android:id="@+id/login_image_placeholder"
@@ -25,8 +26,9 @@
 
         <ImageView
             android:id="@+id/login_background_blur"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,12 +47,12 @@
             android:layout_width="@dimen/spacing_none"
             android:layout_height="@dimen/spacing_none"
             android:layout_marginTop="@dimen/background_shape_end"
-            android:scaleType="fitXY"
+            android:scaleType="fitStart"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/login_guideline_background_begin"
+            app:layout_constraintTop_toTopOf="@id/login_background_blur"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/background_rounded_top" />
 

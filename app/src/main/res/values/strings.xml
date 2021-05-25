@@ -28,7 +28,8 @@
     <string name="text_metric">Metric (Eu)</string>
     <string name="text_planned_location">Planned Location</string>
     <string name="text_preferences">Preferences</string>
-    <string name="text_weight">Weight:</string>
+    <string name="text_weight_pounds">Weight (in pounds):</string>
+    <string name="text_weight_kilograms">Weight (in kilograms):</string>
 
 <!--    Content Descriptions-->
     <string name="description_background_photo">Snowy mountain before clouds photo at sunset</string>

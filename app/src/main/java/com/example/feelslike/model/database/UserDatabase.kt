@@ -7,34 +7,36 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import com.example.feelslike.model.dao.CalculationsDao
 import com.example.feelslike.model.dao.DummyDao
-import com.example.feelslike.model.dao.FeelsLikeDao
+import com.example.feelslike.model.dao.UserDao
 import com.example.feelslike.model.entity.Dummy
-import com.example.feelslike.model.entity.FeelsLikeEntity
-import com.example.feelslike.utilities.DATABASE_NAME
+import com.example.feelslike.model.entity.UserEntity
+import com.example.feelslike.utilities.USER_DATABASE_NAME
 
 /**
  * The Room database for this app
  */
 
-@Database(entities = [FeelsLikeEntity::class, Dummy::class],
+@Database(entities = [UserEntity::class, Dummy::class],
     version = 1,
     exportSchema = false)
-abstract class FeelsLikeDatabase : RoomDatabase()
+abstract class UserDatabase : RoomDatabase()
 {
     /**
      * Connects the database to the DAO.
      */
 
-    abstract fun feelsLikeDao() : FeelsLikeDao
+    abstract fun userDao() : UserDao
     abstract fun dummyDao() : DummyDao
+    abstract fun calculationsDao() : CalculationsDao
 
     /**
-     * Defining a companion object allows us to add functions on the FeelsLikeDatabase
+     * Defining a companion object allows us to add functions on the UserDatabase
      * class.
      *
-     * For example, clients can call 'FeelsLikeDatabase.getInstance(context)' to
-     * instantiate a new FeelsLikeDatabase.
+     * For example, clients can call 'UserDatabase.getInstance(context)' to
+     * instantiate a new UserDatabase.
      */
     companion object
     {
@@ -43,9 +45,9 @@ abstract class FeelsLikeDatabase : RoomDatabase()
          */
 
         @Volatile
-        private var instance : FeelsLikeDatabase? = null
+        private var instance : UserDatabase? = null
 
-        fun getInstance(context : Context) : FeelsLikeDatabase
+        fun getInstance(context : Context) : UserDatabase
         {
             /**
              * If the instance is not null, then return it.
@@ -61,15 +63,15 @@ abstract class FeelsLikeDatabase : RoomDatabase()
          * Create and pre-populate the database.
          */
 
-        private fun buildDatabase(context : Context) : FeelsLikeDatabase
+        private fun buildDatabase(context : Context) : UserDatabase
         {
-            return Room.databaseBuilder(context, FeelsLikeDatabase::class.java, DATABASE_NAME)
+            return Room.databaseBuilder(context, UserDatabase::class.java, USER_DATABASE_NAME)
                 .addCallback(
                     object : RoomDatabase.Callback()
                     {
                         override fun onCreate(db: SupportSQLiteDatabase) {
                             super.onCreate(db)
-                            val request = OneTimeWorkRequestBuilder<SeedDatabaseWorker>().build()
+                            val request = OneTimeWorkRequestBuilder<SeedUserDatabaseWorker>().build()
                             WorkManager.getInstance(context).enqueue(request)
                         }
                     }
