@@ -11,13 +11,13 @@ import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import kotlinx.coroutines.coroutineScope
 
-class SeedUserDatabaseWorker(
+class SeedDatabaseWorker(
     context: Context,
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams)
 {
     override suspend fun doWork(): Result = coroutineScope {
-        val database = UserDatabase.getInstance(applicationContext)
+        val database = FeelsLikeDatabase.getInstance(applicationContext)
         try
         {
             applicationContext.assets.open(STANDARD_USER_DATA_FILENAME).use { inputStream ->
@@ -40,6 +40,6 @@ class SeedUserDatabaseWorker(
 
     companion object
     {
-        private const val TAG = "FeelsLikeDatabaseWorker"
+        private const val TAG = "DatabaseWorker"
     }
 }

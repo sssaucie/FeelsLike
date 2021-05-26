@@ -5,8 +5,8 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity(tableName = "calculations_entity")
-data class CalculationsEntity
-    (@PrimaryKey(autoGenerate = true)
+data class CalculationsEntity(
+    @PrimaryKey(autoGenerate = true)
     val calculations_id : Long = 0L,
 
     val clothing : Float,

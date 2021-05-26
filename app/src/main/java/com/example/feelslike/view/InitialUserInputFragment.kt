@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentInitialUserInputBinding
-import com.example.feelslike.model.database.UserDatabase
+import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.utilities.InitialUserInputAdapter
 import com.example.feelslike.view_model.InitialUserInputViewModel
 import com.example.feelslike.view_model.InitialUserInputViewModelFactory
@@ -35,7 +35,7 @@ class InitialUserInputFragment : Fragment()
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = UserDatabase.getInstance(application).userDao()
+        val dataSource = FeelsLikeDatabase.getInstance(application).userDao()
 
         val viewModelFactory = InitialUserInputViewModelFactory(dataSource, application)
 

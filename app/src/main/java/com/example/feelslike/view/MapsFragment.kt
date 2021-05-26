@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.feelslike.R
-import com.example.feelslike.model.entity.UserEntity
+import com.example.feelslike.model.entity.CalculationsEntity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 {
-    private lateinit var currentSelection : UserEntity
+    private lateinit var currentSelection : CalculationsEntity
     private lateinit var map: GoogleMap
 
     private val callback = OnMapReadyCallback { googleMap ->

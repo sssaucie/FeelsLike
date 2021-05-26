@@ -5,7 +5,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.feelslike.model.database.UserDatabase
+import com.example.feelslike.model.database.FeelsLikeDatabase
+import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.Dummy
 import com.example.feelslike.utilities.FIRST_RUN_KEY
 import com.example.feelslike.utilities.SHARED_PREFS_KEY
@@ -49,12 +50,12 @@ class MainActivity : AppCompatActivity()
     }
 
     /**
-     * In this function, we're calling the getInstance function from [UserDatabase].
+     * In this function, we're calling the getInstance function from [FeelsLikeDatabase].
      * The context is itself, so we tell it that this is the context.
      */
     private suspend fun forceDatabaseInit()
     {
-        val db = UserDatabase.getInstance(this)
+        val db = FeelsLikeDatabase.getInstance(this)
 
         val dummy = Dummy("dummy")
 
