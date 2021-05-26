@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
@@ -12,14 +13,6 @@
         android:id="@+id/activity_initial_user_input"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/initial_user_input_background"
-            layout="@layout/widget_background_mountains"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_input_layout"
@@ -148,6 +141,10 @@
                 android:layout_height="wrap_content"
                 android:inputType="textWebEmailAddress"
                 android:text="@={viewModel.email}" />
+
+            <include
+                android:id="@+id/initial_user_input_background"
+                layout="@layout/widget_background_mountains" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -189,12 +186,25 @@
             android:textAppearance="@style/fontStyleNormal"
             android:textSize="@dimen/font_size_normal"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/input_height_feet_metres"
-            app:layout_constraintStart_toStartOf="@+id/input_height_feet_metres"
+            app:layout_constraintBottom_toTopOf="@+id/input_height_feet_centimeters"
+            app:layout_constraintStart_toStartOf="@+id/input_height_feet_centimeters"
             app:layout_constraintTop_toBottomOf="@+id/input_checkbox_measurement_type" />
 
+        <TextView
+            android:id="@+id/descriptor_height_centimeters"
+            style="@style/Theme.FeelsLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_family"
+            android:text="@string/text_centimeters"
+            android:textSize="@dimen/font_size_normal"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/input_height_feet_centimeters"
+            app:layout_constraintStart_toStartOf="@id/input_height_feet_centimeters"
+            app:layout_constraintTop_toBottomOf="@id/input_checkbox_measurement_type" />
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_height_feet_metres"
+            android:id="@+id/input_height_feet_centimeters"
             android:layout_width="0dp"
             android:layout_height="@dimen/text_box_height"
             android:visibility="visible"
@@ -209,7 +219,7 @@
             app:layout_constraintTop_toBottomOf="@+id/descriptor_height_feet">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_height_feet_metres"
+                android:id="@+id/edit_height_feet_centimeters"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -227,19 +237,19 @@
             android:textAppearance="@style/fontStyleNormal"
             android:textSize="@dimen/font_size_normal"
             android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/input_height_inches_centimetres"
-            app:layout_constraintStart_toStartOf="@+id/input_height_inches_centimetres"
-            app:layout_constraintTop_toBottomOf="@+id/input_height_feet_metres" />
+            app:layout_constraintBottom_toTopOf="@+id/input_height_inches"
+            app:layout_constraintStart_toStartOf="@+id/input_height_inches"
+            app:layout_constraintTop_toBottomOf="@+id/input_height_feet_centimeters" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_height_inches_centimetres"
+            android:id="@+id/input_height_inches"
             android:layout_width="0dp"
             android:layout_height="@dimen/text_box_height"
             android:visibility="visible"
             app:boxBackgroundColor="@color/clear"
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/dark_grey"
-            app:layout_constraintBottom_toTopOf="@+id/descriptor_weight"
+            app:layout_constraintBottom_toTopOf="@+id/descriptor_weight_pounds"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
             app:layout_constraintHeight_max="@dimen/text_box_height"
             app:layout_constraintHorizontal_bias="0.5"
@@ -247,7 +257,7 @@
             app:layout_constraintTop_toBottomOf="@+id/descriptor_height_inches">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_height_inches_centimetres"
+                android:id="@+id/edit_height_inches"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -256,7 +266,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/descriptor_weight"
+            android:id="@+id/descriptor_weight_pounds"
             style="@style/Theme.FeelsLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -266,7 +276,21 @@
             android:textSize="@dimen/font_size_normal"
             app:layout_constraintBottom_toTopOf="@+id/input_weight"
             app:layout_constraintStart_toStartOf="@+id/input_weight"
-            app:layout_constraintTop_toBottomOf="@+id/input_height_inches_centimetres" />
+            app:layout_constraintTop_toBottomOf="@+id/input_height_inches" />
+
+        <TextView
+            android:id="@+id/descriptor_weight_kilograms"
+            style="@style/Theme.FeelsLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/font_family"
+            android:text="@string/text_weight_kilograms"
+            android:textAppearance="@style/fontStyleNormal"
+            android:textSize="@dimen/font_size_normal"
+            app:layout_constraintBottom_toTopOf="@+id/input_weight"
+            app:layout_constraintStart_toStartOf="@+id/input_weight"
+            app:layout_constraintTop_toBottomOf="@+id/input_height_inches"
+            android:visibility="gone"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_weight"
@@ -280,7 +304,7 @@
             app:layout_constraintHeight_max="@dimen/text_box_height"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
-            app:layout_constraintTop_toBottomOf="@+id/descriptor_weight">
+            app:layout_constraintTop_toBottomOf="@+id/descriptor_weight_pounds">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_weight"
@@ -290,6 +314,7 @@
                 android:text="@{String.valueOf(viewModel.weightPounds)}" />
         </com.google.android.material.textfield.TextInputLayout>
 
+<!--        TODO: This is a "Nice to have" option for users in the future-->
         <CheckBox
             android:id="@+id/input_checkbox_complex_calc"
             style="@style/smallButtonText"
@@ -300,7 +325,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_weight" />
+            app:layout_constraintTop_toBottomOf="@+id/input_weight"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/input_button_continue"

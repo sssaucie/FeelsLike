@@ -11,6 +11,7 @@
     <string name="button_skip">Skip</string>
 
 <!--    TextViews-->
+    <string name="text_centimeters">Centimeters:</string>
     <string name="text_complex_calculations">Complex Calculations</string>
     <string name="text_continue_with_email">Continue with E-mail</string>
     <string name="text_continue_with_google">Continue with Google</string>
