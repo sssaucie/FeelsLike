@@ -1,23 +1,18 @@
 package com.example.feelslike.view_model
 
 import android.app.Application
+import android.text.Editable
 import android.util.Patterns
+import androidx.databinding.ObservableField
 import androidx.lifecycle.*
 import com.example.feelslike.model.dao.UserDao
+import com.example.feelslike.model.entity.UserEntity
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class InitialUserInputViewModel(
     val database : UserDao, application : Application) : AndroidViewModel(application)
 {
-    private var viewModelJob = Job()
-
-    var firstName = MutableLiveData<String>()
-    var lastName = MutableLiveData<String>()
-    var email = MutableLiveData<String>()
-    var heightFeet = MutableLiveData<Int>()
-    var heightInches = MutableLiveData<Int>()
-    var weightPounds = MutableLiveData<Float>()
-
     private val _navigateToLandingPage = MutableLiveData<Boolean?>()
 
     val navigateToLandingPage : LiveData<Boolean?>
@@ -31,5 +26,35 @@ class InitialUserInputViewModel(
     fun doneNavigating()
     {
         _navigateToLandingPage.value = null
+    }
+
+    fun createUser(
+        firstName: String,
+        lastName: String,
+        email: String,
+        isMetric: Boolean,
+        heightFeet: Int,
+        heightInches: Int,
+        weightPounds: Float)
+    {
+        val metricValue : Int = if (isMetric) 1 else 0
+
+        val preferredTemp = 72F
+        val height : Float = if (metricValue == 1) heightFeet.toFloat()
+                             else (heightFeet.toFloat() * 12) + heightInches
+        val user = UserEntity(
+            0,
+            firstName,
+            lastName,
+            email,
+            metricValue,
+            preferredTemp,
+            height,
+            weightPounds)
+
+
+        viewModelScope.launch {
+            database.insert(user)
+        }
     }
 }

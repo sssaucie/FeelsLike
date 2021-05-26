@@ -1,5 +1,6 @@
 package com.example.feelslike.utilities
 
+/*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,3 +65,5 @@ class InitialUserInputAdapter  : ListAdapter<UserEntity, InitialUserInputAdapter
         }
     }
 }
+
+ */

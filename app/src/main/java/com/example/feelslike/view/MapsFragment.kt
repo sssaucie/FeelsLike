@@ -18,6 +18,10 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     private lateinit var currentSelection : CalculationsEntity
     private lateinit var map: GoogleMap
 
+    // A default location (Sydney, Australia) to use when location permission is not granted
+    private val defaultLocation = LatLng(-33.8523341, 151.2106085)
+    private var locationPermissionGranted = false
+
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
         /**
@@ -31,6 +35,8 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
          */
         onMapReady(googleMap)
     }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,6 +52,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         val mapFragment = childFragmentManager.findFragmentById(R.id.maps_fragment) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
     }
+
     override fun onMapReady(googleMap: GoogleMap) {
         val zoomLevel = 7.5F
         map.addMarker(
