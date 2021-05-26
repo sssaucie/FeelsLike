@@ -3,15 +3,16 @@ package com.example.feelslike
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.Location
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.model.entity.Dummy
 import com.example.feelslike.utilities.FIRST_RUN_KEY
+import com.example.feelslike.utilities.PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION
 import com.example.feelslike.utilities.SHARED_PREFS_KEY
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -29,29 +30,8 @@ class MainActivity : AppCompatActivity()
 
         linearLayoutManager = LinearLayoutManager(this)
         // Retrieve last known location for user to populate map coordinates
+        getLocationPermission()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        // Check permissions on startup
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-        fusedLocationClient.lastLocation
-            .addOnSuccessListener { location : Location? ->
-//                if (location != null) location else (Location())
-            }
 
         checkFirstRun()
     }
@@ -92,4 +72,16 @@ class MainActivity : AppCompatActivity()
         db.dummyDao().insert(dummy)
     }
 
+    fun getLocationPermission()
+    {
+        var locationPermissionGranted = false
+        if (ContextCompat.checkSelfPermission(this.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+            == PackageManager.PERMISSION_GRANTED) {
+            locationPermissionGranted = true
+        } else {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+        }
+    }
 }
