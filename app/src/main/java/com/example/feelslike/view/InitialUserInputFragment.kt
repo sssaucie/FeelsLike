@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -40,20 +41,49 @@ class InitialUserInputFragment : Fragment()
         val viewModelFactory = InitialUserInputViewModelFactory(dataSource, application)
 
         val initialUserInputViewModel =
-            ViewModelProvider(
-                this, viewModelFactory).get(InitialUserInputViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory)
+                .get(InitialUserInputViewModel::class.java)
 
         val adapter = InitialUserInputAdapter()
 
         binding.viewModel = initialUserInputViewModel
 
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
+
+        fun onMetricsCheckboxClicked(view: View)
+{
+            if (view is CheckBox)
+            {
+                val checked : Boolean = view.isChecked
+
+                when (view.id)
+                {
+                    R.id.input_checkbox_measurement_type -> {
+                        if (checked)
+                        {
+                            binding.descriptorHeightFeet.visibility = View.GONE
+                            binding.descriptorHeightInches.visibility = View.GONE
+                            binding.inputHeightInches.visibility = View.GONE
+                            binding.descriptorHeightCentimeters.visibility = View.VISIBLE
+                        }
+                        else
+                        {
+                            binding.descriptorHeightCentimeters.visibility = View.GONE
+                        }
+                    }
+                }
+            }
+        }
 
         initialUserInputViewModel.navigateToLandingPage.observe(viewLifecycleOwner, {
             if (it == true)
             {
                 val firstName = binding.editFirstName.text
                 val lastName = binding.editLastName.text
+                val emailAddress = binding.editEmail.text
+                val heightFeetCentimeters = binding.editHeightFeetCentimeters.text
+                val heightInches = binding.editHeightInches.text
+                val weight = binding.editWeight.text
 
 //                viewModel.createEntity(foo, bar)
 
