@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.feelslike.view_model.LandingPageViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/widget_location_calculate_buttons"
+            layout="@layout/widget_location_calculate_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/spacing_padding_normal" />
+
+        <include
+            android:id="@+id/landing_page_map"
+            layout="@layout/fragment_maps"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_none"
+            android:layout_marginStart="@dimen/spacing_padding_small"
+            android:layout_marginTop="@dimen/spacing_padding_small"
+            android:layout_marginEnd="@dimen/spacing_padding_small"
+            android:layout_marginBottom="@dimen/spacing_padding_small"
+            app:layout_constraintBottom_toTopOf="@+id/widget_location_calculate_buttons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/header_landing_page_menu_profile"
+            layout="@layout/widget_menu_profile_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_padding_large"
+            android:layout_marginTop="@dimen/spacing_padding_small"
+            android:layout_marginEnd="@dimen/spacing_padding_large"
+            app:layout_constraintEnd_toEndOf="@+id/landing_page_map"
+            app:layout_constraintStart_toStartOf="@+id/landing_page_map"
+            app:layout_constraintTop_toTopOf="@+id/landing_page_map">
+
+        </include>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

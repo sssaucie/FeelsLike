@@ -1,9 +1,14 @@
 package com.example.feelslike.view
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -43,6 +48,51 @@ class InitialUserInputFragment : Fragment()
             ViewModelProvider(this, viewModelFactory)
                 .get(InitialUserInputViewModel::class.java)
 
+        val editText = listOf(
+            binding.editEmail,
+            binding.editHeightFeetCentimeters,
+            binding.editFirstName,
+            binding.editLastName,
+            binding.editWeight)
+
+        val continueButton = binding.inputButtonContinue
+
+        continueButton.isEnabled = false
+
+        for (complete in editText)
+        {
+            complete.addTextChangedListener(object : TextWatcher
+            {
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                }
+
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    continueButton.isEnabled = false
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                     val firstName = binding.editFirstName.text.toString() ?: "foo"
+
+                    val lastName = binding.editLastName.text.toString() ?: "foo"
+                    val emailAddress = binding.editEmail.text.toString()
+                    val heightFeetCentimeters = binding.editHeightFeetCentimeters.text.toString()
+                    val weight = binding.editWeight.text.toString()
+
+                    continueButton.isEnabled = firstName.isNotEmpty()
+                            && lastName.isNotEmpty()
+                            && emailAddress.isNotEmpty()
+                            && heightFeetCentimeters.isNotEmpty()
+                            && weight.isNotEmpty()
+                }
+            })
+        }
+
         binding.viewModel = initialUserInputViewModel
 
         binding.lifecycleOwner = this
@@ -52,17 +102,22 @@ class InitialUserInputFragment : Fragment()
             val list = listOf<View>(
                 binding.descriptorHeightFeet,
                 binding.descriptorHeightInches,
-                binding.inputHeightInches
+                binding.inputHeightInches,
+                binding.descriptorWeightPounds
             )
 
             if (isChecked) {
-                visibility(list, false)
+                metricVisibility(list, false)
                 binding.descriptorHeightCentimeters.visibility = View.VISIBLE
+                binding.descriptorWeightKilograms.visibility = View.VISIBLE
             } else {
-                visibility(list, true)
+                metricVisibility(list, true)
                 binding.descriptorHeightCentimeters.visibility = View.GONE
+                binding.descriptorWeightKilograms.visibility = View.GONE
             }
         }
+
+
 
         initialUserInputViewModel.navigateToLandingPage.observe(viewLifecycleOwner, {
             if (it == true) {
@@ -89,12 +144,16 @@ class InitialUserInputFragment : Fragment()
                 )
                 initialUserInputViewModel.doneNavigating()
             }
+            else
+            {
+
+            }
         })
 
         return binding.root
     }
 
-    private fun visibility(list:List<View>, show:Boolean)
+    private fun metricVisibility(list:List<View>, show:Boolean)
     {
         if(show)
         {
@@ -108,6 +167,24 @@ class InitialUserInputFragment : Fragment()
             for(view in list)
             {
                 view.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun continueButtonVisibility(entries : List<View>, ready : Boolean)
+    {
+        if(ready)
+        {
+            for (button in entries)
+            {
+                button.visibility = View.VISIBLE
+            }
+        }
+        else
+        {
+            for (button in entries)
+            {
+                button.visibility = View.INVISIBLE
             }
         }
     }

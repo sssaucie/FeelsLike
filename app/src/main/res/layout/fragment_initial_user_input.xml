@@ -57,6 +57,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_first_name"
+            style="@style/fontStyleNormal"
             android:layout_width="0dp"
             android:layout_height="@dimen/text_box_height"
             app:boxBackgroundColor="@color/clear"
@@ -71,6 +72,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_first_name"
+                style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textShortMessage|textPersonName"
@@ -92,6 +94,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_last_name"
+            style="@style/fontStyleNormal"
             android:layout_width="0dp"
             android:layout_height="@dimen/text_box_height"
             android:orientation="vertical"
@@ -107,6 +110,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_last_name"
+                style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textShortMessage|textPersonName"
@@ -128,6 +132,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_email"
+            style="@style/fontStyleNormal"
             android:layout_width="0dp"
             android:layout_height="@dimen/text_box_height"
             app:boxBackgroundColor="@color/clear"
@@ -142,6 +147,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_email"
+                style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textWebEmailAddress"
@@ -206,6 +212,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_height_feet_centimeters"
+            style="@style/fontStyleNormal"
             android:layout_width="0dp"
             android:layout_height="@dimen/text_box_height"
             android:visibility="visible"
@@ -221,6 +228,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_height_feet_centimeters"
+                style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -244,6 +252,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_height_inches"
+            style="@style/fontStyleNormal"
             android:layout_width="0dp"
             android:layout_height="@dimen/text_box_height"
             android:visibility="visible"
@@ -259,6 +268,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_height_inches"
+                style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -295,6 +305,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_weight"
+            style="@style/fontStyleNormal"
             android:layout_width="0dp"
             android:layout_height="@dimen/text_box_height"
             app:boxBackgroundColor="@color/clear"
@@ -309,6 +320,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_weight"
+                style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"

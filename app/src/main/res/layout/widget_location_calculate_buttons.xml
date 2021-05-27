@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/widget_location_calculate_buttons"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/dots_bridge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_location_bridge" />
+
+    <Button
+        android:id="@+id/button_calculate"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_standard"
+        android:contentDescription="@string/description_button_calculate"
+        android:text="@string/button_calculate"
+        android:textAppearance="@style/errorHeaderCalculateButtonStyleText"
+        android:textColor="@color/black"
+        app:backgroundTint="@color/light_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/spacing_padding_small"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/input_current_location"
+        style="@style/Theme.FeelsLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/text_current_location"
+        app:layout_constraintBottom_toTopOf="@+id/checkbox_complex_calculations"
+        app:layout_constraintEnd_toStartOf="@+id/dots_bridge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dots_bridge" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/input_planned_location"
+        style="@style/Theme.FeelsLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/text_planned_location"
+        app:layout_constraintBottom_toTopOf="@+id/checkbox_complex_calculations"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dots_bridge"
+        app:layout_constraintTop_toBottomOf="@+id/dots_bridge" />
+
+    <CheckBox
+        android:id="@+id/checkbox_complex_calculations"
+        style="@style/fontStyleNormal"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/check_box_height"
+        android:buttonTint="@color/dark_grey"
+        android:text="@string/text_complex_calculations"
+        app:layout_constraintBottom_toTopOf="@+id/button_calculate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

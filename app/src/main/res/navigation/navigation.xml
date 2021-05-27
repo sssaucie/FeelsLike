@@ -22,18 +22,21 @@
         android:id="@+id/landingPage"
         android:name="com.example.feelslike.view.LandingPageFragment"
         android:label="LandingPageFragment"
-        tools:layout="@layout/landing_page">
+        tools:layout="@layout/fragment_landing_page">
         <action
             android:id="@+id/action_landingPage_to_activityInitialUserInput"
             app:destination="@+id/activity_initial_user_input"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:popEnterAnim="@anim/nav_default_enter_anim"/>
         <action
+            android:id="@+id/action_landingPage_to_profileFragment"
+            app:destination="@+id/profile_fragment" />
+        <action
             android:id="@+id/action_landingPage_to_settingsFragment"
             app:destination="@+id/settingsFragment" />
         <action
             android:id="@+id/action_landingPage_to_mapsFragment"
-            app:destination="@+id/maps_fragment" />
+            app:destination="@+id/map_view" />
     </fragment>
 
     <fragment

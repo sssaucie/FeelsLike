@@ -46,6 +46,9 @@
     <string name="description_profile_picture">Profile picture set in a circle</string>
     <string name="description_logo_feelslike">FeelsLike app logo</string>
 
+<!--    Map Pin-->
+    <string name="calculate_here">Calculate Here!</string>
+
 <!--        Arrays-->
     <string-array name="menu_array">
         <item>Main Page</item>
