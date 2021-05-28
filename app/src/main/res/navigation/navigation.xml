@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_initialUserInputFragment_to_loginFragment"
             app:destination="@+id/loginFragment" />
+        <action
+            android:id="@+id/action_initialUserInputFragment_skip_to_landingPage"
+            app:destination="@+id/landingPage" />
     </fragment>
 
     <fragment
@@ -37,6 +40,9 @@
         <action
             android:id="@+id/action_landingPage_to_mapsFragment"
             app:destination="@+id/map_view" />
+        <action
+            android:id="@+id/action_landingPage_to_plannedLocationWidget"
+            app:destination="@+id/widget_layout_planned_location_form" />
     </fragment>
 
     <fragment

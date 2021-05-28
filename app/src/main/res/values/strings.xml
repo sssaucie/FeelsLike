@@ -9,6 +9,7 @@
     <string name="button_edit_info">Edit Info…</string>
     <string name="button_email_results">E-mail Results</string>
     <string name="button_skip">Skip</string>
+    <string name="button_set_destination">Set Destination</string>
 
 <!--    TextViews-->
     <string name="text_centimeters">Centimeters:</string>
@@ -17,6 +18,7 @@
     <string name="text_continue_with_google">Continue with Google</string>
     <string name="text_current_location">Current Location</string>
     <string name="text_email">E-mail:</string>
+    <string name="text_enter_address">Destination name or address</string>
     <string name="text_favorites">Favorites</string>
     <string name="text_feet">Feet:</string>
     <string name="text_first_name">First Name:</string>

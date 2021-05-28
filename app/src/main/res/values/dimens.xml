@@ -2,7 +2,7 @@
 <resources>
     <dimen name="spacing_none">0dp</dimen>
 <!--    Padding sizes-->
-    <dimen name="spacing_menu_margin">7dp</dimen>
+    <dimen name="spacing_margin">7dp</dimen>
     <dimen name="spacing_padding_small">16dp</dimen>
     <dimen name="spacing_padding_normal">24dp</dimen>
     <dimen name="spacing_padding_large">32dp</dimen>

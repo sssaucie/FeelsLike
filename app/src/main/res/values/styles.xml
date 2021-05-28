@@ -37,4 +37,18 @@
     <style name="subtextText" parent="fontStyleNormal">
         <item name="android:textSize">@dimen/font_size_subtext</item>
     </style>
+
+<!--    TextBox style-->
+    <style name="DenseBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="materialThemeOverlay">@style/BoxOverlayCustom</item>
+    </style>
+
+    <style name="BoxOverlayCustom">
+        <item name="editTextStyle">@style/TextInputEditTextBox</item>
+    </style>
+
+    <style name="TextInputEditTextBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:paddingTop">@dimen/spacing_none</item>
+        <item name="android:paddingBottom">@dimen/spacing_none</item>
+    </style>
 </resources>

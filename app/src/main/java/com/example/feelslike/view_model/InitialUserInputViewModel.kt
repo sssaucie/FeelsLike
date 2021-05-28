@@ -14,18 +14,28 @@ class InitialUserInputViewModel(
     val database : UserDao, application : Application) : AndroidViewModel(application)
 {
     private val _navigateToLandingPage = MutableLiveData<Boolean?>()
+    private val _navigateSkipToLandingPage = MutableLiveData<Boolean?>()
 
     val navigateToLandingPage : LiveData<Boolean?>
         get() = _navigateToLandingPage
+
+    val navigateSkipToLandingPage : LiveData<Boolean?>
+        get() = _navigateSkipToLandingPage
 
     fun onContinueButtonClicked()
     {
         _navigateToLandingPage.value = true
     }
 
+    fun onSkipButtonClicked()
+    {
+        _navigateSkipToLandingPage.value = true
+    }
+
     fun doneNavigating()
     {
         _navigateToLandingPage.value = null
+        _navigateSkipToLandingPage.value = null
     }
 
     fun createUser(

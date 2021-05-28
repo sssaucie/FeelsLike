@@ -1,13 +1,17 @@
 package com.example.feelslike.view
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import androidx.core.content.ContextCompat.getColor
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -144,9 +148,16 @@ class InitialUserInputFragment : Fragment()
                 )
                 initialUserInputViewModel.doneNavigating()
             }
-            else
-            {
+        })
 
+        initialUserInputViewModel.navigateSkipToLandingPage.observe(viewLifecycleOwner, {
+            if (it == true)
+            {
+                this.findNavController().navigate(
+                    InitialUserInputFragmentDirections
+                        .actionInitialUserInputFragmentSkipToLandingPage()
+                )
+                initialUserInputViewModel.doneNavigating()
             }
         })
 
@@ -171,21 +182,10 @@ class InitialUserInputFragment : Fragment()
         }
     }
 
-    private fun continueButtonVisibility(entries : List<View>, ready : Boolean)
-    {
-        if(ready)
-        {
-            for (button in entries)
-            {
-                button.visibility = View.VISIBLE
-            }
-        }
-        else
-        {
-            for (button in entries)
-            {
-                button.visibility = View.INVISIBLE
-            }
-        }
-    }
+//    fun showSoftKeyboard(view: View) {
+//        if (view.requestFocus()) {
+//            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+//            imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+//        }
+//    }
 }

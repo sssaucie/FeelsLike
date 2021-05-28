@@ -11,13 +11,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/activity_initial_user_input"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
         <include
             android:id="@+id/initial_user_input_background"
             layout="@layout/widget_background_mountains"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline_input_layout"
@@ -45,7 +49,7 @@
             style="@style/Theme.FeelsLike"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_padding_normal"
+            android:layout_marginTop="@dimen/spacing_padding_large"
             android:fontFamily="@font/font_family"
             android:text="@string/text_first_name"
             android:textAppearance="@style/fontStyleNormal"
@@ -57,16 +61,16 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_first_name"
-            style="@style/fontStyleNormal"
+            style="@style/DenseBox"
             android:layout_width="0dp"
-            android:layout_height="@dimen/text_box_height"
+            android:layout_height="wrap_content"
+            app:hintEnabled="false"
             app:boxBackgroundColor="@color/clear"
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/dark_grey"
             app:layout_constraintBottom_toTopOf="@+id/descriptor_last_name"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
             app:layout_constraintHeight_max="@dimen/text_box_height"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_first_name">
 
@@ -75,8 +79,7 @@
                 style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textShortMessage|textPersonName"
-                android:textAppearance="@style/fontStyleNormal" />
+                android:inputType="textShortMessage|textPersonName" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -94,23 +97,21 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_last_name"
-            style="@style/fontStyleNormal"
+            style="@style/BoxOverlayCustom"
             android:layout_width="0dp"
-            android:layout_height="@dimen/text_box_height"
-            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            app:hintEnabled="false"
             app:boxBackgroundColor="@color/clear"
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/dark_grey"
             app:layout_constraintBottom_toTopOf="@+id/descriptor_input_email"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
             app:layout_constraintHeight_max="@dimen/text_box_height"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_last_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_last_name"
-                style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textShortMessage|textPersonName"
@@ -132,22 +133,21 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_email"
-            style="@style/fontStyleNormal"
+            style="@style/BoxOverlayCustom"
             android:layout_width="0dp"
-            android:layout_height="@dimen/text_box_height"
+            android:layout_height="wrap_content"
+            app:hintEnabled="false"
             app:boxBackgroundColor="@color/clear"
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/dark_grey"
             app:layout_constraintBottom_toTopOf="@+id/input_text_height"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
             app:layout_constraintHeight_max="@dimen/text_box_height"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_input_email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_email"
-                style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textWebEmailAddress"
@@ -212,28 +212,25 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_height_feet_centimeters"
-            style="@style/fontStyleNormal"
+            style="@style/BoxOverlayCustom"
             android:layout_width="0dp"
-            android:layout_height="@dimen/text_box_height"
-            android:visibility="visible"
+            android:layout_height="wrap_content"
+            app:hintEnabled="false"
             app:boxBackgroundColor="@color/clear"
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/dark_grey"
             app:layout_constraintBottom_toTopOf="@+id/descriptor_height_inches"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
             app:layout_constraintHeight_max="@dimen/text_box_height"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_height_feet">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_height_feet_centimeters"
-                style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:textAppearance="@style/fontStyleNormal"
-                android:visibility="visible" />
+                android:textAppearance="@style/fontStyleNormal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -252,28 +249,25 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_height_inches"
-            style="@style/fontStyleNormal"
+            style="@style/BoxOverlayCustom"
             android:layout_width="0dp"
-            android:layout_height="@dimen/text_box_height"
-            android:visibility="visible"
+            android:layout_height="wrap_content"
+            app:hintEnabled="false"
             app:boxBackgroundColor="@color/clear"
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/dark_grey"
             app:layout_constraintBottom_toTopOf="@+id/descriptor_weight_pounds"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
             app:layout_constraintHeight_max="@dimen/text_box_height"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_height_inches">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_height_inches"
-                style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:textAppearance="@style/fontStyleNormal"
-                android:visibility="visible" />
+                android:textAppearance="@style/fontStyleNormal" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -305,26 +299,24 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_weight"
-            style="@style/fontStyleNormal"
+            style="@style/BoxOverlayCustom"
             android:layout_width="0dp"
-            android:layout_height="@dimen/text_box_height"
+            android:layout_height="wrap_content"
+            app:hintEnabled="false"
             app:boxBackgroundColor="@color/clear"
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/dark_grey"
             app:layout_constraintBottom_toTopOf="@+id/input_checkbox_complex_calc"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
             app:layout_constraintHeight_max="@dimen/text_box_height"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_weight_pounds">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_weight"
-                style="@style/fontStyleNormal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textAppearance="@style/fontStyleNormal" />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
 <!--        TODO: This is a "Nice to have" option for users in the future-->
@@ -349,7 +341,7 @@
             android:layout_marginBottom="@dimen/spacing_padding_double"
             android:background="@drawable/button_standard"
             android:text="@string/button_continue"
-            android:textColor="@color/dark_grey"
+            android:textColor="@color/black"
             app:backgroundTint="@color/light_grey"
             android:onClick="@{() -> viewModel.onContinueButtonClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -367,11 +359,10 @@
             android:background="@drawable/button_standard"
             android:backgroundTint="@color/light_grey"
             android:text="@string/button_skip"
-            android:textColor="@color/dark_grey"
+            android:textColor="@color/black"
             app:backgroundTint="@color/light_grey"
+            android:onClick="@{() -> viewModel.onSkipButtonClicked()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/guideline_end_textbox" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

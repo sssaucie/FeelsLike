@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/widget_location_calculate_buttons"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -19,6 +20,7 @@
         style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_padding_small"
         android:background="@drawable/button_standard"
         android:contentDescription="@string/description_button_calculate"
         android:text="@string/button_calculate"
@@ -27,30 +29,7 @@
         app:backgroundTint="@color/light_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="@dimen/spacing_padding_small"/>
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/input_current_location"
-        style="@style/Theme.FeelsLike"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/text_current_location"
-        app:layout_constraintBottom_toTopOf="@+id/checkbox_complex_calculations"
-        app:layout_constraintEnd_toStartOf="@+id/dots_bridge"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dots_bridge" />
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/input_planned_location"
-        style="@style/Theme.FeelsLike"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/text_planned_location"
-        app:layout_constraintBottom_toTopOf="@+id/checkbox_complex_calculations"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/dots_bridge"
-        app:layout_constraintTop_toBottomOf="@+id/dots_bridge" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <CheckBox
         android:id="@+id/checkbox_complex_calculations"
@@ -62,5 +41,35 @@
         app:layout_constraintBottom_toTopOf="@+id/button_calculate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button_current_location"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_margin"
+        android:text="@string/text_current_location"
+        android:textAppearance="@style/smallButtonText"
+        android:textColor="@color/black"
+        app:background="@drawable/button_location_rectangle"
+        app:backgroundTint="@color/light_grey"
+        app:layout_constraintBottom_toTopOf="@+id/checkbox_complex_calculations"
+        app:layout_constraintEnd_toStartOf="@+id/dots_bridge"
+        app:layout_constraintTop_toBottomOf="@+id/dots_bridge" />
+
+    <Button
+        android:id="@+id/button_planned_location"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_margin"
+        android:text="@string/text_planned_location"
+        android:textAppearance="@style/smallButtonText"
+        android:textColor="@color/black"
+        app:background="@drawable/button_location_rectangle"
+        app:backgroundTint="@color/light_grey"
+        app:layout_constraintBottom_toTopOf="@+id/checkbox_complex_calculations"
+        app:layout_constraintStart_toEndOf="@+id/dots_bridge"
+        app:layout_constraintTop_toBottomOf="@+id/dots_bridge" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
