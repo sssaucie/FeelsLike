@@ -42,7 +42,7 @@
             app:destination="@+id/map_view" />
         <action
             android:id="@+id/action_landingPage_to_plannedLocationWidget"
-            app:destination="@+id/widget_layout_planned_location_form" />
+            app:destination="@+id/plannedLocationFragment" />
     </fragment>
 
     <fragment
@@ -61,6 +61,19 @@
             app:argType="com.example.feelslike.model.entity.CalculationsEntity" />
         <action
             android:id="@+id/action_mapsFragment_to_landingPage"
+            app:destination="@+id/landingPage" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/plannedLocationFragment"
+        android:name="com.example.feelslike.view.PlannedLocationFragment"
+        android:label="PlannedLocationFragment"
+        tools:layout="@layout/fragment_dialog_planned_location_form" >
+        <action
+            android:id="@+id/action_plannedLocationWidget_to_landingPage"
+            app:destination="@+id/landingPage" />
+        <action
+            android:id="@+id/action_plannedLocationWidget_EXIT_to_landingPage"
             app:destination="@+id/landingPage" />
     </fragment>
 

@@ -42,6 +42,10 @@
     <dimen name="text_box_height">35dp</dimen>
     <dimen name="check_box_height">25dp</dimen>
 
+<!--    Dialog Alert Box specs-->
+    <dimen name="dialog_corner_radius">30dp</dimen>
+    <dimen name="dialog_padding">10dp</dimen>
+
 <!--    Menu specs-->
     <dimen name="menu_drawer_width">260dp</dimen>
     <dimen name="menu_drawer_height">100dp</dimen>

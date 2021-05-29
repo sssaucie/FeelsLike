@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.feelslike.view_model.PlannedLocationViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/widget_layout_planned_location_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--    TODO: Get the "X" icon from James-->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/planned_location_start_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.075" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/planned_location_end_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.925" />
+
+        <ImageButton
+            android:id="@+id/button_planned_location_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/button_back"
+            android:onClick="@{() -> viewModel.onExitButtonClicked()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_menu_button" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editTextTextPostalAddress"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:labelFor="@id/editTextTextPostalAddress"
+            app:boxBackgroundColor="@color/dark_grey"
+            app:boxBackgroundMode="outline"
+            app:boxCollapsedPaddingTop="0dp"
+            app:boxStrokeColor="@color/dark_grey"
+            app:hintEnabled="false"
+            app:layout_constraintBottom_toTopOf="@+id/button_planned_location_set"
+            app:layout_constraintEnd_toStartOf="@+id/planned_location_end_guideline"
+            app:layout_constraintStart_toStartOf="@+id/planned_location_start_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/planned_location_text_view">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/planned_location_text_view"
+            style="@style/menuHeaderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_padding_normal"
+            android:text="@string/text_planned_location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_planned_location_set"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_padding_normal"
+            android:text="@string/button_set_destination"
+            android:textAppearance="@style/normalButtonText"
+            android:textColor="@color/black"
+            android:onClick="@{() -> viewModel.onSetLocationButtonClicked()}"
+            app:background="@drawable/button_standard"
+            app:backgroundTint="@color/light_grey"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTextPostalAddress" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
