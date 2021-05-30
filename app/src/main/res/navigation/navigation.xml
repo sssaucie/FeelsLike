@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_landingPage_to_profileFragment"
             app:destination="@+id/profile_fragment" />
+        <argument
+            android:name="user"
+            app:argType="com.example.feelslike.model.entity.UserEntity" />
         <action
             android:id="@+id/action_landingPage_to_settingsFragment"
             app:destination="@+id/settingsFragment" />
@@ -43,6 +46,9 @@
         <action
             android:id="@+id/action_landingPage_to_plannedLocationWidget"
             app:destination="@+id/plannedLocationFragment" />
+        <argument
+            android:name="selectedDestination"
+            app:argType="com.example.feelslike.model.entity.CalculationsEntity" />
     </fragment>
 
     <fragment
@@ -73,9 +79,41 @@
             android:id="@+id/action_plannedLocationWidget_to_landingPage"
             app:destination="@+id/landingPage" />
         <action
-            android:id="@+id/action_plannedLocationWidget_EXIT_to_landingPage"
+            android:id="@+id/action_plannedLocationWidget_exit_to_landingPage"
             app:destination="@+id/landingPage" />
     </fragment>
+
+    <fragment
+        android:id="@+id/widgetMenuProfile"
+        android:name="com.example.feelslike.view.WidgetMenuProfile"
+        android:label="WidgetMenuProfile"
+        tools:layout="@layout/widget_menu_profile_pic">
+
+        <action
+            android:id="@+id/action_profilePic_to_profileFragment"
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/profileFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.example.feelslike.model.entity.UserEntity" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.feelslike.view.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile" >
+
+        <action
+            android:id="@+id/action_profileFragment_to_landingPage"
+            app:destination="@+id/landingPage" />
+        <argument
+            android:name="user"
+            app:argType="com.example.feelslike.model.entity.UserEntity" />
+    </fragment>
+
+<!--    This is the nice-to-have section-->
 
     <fragment
         android:id="@+id/loginFragment"
