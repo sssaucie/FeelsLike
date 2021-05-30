@@ -26,9 +26,10 @@ class WidgetMenuProfileViewModel (val user: UserEntity, calculations : Calculati
     val navigateToProfileFragment : LiveData<Boolean?>
         get() = _navigateToProfileFragment
 
+    // TODO: Pass in user information
     fun onProfilePictureClicked(user : UserEntity)
     {
-        _navigateToProfileFragment.value = user
+        _navigateToProfileFragment.value = true
     }
 
     fun onNavigated()
