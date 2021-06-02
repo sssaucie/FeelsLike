@@ -20,10 +20,12 @@
 
     <style name="mainItemText" parent="fontStyleNormal">
         <item name="android:textSize">@dimen/font_size_main_item</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="menuHeaderText" parent="fontStyleNormal">
         <item name="android:textSize">@dimen/font_size_menu_header</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="smallButtonText" parent="fontStyleNormal">
@@ -50,5 +52,12 @@
     <style name="TextInputEditTextBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="android:paddingTop">@dimen/spacing_none</item>
         <item name="android:paddingBottom">@dimen/spacing_none</item>
+    </style>
+
+<!--    Rounded Corners card style-->
+    <style name="RoundCornersImageShapeStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">15%</item>
+        <item name="android:backgroundTint">@color/clear</item>
     </style>
 </resources>

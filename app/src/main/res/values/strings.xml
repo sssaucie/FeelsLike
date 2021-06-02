@@ -8,6 +8,8 @@
     <string name="button_continue">Continue</string>
     <string name="button_edit_info">Edit Info…</string>
     <string name="button_email_results">E-mail Results</string>
+    <string name="button_favorites_name">Favorite Address</string>
+    <string name="button_favorites_address">123 Yellow Brick Road</string>
     <string name="button_skip">Skip</string>
     <string name="button_set_destination">Set Destination</string>
 
@@ -45,6 +47,8 @@
     <string name="description_button_skip">Skip button</string>
     <string name="navigation_drawer_close">Close menu drawer</string>
     <string name="navigation_drawer_open">Open menu drawer</string>
+    <string name="description_button_favorites">Click here for this favorite place to be displayed on a map</string>
+    <string name="description_image_favorites">Favorite place photo</string>
     <string name="description_profile_picture">Profile picture set in a circle</string>
     <string name="description_logo_feelslike">FeelsLike app logo</string>
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="spacing_none">0dp</dimen>
+
 <!--    Padding sizes-->
     <dimen name="spacing_margin">7dp</dimen>
     <dimen name="spacing_padding_small">16dp</dimen>
@@ -23,10 +24,14 @@
     <dimen name="font_size_calculate_button_error_text">20sp</dimen>
     <dimen name="font_size_error_header">25sp</dimen>
 
+<!--    Favorites List Item settings-->
+    <dimen name="favorites_list_item_height">120dp</dimen>
+
 <!--    Profile Photo settings-->
     <dimen name="image_widget_profile_pic_width">75dp</dimen>
     <dimen name="image_widget_profile_pic_height">75dp</dimen>
     <dimen name="image_widget_profile_pic_corner_radius">50dp</dimen>
+
 <!--    Blur settings-->
     <dimen name="blur_footer">15.1dp</dimen>
     <dimen name="blur_background">5.7dp</dimen>
@@ -39,8 +44,9 @@
     <dimen name="button_corners">24dp</dimen>
     <dimen name="button_height">35dp</dimen>
     <dimen name="button_max_length">75dp</dimen>
-    <dimen name="text_box_height">35dp</dimen>
+    <dimen name="button_text_foreground_elevation">3dp</dimen>
     <dimen name="check_box_height">25dp</dimen>
+    <dimen name="text_box_height">35dp</dimen>
 
 <!--    Dialog Alert Box specs-->
     <dimen name="dialog_corner_radius">30dp</dimen>
@@ -58,7 +64,4 @@
     <dimen name="menu_row_padding_start">10dp</dimen>
 <!--    Location Input specs-->
 
-<!--    Background arch-->
-
-<!--    <dimen name="background_arch">75dp</dimen>-->
 </resources>
