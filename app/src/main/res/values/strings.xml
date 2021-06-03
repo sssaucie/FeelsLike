@@ -14,25 +14,34 @@
     <string name="button_set_destination">Set Destination</string>
 
 <!--    TextViews-->
+    <string name="text_barometric">Barometric pressure:</string>
     <string name="text_centimeters">Centimeters:</string>
     <string name="text_complex_calculations">Complex Calculations</string>
     <string name="text_continue_with_email">Continue with E-mail</string>
     <string name="text_continue_with_google">Continue with Google</string>
     <string name="text_current_location">Current Location</string>
+    <string name="text_date">Date:</string>
     <string name="text_email">E-mail:</string>
+    <string name="text_email_results">Email Results</string>
     <string name="text_enter_address">Destination name or address</string>
     <string name="text_favorites">Favorites</string>
     <string name="text_feet">Feet:</string>
     <string name="text_first_name">First Name:</string>
     <string name="text_height">Height</string>
+    <string name="text_humidity">Humidity:</string>
     <string name="text_imperial">Imperial (US)</string>
     <string name="text_inches">Inches:</string>
     <string name="text_last_name">Last Name:</string>
     <string name="text_main_page">Main Page</string>
     <string name="text_menu">Menu</string>
     <string name="text_metric">Metric (Eu)</string>
+    <string name="text_name_favorite">Give this spot a name!</string>
     <string name="text_planned_location">Planned Location</string>
     <string name="text_preferences">Preferences</string>
+    <string name="text_results">Results</string>
+    <string name="text_save">Save to Favorites</string>
+    <string name="text_show_more">Show more…</string>
+    <string name="text_temp">Temperature:</string>
     <string name="text_weight_pounds">Weight (in pounds):</string>
     <string name="text_weight_kilograms">Weight (in kilograms):</string>
 
