@@ -113,6 +113,17 @@
             app:argType="com.example.feelslike.model.entity.UserEntity" />
     </fragment>
 
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.feelslike.view.FavoritesFragment"
+        android:label="FavoritesFragment"
+        tools:layout="@layout/fragment_profile" >
+
+        <action
+            android:id="@+id/action_favoritesFragment_to_mapsFragment"
+            app:destination="@+id/mapsFragment" />
+    </fragment>
+
 <!--    This is the nice-to-have section-->
 
     <fragment

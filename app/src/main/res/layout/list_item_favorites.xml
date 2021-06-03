@@ -3,6 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+        <variable
+            name="favoritePlace"
+            type="com.example.feelslike.model.entity.CalculationsEntity" />
+        <variable
+            name="clickListener"
+            type="com.example.feelslike.utilities.FavoritesListClickListener" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/list_item_favorites_layout"
         android:layout_width="match_parent"
@@ -52,6 +61,7 @@
             android:fontFamily="@font/font_family"
             android:textAlignment="viewStart"
             android:textColor="@color/black"
+            android:onClick="@{() -> clickListener.onClick(favoritePlace)}"
             app:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,6 +74,7 @@
             android:layout_marginStart="@dimen/menu_text_margin_padding"
             android:elevation="@dimen/button_text_foreground_elevation"
             android:textAppearance="@style/menuHeaderText"
+            android:onClick="@{() -> clickListener.onClick(favoritePlace)}"
             app:layout_constraintStart_toStartOf="@id/button_favorites_place"
             app:layout_constraintTop_toTopOf="@id/button_favorites_place"
             tools:text="@string/button_favorites_name" />
@@ -75,7 +86,9 @@
             android:layout_marginStart="@dimen/menu_text_margin_padding"
             android:layout_marginBottom="@dimen/menu_text_margin_padding"
             android:elevation="@dimen/button_text_foreground_elevation"
+            android:text="@{String.valueOf(favoritePlace.latitude, favoritePlace.longitude)}"
             android:textAppearance="@style/smallButtonText"
+            android:onClick="@{() -> clickListener.onClick(favoritePlace)}"
             app:layout_constraintBottom_toBottomOf="@id/button_favorites_place"
             app:layout_constraintStart_toStartOf="@id/button_favorites_place"
             app:layout_constraintTop_toBottomOf="@id/favorites_place_name"
