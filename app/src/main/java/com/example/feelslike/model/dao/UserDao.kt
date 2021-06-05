@@ -2,6 +2,8 @@ package com.example.feelslike.model.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import androidx.room.OnConflictStrategy.IGNORE
+import androidx.room.OnConflictStrategy.REPLACE
 import com.example.feelslike.model.entity.UserEntity
 
 /**
@@ -13,16 +15,22 @@ import com.example.feelslike.model.entity.UserEntity
 interface UserDao
 {
     @Query("SELECT * FROM user_entity")
-    fun getAllUserInfo() : LiveData<List<UserEntity>>
+    fun loadAllUserInfo() : LiveData<List<UserEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAllUserInfo(user: List<UserEntity>)
+    @Query("SELECT * FROM user_entity WHERE user_entity_id = :userId")
+    fun loadUser(userId : Long) : UserEntity
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(user: UserEntity)
+    @Query("SELECT * FROM user_entity WHERE user_entity_id = :userId")
+    fun loadLiveUserData(userId : Long) : LiveData<UserEntity>
 
-    @Update
-    suspend fun update(user: UserEntity)
+    @Insert(onConflict = IGNORE)
+    fun insertAllUserInfo(user : UserEntity) : Long
+
+    @Insert(onConflict = IGNORE)
+    fun insert(user : UserEntity)
+
+    @Update(onConflict = REPLACE)
+    fun update(user : UserEntity)
 
     /**
      * Deletes all values from the table.

@@ -7,15 +7,17 @@ import java.io.Serializable
 @Entity(tableName = "calculations_entity")
 data class CalculationsEntity(
     @PrimaryKey(autoGenerate = true)
-    val calculations_id : Long = 0L,
+    var calculations_entity_id : Long? = null,
 
-    val clothing : Float,
+    val calculations_id : String? = null,
 
-    val favorites : Int,
+    val clothing : Float = 0.0F,
 
-    val latitude : Double,
+    val favorites : Int = 0,
 
-    val longitude : Double,
+    var latitude : Double = 0.0,
 
-    val activity_level : Float
+    var longitude : Double = 0.0,
+
+    val activity_level : Float = 0.0F
 ) : Serializable

@@ -37,9 +37,7 @@ class InitialUserInputFragment : Fragment()
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = FeelsLikeDatabase.getInstance(application).userDao()
-
-        val viewModelFactory = InitialUserInputViewModelFactory(dataSource, application)
+        val viewModelFactory = InitialUserInputViewModelFactory(application)
 
         val initialUserInputViewModel =
             ViewModelProvider(this, viewModelFactory)
@@ -74,8 +72,7 @@ class InitialUserInputFragment : Fragment()
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                     val firstName = binding.editFirstName.text.toString() ?: "foo"
-
+                    val firstName = binding.editFirstName.text.toString() ?: "foo"
                     val lastName = binding.editLastName.text.toString() ?: "foo"
                     val emailAddress = binding.editEmail.text.toString()
                     val heightFeetCentimeters = binding.editHeightFeetCentimeters.text.toString()
@@ -96,7 +93,7 @@ class InitialUserInputFragment : Fragment()
 
         binding.inputCheckboxMeasurementType.setOnCheckedChangeListener { _, isChecked ->
 
-            val list = listOf<View>(
+            val list = listOf(
                 binding.descriptorHeightFeet,
                 binding.descriptorHeightInches,
                 binding.inputHeightInches,
@@ -126,7 +123,7 @@ class InitialUserInputFragment : Fragment()
                 val heightInches = binding.editHeightInches.text.toString().toInt()
                 val weight = binding.editWeight.text.toString().toFloat()
 
-                viewModel.createUser(
+                val user = viewModel.createUser(
                     firstName,
                     lastName,
                     emailAddress,
@@ -135,10 +132,10 @@ class InitialUserInputFragment : Fragment()
                     heightInches,
                     weight)
 
-                this.findNavController().navigate(
-                    InitialUserInputFragmentDirections
-                        .actionInitialUserInputFragmentToLandingPage()
-                )
+//                this.findNavController().navigate(
+//                    InitialUserInputFragmentDirections
+//                        .actionInitialUserInputFragmentToLandingPage(user = user)
+//                )
                 initialUserInputViewModel.doneNavigating()
             }
         })
@@ -146,10 +143,10 @@ class InitialUserInputFragment : Fragment()
         initialUserInputViewModel.navigateSkipToLandingPage.observe(viewLifecycleOwner, {
             if (it == true)
             {
-                this.findNavController().navigate(
-                    InitialUserInputFragmentDirections
-                        .actionInitialUserInputFragmentSkipToLandingPage()
-                )
+//                this.findNavController().navigate(
+//                    InitialUserInputFragmentDirections
+//                        .actionInitialUserInputFragmentSkipToLandingPage(user)
+//                )
                 initialUserInputViewModel.doneNavigating()
             }
         })

@@ -58,6 +58,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     // Support library
+    implementation "androidx.activity:activity-ktx:$activity_version"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
     implementation "androidx.preference:preference-ktx:$preference_version"
 
@@ -86,6 +87,8 @@ dependencies {
     implementation "com.google.android.gms:play-services-maps:$maps_version"
         // Location client
     implementation "com.google.android.gms:play-services-location:$location_version"
+    // Places
+    implementation "com.google.android.libraries.places:places:$places_version"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"

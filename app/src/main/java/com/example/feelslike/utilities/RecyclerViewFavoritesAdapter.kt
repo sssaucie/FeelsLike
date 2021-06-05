@@ -8,40 +8,40 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.feelslike.databinding.ListItemFavoritesBinding
 import com.example.feelslike.model.entity.CalculationsEntity
 
-class FavoritesAdapter : RecyclerView.Adapter<ListSelectionViewHolder>()
-{
-    val latLng = getItem(position)
-    override fun onCreateViewHolder(
-        parent: ViewGroup, viewType: Int): ListSelectionViewHolder
-    {
-        val binding = ListItemFavoritesBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false)
-        return ListSelectionViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(
-        holder: ListSelectionViewHolder, position: Int)
-    {
-        TODO("Not yet implemented")
-    }
-
-    override fun getItemCount(): Int
-    {
-        return latLng.size
-    }
-}
-
-class ListSelectionViewHolder(val binding : ListItemFavoritesBinding
-) : RecyclerView.ViewHolder(binding.root)
-{
-
-}
-//class FavoritesAdapter(val clickListener : FavoritesListClickListener
-//) : ListAdapter<CalculationsEntity, FavoritesAdapter
+//class RecyclerViewFavoritesAdapter(var favorite : TaskList) : RecyclerView.Adapter<ListSelectionViewHolder>()
+//{
+//    val latLng = getItem(position)
+//    override fun onCreateViewHolder(
+//        parent: ViewGroup, viewType: Int): ListSelectionViewHolder
+//    {
+//        val binding = ListItemFavoritesBinding.inflate(
+//            LayoutInflater.from(parent.context), parent, false)
+//        return ListSelectionViewHolder(binding)
+//    }
+//
+//    override fun onBindViewHolder(
+//        holder: ListSelectionViewHolder, position: Int)
+//    {
+//        TODO("Not yet implemented")
+//    }
+//
+//    override fun getItemCount(): Int
+//    {
+//        return latLng.size
+//    }
+//}
+//
+//class ListSelectionViewHolder(val binding : ListItemFavoritesBinding
+//) : RecyclerView.ViewHolder(binding.root)
+//{
+//
+//}
+//class RecyclerViewFavoritesAdapter(val clickListener : FavoritesListClickListener
+//) : ListAdapter<CalculationsEntity, RecyclerViewFavoritesAdapter
 //            .FavoritesListViewHolder>(FavoritesListDiffCallback())
 //{
 //    override fun onBindViewHolder(
-//        holder: FavoritesAdapter
+//        holder: RecyclerViewFavoritesAdapter
 //        .FavoritesListViewHolder, position: Int)
 //    {
 //        /**

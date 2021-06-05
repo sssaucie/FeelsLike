@@ -10,19 +10,21 @@ import java.util.*
 @Entity(tableName = "user_entity")
 data class UserEntity(
     @PrimaryKey(autoGenerate = true)
-    val user_id : Long = 0L,
+    var user_entity_id : Long? = null,
 
-    val first_name : String,
+    val user_id : Long? = null,
 
-    val last_name : String,
+    var first_name : String = "",
 
-    val email_address : String,
+    var last_name : String = "",
 
-    val is_metric : Int,
+    var email_address : String = "",
 
-    val preferred_temp : Float,
+    val is_metric : Int = 0,
 
-    val height : Float,
+    var preferred_temp : Float = 0.0F,
 
-    val weight : Float
+    var height : Float = 0.0F,
+
+    var weight : Float = 0.0F
     ) : Serializable

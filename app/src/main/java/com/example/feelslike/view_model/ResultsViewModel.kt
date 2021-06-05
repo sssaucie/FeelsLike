@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.UserEntity
 
-class ResultsViewModel(val user : UserEntity, calculations : CalculationsEntity, application : Application) : AndroidViewModel(application)
+class ResultsViewModel(application : Application) : AndroidViewModel(application)
 {
 
 }

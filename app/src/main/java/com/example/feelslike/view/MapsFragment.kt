@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.feelslike.MainActivity
 import com.example.feelslike.R
 import com.example.feelslike.model.entity.CalculationsEntity
@@ -20,6 +21,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import java.util.*
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.net.PlacesClient
 
 class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 {
@@ -86,6 +89,9 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         )
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(preferredLocation.latitude, preferredLocation.longitude), zoomLevel))
         setMapLongClick(map)
+        map.setOnPoiClickListener {
+            Toast.makeText(requireActivity(), it.name, Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun updateLocationUI() {

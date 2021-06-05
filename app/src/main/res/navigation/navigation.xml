@@ -46,9 +46,7 @@
         <action
             android:id="@+id/action_landingPage_to_plannedLocationWidget"
             app:destination="@+id/plannedLocationFragment" />
-        <argument
-            android:name="selectedDestination"
-            app:argType="com.example.feelslike.model.entity.CalculationsEntity" />
+
     </fragment>
 
     <fragment
@@ -115,7 +113,7 @@
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.feelslike.view.FavoritesFragment"
+        android:name="com.example.feelslike.view.RecyclerViewFavoritesFragment"
         android:label="FavoritesFragment"
         tools:layout="@layout/fragment_profile" >
 
@@ -137,3 +135,8 @@
     </fragment>
 
 </navigation>
+
+<!--For later-->
+<!--<argument-->
+<!--android:name="selectedDestination"-->
+<!--app:argType="com.example.feelslike.model.entity.CalculationsEntity" />-->

@@ -8,6 +8,7 @@ buildscript {
         targetSdkVersion = 30
 
         // App dependencies
+        activity_version = '1.2.3'
         app_compat_version = '1.3.0'
         assisted_inject_version = '0.6.0'
         constraint_layout_version = '2.1.0-beta02'
@@ -24,14 +25,15 @@ buildscript {
         lifecycle_version = '2.3.1'
         location_version = '18.0.0'
         maps_version = '17.0.1'
+        places_version = '2.4.0'
         preference_version = '1.1.1'
         navigation_version = '2.3.5'
-        recycler_view_version = '1.2.0'
+        recycler_view_version = '1.2.1'
         recycler_view_selection_version = '1.1.0'
         retrofit_version = '2.9.0'
         room_version = '2.3.0'
         test_ext_junit_version = '1.1.0'
-        work_version = '2.7.0-alpha03'
+        work_version = '2.7.0-alpha04'
     }
 
     repositories {

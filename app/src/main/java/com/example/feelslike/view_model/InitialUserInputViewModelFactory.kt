@@ -6,13 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.feelslike.model.dao.UserDao
 
 class InitialUserInputViewModelFactory(
-    private val dataSource: UserDao,
     private val application: Application
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(InitialUserInputViewModel::class.java)) {
-            return InitialUserInputViewModel(dataSource, application) as T
+            return InitialUserInputViewModel(application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

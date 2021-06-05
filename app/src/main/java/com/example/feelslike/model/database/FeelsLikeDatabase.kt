@@ -9,11 +9,12 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.feelslike.model.dao.CalculationsDao
 import com.example.feelslike.model.dao.DummyDao
+import com.example.feelslike.model.dao.FavoritesDao
 import com.example.feelslike.model.dao.UserDao
 import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.Dummy
 import com.example.feelslike.model.entity.UserEntity
-import com.example.feelslike.utilities.USER_DATABASE_NAME
+import com.example.feelslike.utilities.DATABASE_NAME
 
 /**
  * The Room database for this app
@@ -31,6 +32,7 @@ abstract class FeelsLikeDatabase : RoomDatabase()
     abstract fun userDao() : UserDao
     abstract fun dummyDao() : DummyDao
     abstract fun calculationsDao() : CalculationsDao
+    abstract fun favoritesDao() : FavoritesDao
 
     /**
      * Defining a companion object allows us to add functions on the FeelsLikeDatabase
@@ -69,7 +71,7 @@ abstract class FeelsLikeDatabase : RoomDatabase()
             return Room.databaseBuilder(
                 context,
                 FeelsLikeDatabase::class.java,
-                USER_DATABASE_NAME)
+                DATABASE_NAME)
                 .addCallback(
                     object : RoomDatabase.Callback()
                     {

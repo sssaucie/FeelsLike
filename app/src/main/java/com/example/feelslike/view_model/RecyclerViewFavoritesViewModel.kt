@@ -9,8 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.withContext
 
-class FavoritesViewModel(val database : CalculationsDao,
-                         application : Application
+class RecyclerViewFavoritesViewModel(val database : CalculationsDao,
+                                     application : Application
 ) : AndroidViewModel(application)
 {
     /**
@@ -31,7 +31,7 @@ class FavoritesViewModel(val database : CalculationsDao,
      * private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
      */
 
-    val place = database.getAllCalculationsInfo()
+    val place = database.loadAllCalculationsInfo()
 
     private val _navigateToMaps = MutableLiveData<CalculationsEntity?>()
     val navigateToMaps
