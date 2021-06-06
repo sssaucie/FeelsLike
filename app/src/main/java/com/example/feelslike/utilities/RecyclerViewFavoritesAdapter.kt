@@ -1,13 +1,5 @@
 package com.example.feelslike.utilities
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.example.feelslike.databinding.ListItemFavoritesBinding
-import com.example.feelslike.model.entity.CalculationsEntity
-
 //class RecyclerViewFavoritesAdapter(var favorite : TaskList) : RecyclerView.Adapter<ListSelectionViewHolder>()
 //{
 //    val latLng = getItem(position)

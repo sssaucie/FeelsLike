@@ -1,14 +1,10 @@
 package com.example.feelslike.utilities
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.PorterDuff
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.feelslike.R
 import com.example.feelslike.view_model.MenuDrawerViewModel

@@ -9,10 +9,8 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentInitialUserInputBinding
-import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.view_model.InitialUserInputViewModel
 import com.example.feelslike.view_model.InitialUserInputViewModelFactory
 

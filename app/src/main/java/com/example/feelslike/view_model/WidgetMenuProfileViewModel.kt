@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.UserEntity
 import com.example.feelslike.utilities.FeelsLikeRepository
 

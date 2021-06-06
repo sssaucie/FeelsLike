@@ -1,18 +1,6 @@
 package com.example.feelslike.view
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.example.feelslike.R
-import com.example.feelslike.databinding.FragmentDialogPlannedLocationFormBinding
-import com.example.feelslike.model.database.FeelsLikeDatabase
-import com.example.feelslike.view_model.PlannedLocationViewModel
-import com.example.feelslike.view_model.PlannedLocationViewModelFactory
 
 class PlannedLocationFragment : DialogFragment()
 //{

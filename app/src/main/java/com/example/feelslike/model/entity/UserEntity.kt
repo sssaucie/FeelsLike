@@ -1,11 +1,8 @@
 package com.example.feelslike.model.entity
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
-import java.sql.Time
-import java.util.*
 
 @Entity(tableName = "user_entity")
 data class UserEntity(

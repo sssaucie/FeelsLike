@@ -2,7 +2,10 @@ package com.example.feelslike.view_model
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.feelslike.model.entity.UserEntity
 import com.example.feelslike.utilities.FeelsLikeRepository
 import kotlinx.coroutines.launch

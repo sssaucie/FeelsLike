@@ -1,18 +1,6 @@
 package com.example.feelslike.view
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.example.feelslike.R
-import com.example.feelslike.databinding.FragmentProfileBinding
-import com.example.feelslike.model.entity.UserEntity
-import com.example.feelslike.view_model.ProfileViewModel
-import com.example.feelslike.view_model.ProfileViewModelFactory
 
 class ProfileFragment : Fragment()
 {

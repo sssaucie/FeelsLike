@@ -5,8 +5,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.feelslike.model.dao.CalculationsDao
-import com.example.feelslike.model.dao.UserDao
 import com.example.feelslike.utilities.FeelsLikeRepository
 
 class LandingPageViewModel(application : Application) : AndroidViewModel(application)
