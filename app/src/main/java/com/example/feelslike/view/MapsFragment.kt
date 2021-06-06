@@ -70,6 +70,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
             defaultLocation
         }
         preferredLocation = MapsFragmentArgs.fromBundle(requireArguments()).currentSelection
+        
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
@@ -92,6 +93,13 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         setMapLongClick(map)
         map.setOnPoiClickListener {
             Toast.makeText(requireActivity(), it.name, Toast.LENGTH_LONG).show()
+        }
+
+        fun setupPlacesClient()
+        {
+            context?.let { Places.initialize(it, getString(R.string.google_maps_key))
+                placesClient = Places.createClient(it)}
+
         }
     }
 
