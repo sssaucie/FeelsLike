@@ -47,6 +47,7 @@
 
 <!--    Content Descriptions-->
     <string name="description_background_photo">Snowy mountain before clouds photo at sunset</string>
+    <string name="description_bookmark_image">Bookmark image</string>
     <string name="description_button_back">Back button</string>
     <string name="description_button_calculate">Calculate button</string>
     <string name="description_button_continue">Continue button</string>

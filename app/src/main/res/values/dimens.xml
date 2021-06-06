@@ -62,6 +62,8 @@
     <dimen name="menu_row_layout_height">44dp</dimen>
     <dimen name="menu_row_padding">3dp</dimen>
     <dimen name="menu_row_padding_start">10dp</dimen>
-<!--    Location Input specs-->
+    <dimen name="default_image_width">480px</dimen>
+    <dimen name="default_image_height">270px</dimen>
+    <!--    Location Input specs-->
 
 </resources>
