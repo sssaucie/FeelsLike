@@ -10,10 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentLandingPageBinding
-import com.example.feelslike.model.dao.CalculationsDao
-import com.example.feelslike.model.dao.FavoritesDao
-import com.example.feelslike.model.dao.UserDao
-import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.view_model.LandingPageViewModel
 import com.example.feelslike.view_model.LandingPageViewModelFactory
 
@@ -29,11 +25,8 @@ class LandingPageFragment : Fragment()
             inflater, R.layout.fragment_landing_page, container, false)
 
         val application = requireNotNull(this.activity).application
-        val userDataSource = FeelsLikeDatabase.getInstance(application).userDao()
-        val calculationsDataSource = FeelsLikeDatabase.getInstance(application).calculationsDao()
 
-        val viewModelFactory = LandingPageViewModelFactory(
-            userDataSource, calculationsDataSource, application)
+        val viewModelFactory = LandingPageViewModelFactory(application)
 
         val landingPageViewModel =
             ViewModelProvider(

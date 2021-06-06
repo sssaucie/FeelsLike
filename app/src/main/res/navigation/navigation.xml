@@ -122,6 +122,18 @@
             app:destination="@+id/mapsFragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="com.example.feelslike.view.ResultsFragment"
+        android:label="ResultsFragment"
+        tools:layout="@layout/fragment_results">
+
+        <action
+            android:id="@+id/action_resultsFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment" />
+
+    </fragment>
+
 <!--    This is the nice-to-have section-->
 
     <fragment
