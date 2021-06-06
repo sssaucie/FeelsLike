@@ -29,6 +29,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     private lateinit var preferredLocation : CalculationsEntity
     private lateinit var map: GoogleMap
     private lateinit var activity : MainActivity
+    private lateinit var placesClient : PlacesClient
 
     // A default location (Sydney, Australia) to use when location permission is not granted
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
