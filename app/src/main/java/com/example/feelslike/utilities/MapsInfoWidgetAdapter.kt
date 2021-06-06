@@ -8,7 +8,7 @@ import com.example.feelslike.view_model.RecyclerViewFavoritesViewModel
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 
-class MapsInfoWidgetAdapter(context : Activity) : GoogleMap.InfoWindowAdapter
+class MapsInfoWidgetAdapter(val context : Activity) : GoogleMap.InfoWindowAdapter
 {
     private val binding = WidgetMapsInfoBinding.inflate(context.layoutInflater)
 
@@ -33,6 +33,7 @@ class MapsInfoWidgetAdapter(context : Activity) : GoogleMap.InfoWindowAdapter
             {
                 val favoriteView = marker.tag as
                         RecyclerViewFavoritesViewModel.FavoriteMarkerView
+                imageView.setImageBitmap(favoriteView.getImage(context))
             }
         }
         return binding.root

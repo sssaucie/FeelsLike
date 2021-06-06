@@ -199,17 +199,13 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         placesClient.fetchPlace(request)
             .addOnSuccessListener { response ->
                 val place = response.place
-                Toast.makeText(
-                    activity,
-                    "${place.name}, " + "${place.phoneNumber}",
-                    Toast.LENGTH_LONG).show()
+                displayPoiGetPhotoStep(place)
             }.addOnFailureListener { exception ->
                 if (exception is ApiException)
                 {
                     val statusCode = exception.statusCode
                     Log.e(
-                        TAG,
-                        "Place not found: ${exception.message}" +
+                        TAG, "Place not found: ${exception.message}" +
                                 ", statusCode: $statusCode")
                 }
             }
@@ -242,8 +238,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
                 if (exception is ApiException)
                 {
                     val statusCode = exception.statusCode
-                    Log.e(TAG,
-                        "Place not found: ${exception.message}" +
+                    Log.e(TAG, "Place not found: ${exception.message}" +
                                 ", statusCode: $statusCode")
                 }
             }
@@ -291,11 +286,12 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     {
         val marker = map.addMarker(MarkerOptions()
             .position(favorite.location)
+            .title(favorite.name)
             .icon(BitmapDescriptorFactory.defaultMarker(
                 BitmapDescriptorFactory.HUE_AZURE))
             .alpha(0.8f))
 
-        marker.tag = favorite
+        marker?.tag = favorite
 
         return marker
     }

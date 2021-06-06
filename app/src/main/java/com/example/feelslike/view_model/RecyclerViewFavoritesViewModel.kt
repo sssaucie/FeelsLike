@@ -1,6 +1,7 @@
 package com.example.feelslike.view_model
 
 import android.app.Application
+import android.content.Context
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -10,6 +11,7 @@ import androidx.lifecycle.Transformations
 import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.FavoritesEntity
 import com.example.feelslike.utilities.FeelsLikeRepository
+import com.example.feelslike.utilities.ImageUtil
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
 import kotlinx.coroutines.Job
@@ -65,7 +67,9 @@ class RecyclerViewFavoritesViewModel(
     }
 
     private fun favoritesToMarkerView(favorite : FavoritesEntity) = FavoriteMarkerView(
-        favorite.favorites_entity_id, LatLng(favorite.place_lat, favorite.place_lon))
+        favorite.favorites_entity_id,
+        LatLng(favorite.place_lat, favorite.place_lon),
+        favorite.place_name)
 
     private fun mapFavoritesToMarkerView()
     {
@@ -98,5 +102,11 @@ class RecyclerViewFavoritesViewModel(
 
     data class FavoriteMarkerView(
         var id : Long? = null,
-        var location : LatLng = LatLng(0.0, 0.0))
+        var location : LatLng = LatLng(0.0, 0.0),
+        var name : String = "")
+    {
+        fun getImage(context : Context) = id?.let {
+            ImageUtil.loadBitmapFromFile(context, FavoritesEntity.generateImageFilename(it))
+        }
+    }
 }
