@@ -11,11 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.viewModels
 import com.example.feelslike.MainActivity
 import com.example.feelslike.R
 import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.utilities.KEY_LOCATION
 import com.example.feelslike.utilities.MapsInfoWidgetAdapter
+import com.example.feelslike.view_model.RecyclerViewFavoritesViewModel
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -23,16 +25,16 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PointOfInterest
+import com.google.android.gms.maps.model.*
 import java.util.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.FetchPhotoRequest
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 {
@@ -50,6 +52,9 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 
     private var lastKnownLocation : Location? = null
 
+    private val favoritesViewModel by viewModels<RecyclerViewFavoritesViewModel>()
+
+    @DelicateCoroutinesApi
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
         /**
@@ -83,6 +88,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
 
+    @DelicateCoroutinesApi
     override fun onViewCreated(view : View, savedInstanceState : Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
@@ -93,13 +99,12 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         setupPlacesClient()
     }
 
+    @DelicateCoroutinesApi
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        map.setInfoWindowAdapter(MapsInfoWidgetAdapter(activity))
+        setupMapListeners()
+        createFavoritesMarkerObserver()
         getCurrentLocation()
-        map.setOnPoiClickListener {
-            displayPoi(it)
-        }
     }
 
     private fun requestLocationPermission()
@@ -249,8 +254,68 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         val marker = map.addMarker(MarkerOptions()
             .position(place.latLng as LatLng)
             .title(place.name)
-            .snippet(place.phoneNumber))
-        marker?.tag = photo
+            .snippet(place.phoneNumber)
+        )
+        marker?.tag = PlaceInfo(place, photo)
+        marker?.showInfoWindow()
+    }
+
+    @DelicateCoroutinesApi
+    private fun handleInfoWindowClick(marker : Marker)
+    {
+        val placeInfo = (marker.tag as PlaceInfo)
+        if (placeInfo.place != null)
+        {
+            GlobalScope.launch {
+                favoritesViewModel.addFavoriteFromPlace(
+                    placeInfo.place, placeInfo.image)
+            }
+        }
+        marker.remove()
+    }
+
+    @DelicateCoroutinesApi
+    private fun setupMapListeners()
+    {
+        map.setInfoWindowAdapter(MapsInfoWidgetAdapter(activity))
+        map.setOnPoiClickListener {
+            displayPoi(it)
+        }
+        map.setOnInfoWindowClickListener {
+            handleInfoWindowClick(it)
+        }
+    }
+
+    private fun addPlaceMarker(
+        favorite : RecyclerViewFavoritesViewModel.FavoriteMarkerView) : Marker?
+    {
+        val marker = map.addMarker(MarkerOptions()
+            .position(favorite.location)
+            .icon(BitmapDescriptorFactory.defaultMarker(
+                BitmapDescriptorFactory.HUE_AZURE))
+            .alpha(0.8f))
+
+        marker.tag = favorite
+
+        return marker
+    }
+
+    private fun displayAllFavorites(
+        favorites : List<RecyclerViewFavoritesViewModel.FavoriteMarkerView>)
+    {
+        favorites.forEach { addPlaceMarker(it) }
+    }
+
+    private fun createFavoritesMarkerObserver()
+    {
+        favoritesViewModel.getFavoriteMarkerViews()?.observe(
+            activity, {
+                map.clear()
+                it?.let {
+                    displayAllFavorites(it)
+                }
+            }
+        )
     }
 
     private fun setMapLongClick(map: GoogleMap)
@@ -273,4 +338,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
             )
         }
     }
+
+    class PlaceInfo(val place : Place? = null,
+        val image : Bitmap? = null)
 }

@@ -1,37 +1,29 @@
 package com.example.feelslike.view_model
 
 import android.app.Application
+import android.graphics.Bitmap
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.feelslike.model.dao.CalculationsDao
+import androidx.lifecycle.Transformations
 import com.example.feelslike.model.entity.CalculationsEntity
-import kotlinx.coroutines.Dispatchers
+import com.example.feelslike.model.entity.FavoritesEntity
+import com.example.feelslike.utilities.FeelsLikeRepository
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.libraries.places.api.model.Place
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.withContext
 
-class RecyclerViewFavoritesViewModel(val database : CalculationsDao,
-                                     application : Application
-) : AndroidViewModel(application)
+class RecyclerViewFavoritesViewModel(
+    application : Application) : AndroidViewModel(application)
 {
+    private val TAG = "RecyclerViewFavoritesViewModel"
+    private val favoriteRepo : FeelsLikeRepository = FeelsLikeRepository(getApplication())
+    private var favorites : LiveData<List<FavoriteMarkerView>>? = null
     /**
      * viewModelJob allows us to cancel all coroutines started by this ViewModel.
      */
     private var viewModelJob = Job()
-
-    /**
-     * A [CoroutineScope] keeps track of all coroutines started by this ViewModel.
-     *
-     * Because we pass it [viewModelJob], any coroutine started in this uiScope can be
-     * cancelled by calling 'viewModelJob.cancel()'.
-     *
-     * By default, all coroutines started in uiScope will launch in [Dispatchers.Main] which
-     * is the main thread on Android. This is a sensible default because most coroutines
-     * started by a [ViewModel] update the UI after performing some processing.
-     *
-     * private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-     */
-
-    val place = database.loadAllCalculationsInfo()
 
     private val _navigateToMaps = MutableLiveData<CalculationsEntity?>()
     val navigateToMaps
@@ -57,13 +49,40 @@ class RecyclerViewFavoritesViewModel(val database : CalculationsDao,
         _navigateToLandingPage.value = null
     }
 
-    private suspend fun update(latitude: CalculationsEntity, longitude: CalculationsEntity)
+    fun addFavoriteFromPlace(place : Place, image : Bitmap?)
     {
-        withContext(Dispatchers.IO)
+        val favorite = favoriteRepo.createFavorite()
+        favorite.favorite_id = place.id
+        favorite.place_name = place.name.toString()
+        favorite.place_lat = place.latLng?.latitude ?: 0.0
+        favorite.place_lon = place.latLng?.longitude ?: 0.0
+
+        val newId = favoriteRepo.addFavorite(favorite)
+
+        image?.let { favorite.setImage(it, getApplication()) }
+
+        Log.i(TAG, "New favorite $newId added to the database.")
+    }
+
+    private fun favoritesToMarkerView(favorite : FavoritesEntity) = FavoriteMarkerView(
+        favorite.favorites_entity_id, LatLng(favorite.place_lat, favorite.place_lon))
+
+    private fun mapFavoritesToMarkerView()
+    {
+        favorites = Transformations.map(favoriteRepo.allFavorites)
         {
-            latitude.latitude
-            longitude.longitude
+            repoFavorites -> repoFavorites.map { favorite ->
+            favoritesToMarkerView(favorite) }
         }
+    }
+
+    fun getFavoriteMarkerViews() : LiveData<List<FavoriteMarkerView>>?
+    {
+        if (favorites == null)
+        {
+            mapFavoritesToMarkerView()
+        }
+        return favorites
     }
 
     /**
@@ -76,4 +95,8 @@ class RecyclerViewFavoritesViewModel(val database : CalculationsDao,
         super.onCleared()
         viewModelJob.cancel()
     }
+
+    data class FavoriteMarkerView(
+        var id : Long? = null,
+        var location : LatLng = LatLng(0.0, 0.0))
 }
