@@ -11,13 +11,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
 import com.example.feelslike.databinding.WidgetMenuProfilePicBinding
-import com.example.feelslike.model.entity.UserEntity
 import com.example.feelslike.view_model.WidgetMenuProfileViewModel
 import com.example.feelslike.view_model.WidgetMenuProfileViewModelFactory
 
 class WidgetMenuProfile : Fragment()
 {
-    private lateinit var user : UserEntity
     private lateinit var application : Application
 
     override fun onCreateView(
@@ -25,8 +23,6 @@ class WidgetMenuProfile : Fragment()
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        user = WidgetMenuProfileArgs.fromBundle(requireArguments()).user
 
         val binding : WidgetMenuProfilePicBinding = DataBindingUtil.inflate(
             inflater, R.layout.widget_menu_profile_pic, container, false)
@@ -45,7 +41,7 @@ class WidgetMenuProfile : Fragment()
             if (it == true)
             {
                 this.findNavController().navigate(
-                    WidgetMenuProfileDirections.actionProfilePicToProfileFragment(user))
+                    WidgetMenuProfileDirections.actionProfilePicToProfileFragment())
                 widgetMenuProfileViewModel.onNavigated()
             }
         })

@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import com.example.feelslike.MainActivity
 import com.example.feelslike.R
-import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.utilities.KEY_LOCATION
 import com.example.feelslike.utilities.MapsInfoWidgetAdapter
 import com.example.feelslike.view_model.RecyclerViewFavoritesViewModel
@@ -37,7 +36,6 @@ import java.util.*
 
 class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 {
-    private lateinit var preferredLocation : CalculationsEntity
     private lateinit var map: GoogleMap
     private lateinit var activity : MainActivity
     private lateinit var fusedLocationClient : FusedLocationProviderClient
@@ -82,7 +80,6 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         {
             defaultLocation
         }
-        preferredLocation = MapsFragmentArgs.fromBundle(requireArguments()).currentSelection
         setupLocationClient()
         return inflater.inflate(R.layout.fragment_maps, container, false)
     }
@@ -93,7 +90,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         super.onViewCreated(view, savedInstanceState)
 
         val mapFragment = childFragmentManager
-            .findFragmentById(R.id.map_view) as SupportMapFragment?
+            .findFragmentById(R.id.maps_layout) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
         setupPlacesClient()
     }

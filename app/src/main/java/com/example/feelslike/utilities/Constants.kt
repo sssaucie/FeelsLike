@@ -13,6 +13,8 @@ const val SHARED_PREFS_KEY = "shared_prefs"
 const val PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1
 const val KEY_LOCATION = "location"
 
+const val ADAPTER_POSITION = "adapter_position"
+
 const val CELSIUS_TO_KELVIN = 273.15F
 const val CP_VAPOR = 1805.0F // Specific heat capacity water vapor
 const val CP_WATER = 4186 // Specific heat capacity water liquid

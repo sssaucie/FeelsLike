@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.feelslike.model.entity.UserEntity
+import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.STANDARD_USER_DATA_FILENAME
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -17,7 +18,7 @@ class SeedDatabaseWorker(
 ) : CoroutineWorker(context, workerParams)
 {
     override suspend fun doWork(): Result = coroutineScope {
-        val database = FeelsLikeDatabase.getInstance(applicationContext)
+        val repository = FeelsLikeRepository(applicationContext)
         try
         {
             applicationContext.assets.open(STANDARD_USER_DATA_FILENAME).use { inputStream ->
@@ -26,7 +27,7 @@ class SeedDatabaseWorker(
                     val userList : UserEntity =
                         Gson().fromJson(jsonReader,userInput)
 
-                    database.userDao().insertAllUserInfo(userList)
+                    repository.addUser(userList)
                     Result.success()
                 }
             }

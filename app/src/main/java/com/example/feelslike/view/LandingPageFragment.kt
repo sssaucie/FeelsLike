@@ -36,6 +36,15 @@ class LandingPageFragment : Fragment()
 
         binding.lifecycleOwner = this
 
+        landingPageViewModel.navigateToInitialUserInputFragment.observe(viewLifecycleOwner, {
+            if (it == true)
+            {
+                this.findNavController().navigate(
+                    LandingPageFragmentDirections.actionLandingPageToActivityInitialUserInput())
+                landingPageViewModel.onNavigated()
+            }
+        })
+
         landingPageViewModel.navigateToProfileFragment.observe(viewLifecycleOwner, {
             if (it == true)
             {

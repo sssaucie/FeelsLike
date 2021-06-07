@@ -59,28 +59,20 @@
             app:layout_constraintTop_toBottomOf="@id/guideline_input_layout"
             app:layout_constraintVertical_chainStyle="spread_inside" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/input_first_name"
-            style="@style/DenseBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:hintEnabled="false"
             app:boxBackgroundColor="@color/clear"
             app:boxBackgroundMode="outline"
             app:boxStrokeColor="@color/dark_grey"
+            app:hintEnabled="false"
             app:layout_constraintBottom_toTopOf="@+id/descriptor_last_name"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintHeight_max="@dimen/text_box_height"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_first_name">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_first_name"
-                style="@style/fontStyleNormal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textShortMessage|textPersonName" />
-        </com.google.android.material.textfield.TextInputLayout>
+        </EditText>
 
         <TextView
             android:id="@+id/descriptor_last_name"
@@ -95,7 +87,7 @@
             app:layout_constraintStart_toStartOf="@+id/input_last_name"
             app:layout_constraintTop_toBottomOf="@+id/input_first_name" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/input_last_name"
             style="@style/BoxOverlayCustom"
             android:layout_width="0dp"
@@ -106,17 +98,10 @@
             app:boxStrokeColor="@color/dark_grey"
             app:layout_constraintBottom_toTopOf="@+id/descriptor_input_email"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintHeight_max="@dimen/text_box_height"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_last_name">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_last_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textShortMessage|textPersonName"
-                android:textAppearance="@style/fontStyleNormal" />
-        </com.google.android.material.textfield.TextInputLayout>
+        </EditText>
 
         <TextView
             android:id="@+id/descriptor_input_email"
@@ -131,7 +116,7 @@
             app:layout_constraintStart_toStartOf="@+id/input_email"
             app:layout_constraintTop_toBottomOf="@+id/input_last_name" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/input_email"
             style="@style/BoxOverlayCustom"
             android:layout_width="0dp"
@@ -142,17 +127,10 @@
             app:boxStrokeColor="@color/dark_grey"
             app:layout_constraintBottom_toTopOf="@+id/input_text_height"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintHeight_max="@dimen/text_box_height"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_input_email">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textWebEmailAddress"
-                android:textAppearance="@style/fontStyleNormal" />
-        </com.google.android.material.textfield.TextInputLayout>
+        </EditText>
 
         <TextView
             android:id="@+id/input_text_height"
@@ -210,7 +188,7 @@
             app:layout_constraintStart_toStartOf="@id/input_height_feet_centimeters"
             app:layout_constraintTop_toBottomOf="@id/input_checkbox_measurement_type" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/input_height_feet_centimeters"
             style="@style/BoxOverlayCustom"
             android:layout_width="0dp"
@@ -221,17 +199,10 @@
             app:boxStrokeColor="@color/dark_grey"
             app:layout_constraintBottom_toTopOf="@+id/descriptor_height_inches"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintHeight_max="@dimen/text_box_height"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_height_feet">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_height_feet_centimeters"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textAppearance="@style/fontStyleNormal" />
-        </com.google.android.material.textfield.TextInputLayout>
+        </EditText>
 
         <TextView
             android:id="@+id/descriptor_height_inches"
@@ -247,7 +218,7 @@
             app:layout_constraintStart_toStartOf="@+id/input_height_inches"
             app:layout_constraintTop_toBottomOf="@+id/input_height_feet_centimeters" />
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/input_height_inches"
             style="@style/BoxOverlayCustom"
             android:layout_width="0dp"
@@ -258,17 +229,10 @@
             app:boxStrokeColor="@color/dark_grey"
             app:layout_constraintBottom_toTopOf="@+id/descriptor_weight_pounds"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintHeight_max="@dimen/text_box_height"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_height_inches">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_height_inches"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:textAppearance="@style/fontStyleNormal" />
-        </com.google.android.material.textfield.TextInputLayout>
+        </EditText>
 
         <TextView
             android:id="@+id/descriptor_weight_pounds"
@@ -297,7 +261,7 @@
             app:layout_constraintTop_toBottomOf="@+id/input_height_inches"
             android:visibility="gone"/>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <EditText
             android:id="@+id/input_weight"
             style="@style/BoxOverlayCustom"
             android:layout_width="0dp"
@@ -308,16 +272,10 @@
             app:boxStrokeColor="@color/dark_grey"
             app:layout_constraintBottom_toTopOf="@+id/input_checkbox_complex_calc"
             app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintHeight_max="@dimen/text_box_height"
             app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
             app:layout_constraintTop_toBottomOf="@+id/descriptor_weight_pounds">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_weight"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
+        </EditText>
 
 <!--        TODO: This is a "Nice to have" option for users in the future-->
         <CheckBox

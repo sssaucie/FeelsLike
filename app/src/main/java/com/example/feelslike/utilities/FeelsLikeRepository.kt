@@ -68,3 +68,13 @@ class FeelsLikeRepository(context : Context)
             return favoritesDao.loadFavorites()
         }
 }
+
+class InjectorUtils
+{
+    companion object
+    {
+//        fun providePlaceRepository(context : Context) : PlaceViewModelFactory {
+//            return PlaceViewModelFactory(PlacesRepository.getInstance(context))
+//        }
+    }
+}
