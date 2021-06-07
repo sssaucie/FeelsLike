@@ -7,12 +7,14 @@
 
         <variable
             name="favoritePlace"
-            type="com.example.feelslike.model.entity.CalculationsEntity" />
+            type="com.example.feelslike.utilities.FeelsLikeRepository" />
 
-<!--        <variable-->
-<!--            name="clickListener"-->
-<!--            type="com.example.feelslike.utilities.FavoritesListClickListener" />-->
+        <variable
+            name="clickListener"
+            type="com.example.feelslike.utilities.FavoritesClickListener" />
     </data>
+
+<!--    android:onClick="@{clickListener}"-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/list_item_favorites_layout"

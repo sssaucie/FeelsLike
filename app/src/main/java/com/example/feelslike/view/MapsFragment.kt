@@ -1,6 +1,7 @@
 package com.example.feelslike.view
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.location.Location
@@ -172,6 +173,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 
     companion object
     {
+        const val EXTRA_FAVORITE_ID = "com.example.feelslike.EXTRA_FAVORITE_ID"
         private const val REQUEST_LOCATION = 1
         private const val TAG = "MainActivity"
     }
@@ -311,6 +313,11 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
                 }
             }
         )
+    }
+
+    private fun startFavoriteDetails(favoriteId : Long)
+    {
+//        val intent = Intent(activity, Favorite)
     }
 
     private fun setMapLongClick(map: GoogleMap)
