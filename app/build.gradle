@@ -83,6 +83,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-location:$location_version"
     // Places
     implementation "com.google.android.libraries.places:places:$places_version"
+    implementation("com.android.volley:volley:1.2.0")
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
