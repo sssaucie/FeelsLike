@@ -13,6 +13,7 @@ import com.example.feelslike.model.dao.FavoritesDao
 import com.example.feelslike.model.dao.UserDao
 import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.Dummy
+import com.example.feelslike.model.entity.FavoritesEntity
 import com.example.feelslike.model.entity.UserEntity
 import com.example.feelslike.utilities.DATABASE_NAME
 
@@ -20,7 +21,7 @@ import com.example.feelslike.utilities.DATABASE_NAME
  * The Room database for this app
  */
 
-@Database(entities = [UserEntity::class, Dummy::class, CalculationsEntity::class],
+@Database(entities = [UserEntity::class, Dummy::class, CalculationsEntity::class, FavoritesEntity::class],
     version = 1,
     exportSchema = false)
 abstract class FeelsLikeDatabase : RoomDatabase()

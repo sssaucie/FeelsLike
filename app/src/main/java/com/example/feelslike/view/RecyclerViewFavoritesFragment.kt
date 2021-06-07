@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.feelslike.databinding.FragmentProfileBinding
+import com.example.feelslike.utilities.FavoritesClickListener
 import com.example.feelslike.utilities.RecyclerViewFavoritesAdapter
 
 class RecyclerViewFavoritesFragment : Fragment()
@@ -19,14 +20,16 @@ class RecyclerViewFavoritesFragment : Fragment()
         savedInstanceState: Bundle?
     ): View? {
 
-        val adapter = RecyclerViewFavoritesAdapter()
+        val adapter = RecyclerViewFavoritesAdapter(FavoritesClickListener { id ->
+
+        })
         binding = FragmentProfileBinding.inflate(
             inflater, container, false)
 
         binding.profileRecyclerViewFavorites.layoutManager =
             LinearLayoutManager(requireContext())
 
-        binding.profileRecyclerViewFavorites.adapter = RecyclerViewFavoritesAdapter()
+        binding.profileRecyclerViewFavorites.adapter = adapter
 
         return binding.root
     }

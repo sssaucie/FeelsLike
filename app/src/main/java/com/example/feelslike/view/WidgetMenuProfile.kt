@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
 import com.example.feelslike.databinding.WidgetMenuProfilePicBinding
-import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.UserEntity
 import com.example.feelslike.view_model.WidgetMenuProfileViewModel
 import com.example.feelslike.view_model.WidgetMenuProfileViewModelFactory
@@ -19,7 +18,6 @@ import com.example.feelslike.view_model.WidgetMenuProfileViewModelFactory
 class WidgetMenuProfile : Fragment()
 {
     private lateinit var user : UserEntity
-    private lateinit var calculations : CalculationsEntity
     private lateinit var application : Application
 
     override fun onCreateView(
@@ -33,7 +31,7 @@ class WidgetMenuProfile : Fragment()
         val binding : WidgetMenuProfilePicBinding = DataBindingUtil.inflate(
             inflater, R.layout.widget_menu_profile_pic, container, false)
 
-        val viewModelFactory = WidgetMenuProfileViewModelFactory(user, calculations, application)
+        val viewModelFactory = WidgetMenuProfileViewModelFactory(application)
 
         val widgetMenuProfileViewModel =
             ViewModelProvider(

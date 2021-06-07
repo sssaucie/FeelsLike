@@ -23,7 +23,7 @@ class SeedDatabaseWorker(
             applicationContext.assets.open(STANDARD_USER_DATA_FILENAME).use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
                     val userInput = object : TypeToken<List<UserEntity>>() {}.type
-                    val userList : List<UserEntity> =
+                    val userList : UserEntity =
                         Gson().fromJson(jsonReader,userInput)
 
                     database.userDao().insertAllUserInfo(userList)
