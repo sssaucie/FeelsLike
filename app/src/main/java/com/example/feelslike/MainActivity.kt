@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback
             position = savedInstanceState.getInt(ADAPTER_POSITION)
         }
 
-        setContentView(R.layout.fragment_landing_page)
+        setContentView(R.layout.activity_main)
 
         checkFirstRun()
     }
@@ -55,9 +55,7 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback
 
         if (firstRun)
         {
-            prefs.edit().putBoolean(FIRST_RUN_KEY, false)
-
-//            setContentView(R.layout.fragment_initial_user_input)
+            prefs.edit().putBoolean(FIRST_RUN_KEY, false).apply()
 
             /**
              * We use the lifecycleScope.launch to tell the local Android OS to initialize
