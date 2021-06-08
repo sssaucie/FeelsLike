@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
@@ -14,13 +13,9 @@ import com.example.feelslike.databinding.FragmentLandingPageBinding
 import com.example.feelslike.databinding.WidgetLocationCalculateButtonsBinding
 import com.example.feelslike.view_model.LandingPageViewModel
 import com.example.feelslike.view_model.LandingPageViewModelFactory
-import com.example.feelslike.view_model.PlannedLocationViewModel
 
 class LandingPageFragment : Fragment()
 {
-//    private val initialUserInputViewModel : InitialUserInputViewModel by activityViewModels()
-//    private val plannedLocationViewModel : PlannedLocationViewModel by activityViewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
