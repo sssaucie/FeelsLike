@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentResultsBinding
-import com.example.feelslike.view_model.ResultsViewModel
-import com.example.feelslike.view_model.ResultsViewModelFactory
+import com.example.feelslike.view_model.SharedViewModelFactory
+import com.example.feelslike.view_model.SharedViewModel
 
 class ResultsFragment : Fragment()
 {
@@ -29,22 +29,22 @@ class ResultsFragment : Fragment()
 
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = ResultsViewModelFactory(application)
+        val viewModelFactory = SharedViewModelFactory(application)
 
-        val resultsViewModel =
+        val sharedViewModel =
             ViewModelProvider(
-                this, viewModelFactory).get(ResultsViewModel::class.java)
+                this, viewModelFactory).get(SharedViewModel::class.java)
 
-        binding.viewModel = resultsViewModel
+        binding.viewModel = sharedViewModel
         binding.lifecycleOwner = this
 
-        resultsViewModel.navigateToRecyclerViewFavorites.observe(viewLifecycleOwner,
+        sharedViewModel.navigateToRecyclerViewFavorites.observe(viewLifecycleOwner,
             {
                 if (it == true)
                 {
                     this.findNavController().navigate(
                         ResultsFragmentDirections.actionResultsFragmentToFavoritesFragment())
-                    resultsViewModel.onNavigated()
+                    sharedViewModel.onNavigated()
                 }
             })
 

@@ -41,19 +41,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback
             R.id.mapsFragment
         ) as SupportMapFragment?)?.getMapAsync(this)
 
-//        val navController = findNavController(R.id.nav_host_fragment)
-//        val navInflater = navController.navInflater
-//        val navGraph = navInflater.inflate(R.navigation.nav_graph)
-//
-//        val destination : Int = if (intent.getBooleanExtra(
-//                IS_NOT_FIRST_RUN,
-//                false)
-//        ) openFragment(findViewById(R.id.nav_graph), true)
-//        else openFragment(findViewById(R.id.initialUserInputFragment), false)
-//
-//        navGraph.startDestination = destination
-//        navController.graph = navGraph
-
         if(savedInstanceState != null)
         {
             position = savedInstanceState.getInt(ADAPTER_POSITION)
@@ -61,18 +48,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback
 
         checkFirstRun()
     }
-
-//    companion object
-//    {
-//        private const val IS_NOT_FIRST_RUN = "isNotFirstRunApp"
-//
-//        fun openFragment(context : Context, isNotFirstRun : Boolean): Int {
-//            context.startActivity(Intent(context, MainActivity::class.java).apply {
-//                putExtra(IS_NOT_FIRST_RUN, isNotFirstRun)
-//            })
-//            return openFragment(context, isNotFirstRun)
-//        }
-//    }
 
     private fun checkFirstRun()
     {
@@ -94,10 +69,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback
             lifecycleScope.launch {
                 forceDatabaseInit()
             }
-        }
-        else
-        {
-
         }
     }
 

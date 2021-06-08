@@ -1,326 +1,331 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+</androidx.constraintlayout.widget.ConstraintLayout>
+<!--<layout xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android">-->
 
-    <data>
-        <variable
-            name="viewModel"
-            type="com.example.feelslike.view_model.InitialUserInputViewModel" />
-    </data>
+<!--    <data>-->
+<!--        <variable-->
+<!--            name="viewModel"-->
+<!--            type="com.example.feelslike.view_model.InitialUserInputViewModel" />-->
+<!--    </data>-->
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/activity_initial_user_input"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/activity_initial_user_input"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" >-->
 
-        <include
-            android:id="@+id/initial_user_input_background"
-            layout="@layout/widget_background_mountains"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+<!--        <include-->
+<!--            android:id="@+id/initial_user_input_background"-->
+<!--            layout="@layout/widget_background_mountains"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_input_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.25" />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guideline_input_layout"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            app:layout_constraintGuide_percent="0.25" />-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_start_textbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.075" />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guideline_start_textbox"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_percent="0.075" />-->
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_end_textbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.925" />
+<!--        <androidx.constraintlayout.widget.Guideline-->
+<!--            android:id="@+id/guideline_end_textbox"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintGuide_percent="0.925" />-->
 
-        <TextView
-            android:id="@+id/descriptor_first_name"
-            style="@style/Theme.FeelsLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_padding_large"
-            android:fontFamily="@font/font_family"
-            android:text="@string/text_first_name"
-            android:textAppearance="@style/fontStyleNormal"
-            android:textSize="@dimen/font_size_normal"
-            app:layout_constraintBottom_toTopOf="@+id/input_first_name"
-            app:layout_constraintStart_toStartOf="@+id/input_first_name"
-            app:layout_constraintTop_toBottomOf="@id/guideline_input_layout"
-            app:layout_constraintVertical_chainStyle="spread_inside" />
+<!--        <TextView-->
+<!--            android:id="@+id/descriptor_first_name"-->
+<!--            style="@style/Theme.FeelsLike"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="@dimen/spacing_padding_large"-->
+<!--            android:fontFamily="@font/font_family"-->
+<!--            android:text="@string/text_first_name"-->
+<!--            android:textAppearance="@style/fontStyleNormal"-->
+<!--            android:textSize="@dimen/font_size_normal"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/input_first_name"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/input_first_name"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/guideline_input_layout"-->
+<!--            app:layout_constraintVertical_chainStyle="spread_inside" />-->
 
-        <EditText
-            android:id="@+id/input_first_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:boxBackgroundColor="@color/clear"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/dark_grey"
-            app:hintEnabled="false"
-            app:layout_constraintBottom_toTopOf="@+id/descriptor_last_name"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
-            app:layout_constraintTop_toBottomOf="@+id/descriptor_first_name">
+<!--        <EditText-->
+<!--            android:id="@+id/input_first_name"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:boxBackgroundColor="@color/clear"-->
+<!--            app:boxBackgroundMode="outline"-->
+<!--            app:boxStrokeColor="@color/dark_grey"-->
+<!--            app:hintEnabled="false"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/descriptor_last_name"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"-->
+<!--            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/descriptor_first_name">-->
 
-        </EditText>
+<!--        </EditText>-->
 
-        <TextView
-            android:id="@+id/descriptor_last_name"
-            style="@style/Theme.FeelsLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/font_family"
-            android:text="@string/text_last_name"
-            android:textAppearance="@style/fontStyleNormal"
-            android:textSize="@dimen/font_size_normal"
-            app:layout_constraintBottom_toTopOf="@+id/input_last_name"
-            app:layout_constraintStart_toStartOf="@+id/input_last_name"
-            app:layout_constraintTop_toBottomOf="@+id/input_first_name" />
+<!--        <TextView-->
+<!--            android:id="@+id/descriptor_last_name"-->
+<!--            style="@style/Theme.FeelsLike"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/font_family"-->
+<!--            android:text="@string/text_last_name"-->
+<!--            android:textAppearance="@style/fontStyleNormal"-->
+<!--            android:textSize="@dimen/font_size_normal"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/input_last_name"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/input_last_name"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/input_first_name" />-->
 
-        <EditText
-            android:id="@+id/input_last_name"
-            style="@style/BoxOverlayCustom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:hintEnabled="false"
-            app:boxBackgroundColor="@color/clear"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/dark_grey"
-            app:layout_constraintBottom_toTopOf="@+id/descriptor_input_email"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
-            app:layout_constraintTop_toBottomOf="@+id/descriptor_last_name">
+<!--        <EditText-->
+<!--            android:id="@+id/input_last_name"-->
+<!--            style="@style/BoxOverlayCustom"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:hintEnabled="false"-->
+<!--            app:boxBackgroundColor="@color/clear"-->
+<!--            app:boxBackgroundMode="outline"-->
+<!--            app:boxStrokeColor="@color/dark_grey"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/descriptor_input_email"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"-->
+<!--            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/descriptor_last_name">-->
 
-        </EditText>
+<!--        </EditText>-->
 
-        <TextView
-            android:id="@+id/descriptor_input_email"
-            style="@style/Theme.FeelsLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/font_family"
-            android:text="@string/text_email"
-            android:textAppearance="@style/fontStyleNormal"
-            android:textSize="@dimen/font_size_normal"
-            app:layout_constraintBottom_toTopOf="@+id/input_email"
-            app:layout_constraintStart_toStartOf="@+id/input_email"
-            app:layout_constraintTop_toBottomOf="@+id/input_last_name" />
+<!--        <TextView-->
+<!--            android:id="@+id/descriptor_input_email"-->
+<!--            style="@style/Theme.FeelsLike"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/font_family"-->
+<!--            android:text="@string/text_email"-->
+<!--            android:textAppearance="@style/fontStyleNormal"-->
+<!--            android:textSize="@dimen/font_size_normal"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/input_email"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/input_email"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/input_last_name" />-->
 
-        <EditText
-            android:id="@+id/input_email"
-            style="@style/BoxOverlayCustom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:hintEnabled="false"
-            app:boxBackgroundColor="@color/clear"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/dark_grey"
-            app:layout_constraintBottom_toTopOf="@+id/input_text_height"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
-            app:layout_constraintTop_toBottomOf="@+id/descriptor_input_email">
+<!--        <EditText-->
+<!--            android:id="@+id/input_email"-->
+<!--            style="@style/BoxOverlayCustom"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:hintEnabled="false"-->
+<!--            app:boxBackgroundColor="@color/clear"-->
+<!--            app:boxBackgroundMode="outline"-->
+<!--            app:boxStrokeColor="@color/dark_grey"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/input_text_height"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"-->
+<!--            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/descriptor_input_email">-->
 
-        </EditText>
+<!--        </EditText>-->
 
-        <TextView
-            android:id="@+id/input_text_height"
-            style="@style/Theme.FeelsLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/font_family"
-            android:text="@string/text_height"
-            android:textSize="@dimen/font_size_main_item"
-            app:layout_constraintBottom_toTopOf="@+id/input_checkbox_measurement_type"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_email" />
+<!--        <TextView-->
+<!--            android:id="@+id/input_text_height"-->
+<!--            style="@style/Theme.FeelsLike"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/font_family"-->
+<!--            android:text="@string/text_height"-->
+<!--            android:textSize="@dimen/font_size_main_item"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/input_checkbox_measurement_type"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/input_email" />-->
 
-        <CheckBox
-            android:id="@+id/input_checkbox_measurement_type"
-            style="@style/Theme.FeelsLike"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/check_box_height"
-            android:buttonTint="@color/dark_grey"
-            android:fontFamily="@font/font_family"
-            android:text="@string/text_metric"
-            android:textSize="@dimen/font_size_small_button"
-            app:layout_constraintBottom_toTopOf="@+id/descriptor_height_feet"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_text_height" />
+<!--        <CheckBox-->
+<!--            android:id="@+id/input_checkbox_measurement_type"-->
+<!--            style="@style/Theme.FeelsLike"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="@dimen/check_box_height"-->
+<!--            android:buttonTint="@color/dark_grey"-->
+<!--            android:fontFamily="@font/font_family"-->
+<!--            android:text="@string/text_metric"-->
+<!--            android:textSize="@dimen/font_size_small_button"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/descriptor_height_feet"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/input_text_height" />-->
 
-        <TextView
-            android:id="@+id/descriptor_height_feet"
-            style="@style/Theme.FeelsLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/font_family"
-            android:text="@string/text_feet"
-            android:textAppearance="@style/fontStyleNormal"
-            android:textSize="@dimen/font_size_normal"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/input_height_feet_centimeters"
-            app:layout_constraintStart_toStartOf="@+id/input_height_feet_centimeters"
-            app:layout_constraintTop_toBottomOf="@+id/input_checkbox_measurement_type" />
+<!--        <TextView-->
+<!--            android:id="@+id/descriptor_height_feet"-->
+<!--            style="@style/Theme.FeelsLike"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/font_family"-->
+<!--            android:text="@string/text_feet"-->
+<!--            android:textAppearance="@style/fontStyleNormal"-->
+<!--            android:textSize="@dimen/font_size_normal"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/input_height_feet_centimeters"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/input_height_feet_centimeters"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/input_checkbox_measurement_type" />-->
 
-        <TextView
-            android:id="@+id/descriptor_height_centimeters"
-            style="@style/Theme.FeelsLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/font_family"
-            android:text="@string/text_centimeters"
-            android:textSize="@dimen/font_size_normal"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@id/input_height_feet_centimeters"
-            app:layout_constraintStart_toStartOf="@id/input_height_feet_centimeters"
-            app:layout_constraintTop_toBottomOf="@id/input_checkbox_measurement_type" />
+<!--        <TextView-->
+<!--            android:id="@+id/descriptor_height_centimeters"-->
+<!--            style="@style/Theme.FeelsLike"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/font_family"-->
+<!--            android:text="@string/text_centimeters"-->
+<!--            android:textSize="@dimen/font_size_normal"-->
+<!--            android:visibility="gone"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/input_height_feet_centimeters"-->
+<!--            app:layout_constraintStart_toStartOf="@id/input_height_feet_centimeters"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/input_checkbox_measurement_type" />-->
 
-        <EditText
-            android:id="@+id/input_height_feet_centimeters"
-            style="@style/BoxOverlayCustom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:hintEnabled="false"
-            app:boxBackgroundColor="@color/clear"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/dark_grey"
-            app:layout_constraintBottom_toTopOf="@+id/descriptor_height_inches"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
-            app:layout_constraintTop_toBottomOf="@+id/descriptor_height_feet">
+<!--        <EditText-->
+<!--            android:id="@+id/input_height_feet_centimeters"-->
+<!--            style="@style/BoxOverlayCustom"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:hintEnabled="false"-->
+<!--            app:boxBackgroundColor="@color/clear"-->
+<!--            app:boxBackgroundMode="outline"-->
+<!--            app:boxStrokeColor="@color/dark_grey"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/descriptor_height_inches"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"-->
+<!--            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/descriptor_height_feet">-->
 
-        </EditText>
+<!--        </EditText>-->
 
-        <TextView
-            android:id="@+id/descriptor_height_inches"
-            style="@style/Theme.FeelsLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/font_family"
-            android:text="@string/text_inches"
-            android:textAppearance="@style/fontStyleNormal"
-            android:textSize="@dimen/font_size_normal"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/input_height_inches"
-            app:layout_constraintStart_toStartOf="@+id/input_height_inches"
-            app:layout_constraintTop_toBottomOf="@+id/input_height_feet_centimeters" />
+<!--        <TextView-->
+<!--            android:id="@+id/descriptor_height_inches"-->
+<!--            style="@style/Theme.FeelsLike"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/font_family"-->
+<!--            android:text="@string/text_inches"-->
+<!--            android:textAppearance="@style/fontStyleNormal"-->
+<!--            android:textSize="@dimen/font_size_normal"-->
+<!--            android:visibility="visible"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/input_height_inches"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/input_height_inches"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/input_height_feet_centimeters" />-->
 
-        <EditText
-            android:id="@+id/input_height_inches"
-            style="@style/BoxOverlayCustom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:hintEnabled="false"
-            app:boxBackgroundColor="@color/clear"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/dark_grey"
-            app:layout_constraintBottom_toTopOf="@+id/descriptor_weight_pounds"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
-            app:layout_constraintTop_toBottomOf="@+id/descriptor_height_inches">
+<!--        <EditText-->
+<!--            android:id="@+id/input_height_inches"-->
+<!--            style="@style/BoxOverlayCustom"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:hintEnabled="false"-->
+<!--            app:boxBackgroundColor="@color/clear"-->
+<!--            app:boxBackgroundMode="outline"-->
+<!--            app:boxStrokeColor="@color/dark_grey"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/descriptor_weight_pounds"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"-->
+<!--            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/descriptor_height_inches">-->
 
-        </EditText>
+<!--        </EditText>-->
 
-        <TextView
-            android:id="@+id/descriptor_weight_pounds"
-            style="@style/Theme.FeelsLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/font_family"
-            android:text="@string/text_weight_pounds"
-            android:textAppearance="@style/fontStyleNormal"
-            android:textSize="@dimen/font_size_normal"
-            app:layout_constraintBottom_toTopOf="@+id/input_weight"
-            app:layout_constraintStart_toStartOf="@+id/input_weight"
-            app:layout_constraintTop_toBottomOf="@+id/input_height_inches" />
+<!--        <TextView-->
+<!--            android:id="@+id/descriptor_weight_pounds"-->
+<!--            style="@style/Theme.FeelsLike"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/font_family"-->
+<!--            android:text="@string/text_weight_pounds"-->
+<!--            android:textAppearance="@style/fontStyleNormal"-->
+<!--            android:textSize="@dimen/font_size_normal"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/input_weight"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/input_weight"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/input_height_inches" />-->
 
-        <TextView
-            android:id="@+id/descriptor_weight_kilograms"
-            style="@style/Theme.FeelsLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/font_family"
-            android:text="@string/text_weight_kilograms"
-            android:textAppearance="@style/fontStyleNormal"
-            android:textSize="@dimen/font_size_normal"
-            app:layout_constraintBottom_toTopOf="@+id/input_weight"
-            app:layout_constraintStart_toStartOf="@+id/input_weight"
-            app:layout_constraintTop_toBottomOf="@+id/input_height_inches"
-            android:visibility="gone"/>
+<!--        <TextView-->
+<!--            android:id="@+id/descriptor_weight_kilograms"-->
+<!--            style="@style/Theme.FeelsLike"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:fontFamily="@font/font_family"-->
+<!--            android:text="@string/text_weight_kilograms"-->
+<!--            android:textAppearance="@style/fontStyleNormal"-->
+<!--            android:textSize="@dimen/font_size_normal"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/input_weight"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/input_weight"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/input_height_inches"-->
+<!--            android:visibility="gone"/>-->
 
-        <EditText
-            android:id="@+id/input_weight"
-            style="@style/BoxOverlayCustom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:hintEnabled="false"
-            app:boxBackgroundColor="@color/clear"
-            app:boxBackgroundMode="outline"
-            app:boxStrokeColor="@color/dark_grey"
-            app:layout_constraintBottom_toTopOf="@+id/input_checkbox_complex_calc"
-            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"
-            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"
-            app:layout_constraintTop_toBottomOf="@+id/descriptor_weight_pounds">
+<!--        <EditText-->
+<!--            android:id="@+id/input_weight"-->
+<!--            style="@style/BoxOverlayCustom"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:hintEnabled="false"-->
+<!--            app:boxBackgroundColor="@color/clear"-->
+<!--            app:boxBackgroundMode="outline"-->
+<!--            app:boxStrokeColor="@color/dark_grey"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/input_checkbox_complex_calc"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/guideline_end_textbox"-->
+<!--            app:layout_constraintStart_toStartOf="@id/guideline_start_textbox"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/descriptor_weight_pounds">-->
 
-        </EditText>
+<!--        </EditText>-->
 
-<!--        TODO: This is a "Nice to have" option for users in the future-->
-        <CheckBox
-            android:id="@+id/input_checkbox_complex_calc"
-            style="@style/smallButtonText"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/check_box_height"
-            android:text="@string/text_complex_calculations"
-            app:layout_constraintBottom_toTopOf="@+id/input_button_continue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_weight"
-            android:visibility="gone"/>
+<!--&lt;!&ndash;        TODO: This is a "Nice to have" option for users in the future&ndash;&gt;-->
+<!--        <CheckBox-->
+<!--            android:id="@+id/input_checkbox_complex_calc"-->
+<!--            style="@style/smallButtonText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="@dimen/check_box_height"-->
+<!--            android:text="@string/text_complex_calculations"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/input_button_continue"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/input_weight"-->
+<!--            android:visibility="gone"/>-->
 
-        <Button
-            android:id="@+id/input_button_continue"
-            style="@style/normalButtonText"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginBottom="@dimen/spacing_padding_double"
-            android:background="@drawable/button_standard"
-            android:text="@string/button_continue"
-            android:textColor="@color/black"
-            app:backgroundTint="@color/light_grey"
-            android:onClick="@{() -> viewModel.onContinueButtonClicked()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_checkbox_complex_calc" />
+<!--        <Button-->
+<!--            android:id="@+id/input_button_continue"-->
+<!--            style="@style/normalButtonText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="@dimen/button_height"-->
+<!--            android:layout_marginBottom="@dimen/spacing_padding_double"-->
+<!--            android:background="@drawable/button_standard"-->
+<!--            android:text="@string/button_continue"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:backgroundTint="@color/light_grey"-->
+<!--            android:onClick="@{() -> viewModel.onContinueButtonClicked()}"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/input_checkbox_complex_calc" />-->
 
-        <Button
-            android:id="@+id/input_button_skip"
-            style="@style/normalButtonText"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/button_height"
-            android:layout_marginBottom="@dimen/spacing_padding_small"
-            android:background="@drawable/button_standard"
-            android:backgroundTint="@color/light_grey"
-            android:text="@string/button_skip"
-            android:textColor="@color/black"
-            app:backgroundTint="@color/light_grey"
-            android:onClick="@{() -> viewModel.onSkipButtonClicked()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline_end_textbox" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+<!--        <Button-->
+<!--            android:id="@+id/input_button_skip"-->
+<!--            style="@style/normalButtonText"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="@dimen/button_height"-->
+<!--            android:layout_marginBottom="@dimen/spacing_padding_small"-->
+<!--            android:background="@drawable/button_standard"-->
+<!--            android:backgroundTint="@color/light_grey"-->
+<!--            android:text="@string/button_skip"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:backgroundTint="@color/light_grey"-->
+<!--            android:onClick="@{() -> viewModel.onSkipButtonClicked()}"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toStartOf="@+id/guideline_end_textbox" />-->
+<!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--</layout>-->

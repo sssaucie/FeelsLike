@@ -10,9 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentLandingPageBinding
-import com.example.feelslike.databinding.WidgetLocationCalculateButtonsBinding
-import com.example.feelslike.view_model.LandingPageViewModel
-import com.example.feelslike.view_model.LandingPageViewModelFactory
+import com.example.feelslike.view_model.SharedViewModel
+import com.example.feelslike.view_model.SharedViewModelFactory
 
 class LandingPageFragment : Fragment()
 {
@@ -24,24 +23,23 @@ class LandingPageFragment : Fragment()
         val binding : FragmentLandingPageBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_landing_page, container, false)
 
-        val bindingCalculateWidget : WidgetLocationCalculateButtonsBinding = DataBindingUtil.inflate(
-            inflater, R.layout.widget_location_calculate_buttons, container, false)
-
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = LandingPageViewModelFactory(application)
+        val viewModelFactory = SharedViewModelFactory(application)
 
-        val landingPageViewModel =
+        val sharedViewModel =
             ViewModelProvider(
-                this, viewModelFactory).get(LandingPageViewModel::class.java)
+                this, viewModelFactory).get(SharedViewModel::class.java)
 
-        binding.viewModel = landingPageViewModel
+        binding.viewModel = sharedViewModel
 
-        bindingCalculateWidget.viewModelLandingPage = landingPageViewModel
+        binding.widgetLocationCalculateButtons.viewModelLandingPage = sharedViewModel
+
+        binding.headerLandingPageMenuProfile.viewModel = sharedViewModel
+
+        binding.landingPageMap.mapsLayout
 
         binding.lifecycleOwner = this
-
-        bindingCalculateWidget.lifecycleOwner = this
 
 //        landingPageViewModel.navigateToInitialUserInputFragment.observe(viewLifecycleOwner, {
 //            if (it == true)
@@ -52,30 +50,39 @@ class LandingPageFragment : Fragment()
 //            }
 //        })
 
-        landingPageViewModel.navigateToProfileFragment.observe(viewLifecycleOwner, {
+        sharedViewModel.navigateToResultsFragment.observe(viewLifecycleOwner, {
+            if (it == true)
+            {
+                this.findNavController().navigate(
+                    LandingPageFragmentDirections.actionLandingPageToResultsFragment())
+                sharedViewModel.onNavigated()
+            }
+        })
+
+        sharedViewModel.navigateToProfileFragment.observe(viewLifecycleOwner, {
             if (it == true)
             {
                 this.findNavController().navigate(
                     LandingPageFragmentDirections.actionLandingPageToProfileFragment())
-                landingPageViewModel.onNavigated()
+                sharedViewModel.onNavigated()
             }
         })
 
-        landingPageViewModel.navigateToPlannedLocationFragment.observe(viewLifecycleOwner, {
+        sharedViewModel.navigateToPlannedLocationFragment.observe(viewLifecycleOwner, {
             if (it == true)
             {
                 this.findNavController().navigate(
                     LandingPageFragmentDirections.actionLandingPageToPlannedLocationWidget())
-                landingPageViewModel.onNavigated()
+                sharedViewModel.onNavigated()
             }
         })
 
-        landingPageViewModel.navigateToMapFragment.observe(viewLifecycleOwner, {
+        sharedViewModel.navigateToMapFragment.observe(viewLifecycleOwner, {
             if (it == true)
             {
                 this.findNavController().navigate(
                     LandingPageFragmentDirections.actionLandingPageToMapsFragment())
-                landingPageViewModel.onNavigated()
+                sharedViewModel.onNavigated()
             }
         })
 

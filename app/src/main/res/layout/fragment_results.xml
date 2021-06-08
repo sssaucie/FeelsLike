@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_centerInParent="true">
+
     <data>
+
         <variable
             name="viewModel"
-            type="com.example.feelslike.view_model.ResultsViewModel" />
+            type="com.example.feelslike.view_model.SharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,14 +33,14 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/map_results" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <include
             android:id="@+id/map_results"
             layout="@layout/fragment_maps"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/spacing_padding_normal"
             app:layout_constraintBottom_toTopOf="@+id/buttons_location_calculate_results"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -54,15 +57,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/header_results" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/button_results_email"
-            style="@style/normalButtonText"
+            style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/spacing_padding_small"
             android:layout_marginBottom="@dimen/spacing_padding_small"
             android:background="@drawable/button_standard"
             android:text="@string/button_email_results"
+            android:textColor="@color/black"
+            android:textAppearance="@style/errorHeaderMainButtonStyleText"
             app:backgroundTint="@color/light_grey"
             app:layout_constraintBottom_toTopOf="@+id/results_show_more"
             app:layout_constraintEnd_toEndOf="parent"
@@ -70,12 +74,11 @@
 
         <TextView
             android:id="@+id/results_show_more"
-            style="@style/Theme.FeelsLike"
+            style="@style/fontStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/spacing_padding_normal"
             android:text="@string/text_show_more"
-            app:layout_constraintBottom_toTopOf="@+id/map_results"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_results_email" />
 
@@ -99,7 +102,7 @@
 
         <TextView
             android:id="@+id/results_date"
-            style="@style/Theme.FeelsLike"
+            style="@style/fontStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_date"
@@ -107,8 +110,17 @@
             app:layout_constraintTop_toBottomOf="@+id/results_text_header" />
 
         <TextView
+            android:id="@+id/calculated_text_date"
+            style="@style/fontStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/results_guideline_end"
+            app:layout_constraintTop_toBottomOf="@id/results_text_header"
+            tools:text="Date" />
+
+        <TextView
             android:id="@+id/results_temp"
-            style="@style/Theme.FeelsLike"
+            style="@style/fontStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_temp"
@@ -116,8 +128,17 @@
             app:layout_constraintTop_toBottomOf="@+id/results_date" />
 
         <TextView
+            android:id="@+id/calculated_text_temperature"
+            style="@style/fontStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/results_guideline_end"
+            app:layout_constraintTop_toBottomOf="@+id/calculated_text_date"
+            tools:text="123" />
+
+        <TextView
             android:id="@+id/results_barometric"
-            style="@style/Theme.FeelsLike"
+            style="@style/fontStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_barometric"
@@ -125,14 +146,34 @@
             app:layout_constraintTop_toBottomOf="@+id/results_temp" />
 
         <TextView
+            android:id="@+id/calculated_text_barometric"
+            style="@style/fontStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/results_guideline_end"
+            app:layout_constraintTop_toBottomOf="@+id/calculated_text_temperature" />
+
+        <TextView
             android:id="@+id/results_humidity"
-            style="@style/Theme.FeelsLike"
+            style="@style/fontStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_humidity"
+            android:layout_marginBottom="@dimen/spacing_padding_small"
             app:layout_constraintBottom_toTopOf="@+id/button_results_email"
             app:layout_constraintStart_toEndOf="@id/results_guideline_start"
             app:layout_constraintTop_toBottomOf="@+id/results_barometric" />
+
+        <TextView
+            android:id="@+id/calculated_text_humidity"
+            style="@style/fontStyleNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_padding_small"
+            app:layout_constraintBottom_toTopOf="@id/button_results_email"
+            app:layout_constraintEnd_toStartOf="@id/results_guideline_end"
+            app:layout_constraintTop_toBottomOf="@+id/calculated_text_barometric"
+            tools:text="123" />
 
         <ImageButton
             android:id="@+id/button_results_favorite"
@@ -142,8 +183,9 @@
             android:clickable="true"
             android:contentDescription="@string/description_button_favorites"
             android:focusable="true"
+            app:backgroundTint="@color/clear"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/results_text_header"
+            app:layout_constraintStart_toEndOf="@id/results_guideline_end"
             app:layout_constraintTop_toBottomOf="@id/header_results"
             app:srcCompat="@drawable/icon_open_heart" />
 

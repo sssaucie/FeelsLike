@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModelLandingPage"
-            type="com.example.feelslike.view_model.LandingPageViewModel" />
+            type="com.example.feelslike.view_model.SharedViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,8 +30,9 @@
             android:background="@drawable/button_standard"
             android:contentDescription="@string/description_button_calculate"
             android:text="@string/button_calculate"
-            android:textAppearance="@style/errorHeaderCalculateButtonStyleText"
+            android:textAppearance="@style/errorHeaderMainButtonStyleText"
             android:textColor="@color/black"
+            android:onClick="@{() -> viewModelLandingPage.onCalculateClicked()}"
             app:backgroundTint="@color/light_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

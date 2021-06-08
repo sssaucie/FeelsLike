@@ -18,7 +18,7 @@ class SeedDatabaseWorker(
 ) : CoroutineWorker(context, workerParams)
 {
     override suspend fun doWork(): Result = coroutineScope {
-        val repository = FeelsLikeRepository(applicationContext)
+        val database = FeelsLikeDatabase.getInstance(applicationContext)
         try
         {
             applicationContext.assets.open(STANDARD_USER_DATA_FILENAME).use { inputStream ->
@@ -27,7 +27,7 @@ class SeedDatabaseWorker(
                     val userList : UserEntity =
                         Gson().fromJson(jsonReader,userInput)
 
-                    repository.addUser(userList)
+                    database.userDao().insertAllUserInfo(userList)
                     Result.success()
                 }
             }

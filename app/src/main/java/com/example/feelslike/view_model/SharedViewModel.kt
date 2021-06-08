@@ -7,9 +7,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.feelslike.utilities.FeelsLikeRepository
 
-class LandingPageViewModel(application : Application) : AndroidViewModel(application)
+class SharedViewModel(application : Application) : AndroidViewModel(application)
 {
-    private val TAG = "LandingPageViewModel"
+    private val TAG = "SharedViewModel"
     private val dataRepository : FeelsLikeRepository = FeelsLikeRepository(getApplication())
 
     private val _navigateToResultsFragment = MutableLiveData<Boolean?>()
@@ -17,6 +17,7 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
     private val _navigateToPlannedLocationFragment = MutableLiveData<Boolean?>()
     private val _navigateToInitialUserInputFragment = MutableLiveData<Boolean?>()
     private val _navigateToMapFragment = MutableLiveData<Boolean?>()
+    private val _navigateToRecyclerViewFavorites = MutableLiveData<Boolean?>()
 
     val navigateToResultsFragment : LiveData<Boolean?>
         get() = _navigateToResultsFragment
@@ -33,22 +34,13 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
     val navigateToMapFragment : LiveData<Boolean?>
         get() = _navigateToMapFragment
 
-//    fun onCalculateClicked(plannedLocation)
-//    {
-//        _navigateToResultsFragment.value = plannedLocation
-//        Log.i(TAG, "Calculate button clicked.")
-//    }
+    val navigateToRecyclerViewFavorites : LiveData<Boolean?>
+        get() = _navigateToRecyclerViewFavorites
 
-    fun ifUserChanges()
+    fun onCalculateClicked()
     {
-        _navigateToInitialUserInputFragment.value = true
-        Log.i(TAG, "First run.")
-    }
-
-    fun onProfilePhotoClicked()
-    {
-        _navigateToProfileFragment.value = true
-        Log.i(TAG, "Profile photo clicked.")
+        _navigateToResultsFragment.value = true
+        Log.i(TAG, "Calculate button clicked.")
     }
 
     fun onPlannedLocationClicked()
@@ -63,6 +55,18 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
         Log.i(TAG, "Current Location button clicked.")
     }
 
+    fun onProfilePictureClicked()
+    {
+        _navigateToProfileFragment.value = true
+        Log.i(TAG, "Profile picture clicked.")
+    }
+
+    fun onFavoriteHeartClicked()
+    {
+        _navigateToRecyclerViewFavorites.value = true
+        Log.i(TAG, "Favorites heart clicked ON")
+    }
+
     fun onNavigated()
     {
         _navigateToResultsFragment.value = null
@@ -70,6 +74,7 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
         _navigateToPlannedLocationFragment.value = null
         _navigateToInitialUserInputFragment.value = null
         _navigateToMapFragment.value = null
+        _navigateToRecyclerViewFavorites.value = null
         Log.i(TAG, "All navigation cleared.")
     }
 

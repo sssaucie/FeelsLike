@@ -5,33 +5,11 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/landingPage">
 
-<!--    Recently decided to not use initialUserInputFragment due to time constraints -->
-    <fragment
-        android:id="@+id/initialUserInputFragment"
-        android:name="com.example.feelslike.view.InitialUserInputFragment"
-        android:label="InitialUserInputFragment"
-        tools:layout="@layout/fragment_initial_user_input">
-        <action
-            android:id="@+id/action_initialUserInputFragment_to_landingPage"
-            app:destination="@+id/landingPage" />
-        <action
-            android:id="@+id/action_initialUserInputFragment_to_loginFragment"
-            app:destination="@+id/loginFragment" />
-        <action
-            android:id="@+id/action_initialUserInputFragment_skip_to_landingPage"
-            app:destination="@+id/landingPage" />
-    </fragment>
-
     <fragment
         android:id="@+id/landingPage"
         android:name="com.example.feelslike.view.LandingPageFragment"
         android:label="LandingPageFragment"
         tools:layout="@layout/fragment_landing_page">
-        <action
-            android:id="@+id/action_landingPage_to_activityInitialUserInput"
-            app:destination="@+id/activity_initial_user_input"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:popEnterAnim="@anim/nav_default_enter_anim"/>
         <action
             android:id="@+id/action_landingPage_to_profileFragment"
             app:destination="@+id/profile_fragment" />
@@ -44,13 +22,9 @@
         <action
             android:id="@+id/action_landingPage_to_plannedLocationWidget"
             app:destination="@+id/plannedLocationFragment" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.feelslike.view.SettingsFragment"
-        android:label="SettingsFragment">
+        <action
+            android:id="@+id/action_landingPage_to_resultsFragment"
+            app:destination="@+id/resultsFragment" />
     </fragment>
 
     <fragment
@@ -67,7 +41,7 @@
         android:id="@+id/plannedLocationFragment"
         android:name="com.example.feelslike.view.PlannedLocationFragment"
         android:label="PlannedLocationFragment"
-        tools:layout="@layout/fragment_dialog_planned_location_form" >
+        tools:layout="@layout/fragment_dialog_planned_location_form">
         <action
             android:id="@+id/action_plannedLocationWidget_to_landingPage"
             app:destination="@+id/landingPage" />
@@ -78,14 +52,13 @@
 
     <fragment
         android:id="@+id/widgetMenuProfile"
-        android:name="com.example.feelslike.view.WidgetMenuProfile"
-        android:label="WidgetMenuProfile"
+        android:name="com.example.feelslike.view.WidgetMenuProfileFragment"
+        android:label="WidgetMenuProfileFragment"
         tools:layout="@layout/widget_menu_profile_pic">
 
         <action
             android:id="@+id/action_profilePic_to_profileFragment"
-            app:destination="@id/profileFragment"
-            app:popUpTo="@id/profileFragment" />
+            app:destination="@id/profileFragment" />
 
     </fragment>
 
@@ -93,7 +66,7 @@
         android:id="@+id/profileFragment"
         android:name="com.example.feelslike.view.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
 
         <action
             android:id="@+id/action_profileFragment_to_landingPage"
@@ -104,7 +77,7 @@
         android:id="@+id/favoritesFragment"
         android:name="com.example.feelslike.view.RecyclerViewFavoritesFragment"
         android:label="FavoritesFragment"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
 
         <action
             android:id="@+id/action_favoritesFragment_to_mapsFragment"
@@ -123,21 +96,44 @@
 
     </fragment>
 
-<!--    This is the nice-to-have section-->
+    <!--    This is the nice-to-have section-->
 
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.feelslike.view.LoginFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_initialUserInputFragment"
-            app:destination="@+id/initialUserInputFragment" />
-    </fragment>
+    <!--    <fragment-->
+    <!--        android:id="@+id/loginFragment"-->
+    <!--        android:name="com.example.feelslike.view.LoginFragment"-->
+    <!--        android:label="LoginFragment"-->
+    <!--        tools:layout="@layout/fragment_login">-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_loginFragment_to_initialUserInputFragment"-->
+    <!--            app:destination="@+id/initialUserInputFragment" />-->
+    <!--    </fragment>-->
 
 </navigation>
 
-<!--For later-->
-<!--<argument-->
-<!--android:name="selectedDestination"-->
-<!--app:argType="com.example.feelslike.model.entity.CalculationsEntity" />-->
+    <!--For later-->
+    <!--<argument-->
+    <!--android:name="selectedDestination"-->
+    <!--app:argType="com.example.feelslike.model.entity.CalculationsEntity" />-->
+    <!--<fragment-->
+    <!--android:id="@+id/settingsFragment"-->
+    <!--android:name="com.example.feelslike.view.SettingsFragment"-->
+    <!--android:label="SettingsFragment">-->
+    <!--</fragment>-->
+
+
+    <!--    Recently decided to not use initialUserInputFragment due to time constraints -->
+    <!--    <fragment-->
+    <!--        android:id="@+id/initialUserInputFragment"-->
+    <!--        android:name="com.example.feelslike.view.InitialUserInputFragment"-->
+    <!--        android:label="InitialUserInputFragment"-->
+    <!--        tools:layout="@layout/fragment_initial_user_input">-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_initialUserInputFragment_to_landingPage"-->
+    <!--            app:destination="@+id/landingPage" />-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_initialUserInputFragment_to_loginFragment"-->
+    <!--            app:destination="@+id/loginFragment" />-->
+    <!--        <action-->
+    <!--            android:id="@+id/action_initialUserInputFragment_skip_to_landingPage"-->
+    <!--            app:destination="@+id/landingPage" />-->
+    <!--    </fragment>-->

@@ -15,89 +15,89 @@ import com.example.feelslike.view_model.InitialUserInputViewModelFactory
 
 
 class InitialUserInputFragment : Fragment()
-{
-    private lateinit var binding: FragmentInitialUserInputBinding
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_initial_user_input, container, false
-        )
-
-        val application = requireNotNull(this.activity).application
-
-        val viewModelFactory = InitialUserInputViewModelFactory(application)
-
-        val initialUserInputViewModel =
-            ViewModelProvider(this, viewModelFactory)
-                .get(InitialUserInputViewModel::class.java)
-
-        val continueButton = binding.inputButtonContinue
-
-        continueButton.isEnabled = false
-
-        binding.viewModel = initialUserInputViewModel
-
-        binding.lifecycleOwner = this
-
-        binding.inputCheckboxMeasurementType.setOnCheckedChangeListener { _, isChecked ->
-
-            val list = listOf(
-                binding.descriptorHeightFeet,
-                binding.descriptorHeightInches,
-                binding.inputHeightInches,
-                binding.descriptorWeightPounds
-            )
-
-            if (isChecked) {
-                metricVisibility(list, false)
-                binding.descriptorHeightCentimeters.visibility = View.VISIBLE
-                binding.descriptorWeightKilograms.visibility = View.VISIBLE
-            } else {
-                metricVisibility(list, true)
-                binding.descriptorHeightCentimeters.visibility = View.GONE
-                binding.descriptorWeightKilograms.visibility = View.GONE
-            }
-        }
-
-        initialUserInputViewModel.navigateToLandingPage.observe(viewLifecycleOwner, {
-            if (it == true) {
-                this.findNavController().navigate(
-                    InitialUserInputFragmentDirections
-                        .actionInitialUserInputFragmentToLandingPage()
-                )
-                initialUserInputViewModel.doneNavigating()
-            }
-        })
-
-        initialUserInputViewModel.navigateSkipToLandingPage.observe(viewLifecycleOwner, {
-            if (it == true) {
-                this.findNavController().navigate(
-                    InitialUserInputFragmentDirections
-                        .actionInitialUserInputFragmentSkipToLandingPage()
-                )
-                initialUserInputViewModel.doneNavigating()
-            }
-        })
-
-        return binding.root
-    }
-
-    private fun metricVisibility(list: List<View>, show: Boolean) {
-        if (show) {
-            for (view in list) {
-                view.visibility = View.VISIBLE
-            }
-        } else {
-            for (view in list) {
-                view.visibility = View.GONE
-            }
-        }
-    }
-}
+//{
+//    private lateinit var binding: FragmentInitialUserInputBinding
+//
+//    override fun onCreateView(
+//        inflater: LayoutInflater,
+//        container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        binding = DataBindingUtil.inflate(
+//            inflater, R.layout.fragment_initial_user_input, container, false
+//        )
+//
+//        val application = requireNotNull(this.activity).application
+//
+//        val viewModelFactory = InitialUserInputViewModelFactory(application)
+//
+//        val initialUserInputViewModel =
+//            ViewModelProvider(this, viewModelFactory)
+//                .get(InitialUserInputViewModel::class.java)
+//
+//        val continueButton = binding.inputButtonContinue
+//
+//        continueButton.isEnabled = false
+//
+//        binding.viewModel = initialUserInputViewModel
+//
+//        binding.lifecycleOwner = this
+//
+//        binding.inputCheckboxMeasurementType.setOnCheckedChangeListener { _, isChecked ->
+//
+//            val list = listOf(
+//                binding.descriptorHeightFeet,
+//                binding.descriptorHeightInches,
+//                binding.inputHeightInches,
+//                binding.descriptorWeightPounds
+//            )
+//
+//            if (isChecked) {
+//                metricVisibility(list, false)
+//                binding.descriptorHeightCentimeters.visibility = View.VISIBLE
+//                binding.descriptorWeightKilograms.visibility = View.VISIBLE
+//            } else {
+//                metricVisibility(list, true)
+//                binding.descriptorHeightCentimeters.visibility = View.GONE
+//                binding.descriptorWeightKilograms.visibility = View.GONE
+//            }
+//        }
+//
+//        initialUserInputViewModel.navigateToLandingPage.observe(viewLifecycleOwner, {
+//            if (it == true) {
+//                this.findNavController().navigate(
+//                    InitialUserInputFragmentDirections
+//                        .actionInitialUserInputFragmentToLandingPage()
+//                )
+//                initialUserInputViewModel.doneNavigating()
+//            }
+//        })
+//
+//        initialUserInputViewModel.navigateSkipToLandingPage.observe(viewLifecycleOwner, {
+//            if (it == true) {
+//                this.findNavController().navigate(
+//                    InitialUserInputFragmentDirections
+//                        .actionInitialUserInputFragmentSkipToLandingPage()
+//                )
+//                initialUserInputViewModel.doneNavigating()
+//            }
+//        })
+//
+//        return binding.root
+//    }
+//
+//    private fun metricVisibility(list: List<View>, show: Boolean) {
+//        if (show) {
+//            for (view in list) {
+//                view.visibility = View.VISIBLE
+//            }
+//        } else {
+//            for (view in list) {
+//                view.visibility = View.GONE
+//            }
+//        }
+//    }
+//}
 //        val editText = listOf(
 //            binding.editEmail,
 //            binding.editHeightFeetCentimeters,

@@ -18,7 +18,7 @@
     <dimen name="font_size_small_button">11.5sp</dimen>
     <dimen name="font_size_location_buttons">12.5sp</dimen>
     <dimen name="font_size_normal_button">15sp</dimen>
-    <dimen name="font_size_results_list_favorites_header">14.5sp</dimen>
+    <dimen name="font_size_results_list_favorites_header">25sp</dimen>
     <dimen name="font_size_main_item">15.5sp</dimen>
     <dimen name="font_size_menu_header">19.5sp</dimen>
     <dimen name="font_size_calculate_button_error_text">20sp</dimen>

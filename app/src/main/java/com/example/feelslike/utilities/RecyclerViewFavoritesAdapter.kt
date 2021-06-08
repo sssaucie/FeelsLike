@@ -13,6 +13,11 @@ class RecyclerViewFavoritesAdapter(private val clickListener : FavoritesClickLis
 {
     override fun onBindViewHolder(holder: FavoritesViewHolder, position: Int)
     {
+        /**
+         * Get element from dataset at this position and replace the
+         * contents of the view with that element.
+         */
+
         val favorite = getItem(position)
         holder.bind(favorite, clickListener)
     }
@@ -22,8 +27,12 @@ class RecyclerViewFavoritesAdapter(private val clickListener : FavoritesClickLis
         return FavoritesViewHolder.from(parent)
     }
 
-    class FavoritesViewHolder private constructor(val binding : ListItemFavoritesBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+    /**
+     * Provide a reference to the type of views that you are using
+     * (custom ViewHolder).
+     */
+    class FavoritesViewHolder private constructor(val binding : ListItemFavoritesBinding)
+        : RecyclerView.ViewHolder(binding.root)
     {
         fun bind(item: FeelsLikeRepository, clickListener: FavoritesClickListener)
         {
@@ -44,6 +53,13 @@ class RecyclerViewFavoritesAdapter(private val clickListener : FavoritesClickLis
         }
     }
 }
+
+/**
+ * Callback for calculating the diff between two non-null items in a list.
+ *
+ * Used by ListAdapter to calculate the minimum number of changes between an old list and a new
+ * list that has been passed to 'submitList'.
+ */
 
 class FavoritesDiffCallback : DiffUtil.ItemCallback<FeelsLikeRepository>()
 {

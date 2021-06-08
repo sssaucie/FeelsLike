@@ -2,8 +2,6 @@
 "first_name": "Jane",
 "last_name": "Doe",
 "email_address": "abc@123.com",
-"height": "5.0",
-"weight": "170.6",
-"latitude": "25.6",
-"longitude": "47.5"
+"height": "5.8",
+"weight": "170.6"
 }]
