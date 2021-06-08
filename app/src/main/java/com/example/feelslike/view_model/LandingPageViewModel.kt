@@ -17,6 +17,7 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
     private val _navigateToProfileFragment = MutableLiveData<Boolean?>()
     private val _navigateToPlannedLocationFragment = MutableLiveData<Boolean?>()
     private val _navigateToInitialUserInputFragment = MutableLiveData<Boolean?>()
+    private val _navigateToMapFragment = MutableLiveData<Boolean?>()
 
     val navigateToResultsFragment : LiveData<Boolean?>
         get() = _navigateToResultsFragment
@@ -29,6 +30,9 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
 
     val navigateToInitialUserInputFragment : LiveData<Boolean?>
         get() = _navigateToInitialUserInputFragment
+
+    val navigateToMapFragment : LiveData<Boolean?>
+        get() = _navigateToMapFragment
 
 //    fun onCalculateClicked(plannedLocation)
 //    {
@@ -56,6 +60,7 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
 
     fun onCurrentLocationClicked()
     {
+        _navigateToMapFragment.value = true
         Log.i(TAG, "Current Location button clicked.")
     }
 
@@ -65,6 +70,7 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
         _navigateToProfileFragment.value = null
         _navigateToPlannedLocationFragment.value = null
         _navigateToInitialUserInputFragment.value = null
+        _navigateToMapFragment.value = null
         Log.i(TAG, "All navigation cleared.")
     }
 

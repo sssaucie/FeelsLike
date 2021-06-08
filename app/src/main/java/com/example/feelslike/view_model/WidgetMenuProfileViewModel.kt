@@ -30,7 +30,7 @@ class WidgetMenuProfileViewModel (application : Application) : AndroidViewModel(
         get() = _navigateToProfileFragment
 
     // TODO: Pass in user information
-    fun onProfilePictureClicked(user : UserEntity)
+    fun onProfilePictureClicked()
     {
         _navigateToProfileFragment.value = true
         Log.i(TAG, "Profile picture clicked.")

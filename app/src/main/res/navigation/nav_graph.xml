@@ -2,9 +2,10 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/navigation"
-    app:startDestination="@id/initialUserInputFragment">
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/landingPage">
 
+<!--    Recently decided to not use initialUserInputFragment due to time constraints -->
     <fragment
         android:id="@+id/initialUserInputFragment"
         android:name="com.example.feelslike.view.InitialUserInputFragment"

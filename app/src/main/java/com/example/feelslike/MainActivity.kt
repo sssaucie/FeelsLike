@@ -1,12 +1,13 @@
 package com.example.feelslike
 
-import com.example.feelslike.R
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.model.entity.Dummy
@@ -32,21 +33,46 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setContentView(R.layout.activity_main)
+
         linearLayoutManager = LinearLayoutManager(this, orientation(), false)
 
         (supportFragmentManager.findFragmentById(
             R.id.mapsFragment
         ) as SupportMapFragment?)?.getMapAsync(this)
 
+//        val navController = findNavController(R.id.nav_host_fragment)
+//        val navInflater = navController.navInflater
+//        val navGraph = navInflater.inflate(R.navigation.nav_graph)
+//
+//        val destination : Int = if (intent.getBooleanExtra(
+//                IS_NOT_FIRST_RUN,
+//                false)
+//        ) openFragment(findViewById(R.id.nav_graph), true)
+//        else openFragment(findViewById(R.id.initialUserInputFragment), false)
+//
+//        navGraph.startDestination = destination
+//        navController.graph = navGraph
+
         if(savedInstanceState != null)
         {
             position = savedInstanceState.getInt(ADAPTER_POSITION)
         }
 
-        setContentView(R.layout.activity_main)
-
         checkFirstRun()
     }
+
+//    companion object
+//    {
+//        private const val IS_NOT_FIRST_RUN = "isNotFirstRunApp"
+//
+//        fun openFragment(context : Context, isNotFirstRun : Boolean): Int {
+//            context.startActivity(Intent(context, MainActivity::class.java).apply {
+//                putExtra(IS_NOT_FIRST_RUN, isNotFirstRun)
+//            })
+//            return openFragment(context, isNotFirstRun)
+//        }
+//    }
 
     private fun checkFirstRun()
     {
@@ -87,6 +113,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback
 
         db.dummyDao().insert(dummy)
     }
+
+
 
     private fun orientation() : Int = when(
         this.resources.configuration.orientation)

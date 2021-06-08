@@ -28,6 +28,7 @@
         android:id="@+id/profile_picture_container"
         android:layout_width="@dimen/image_widget_profile_pic_width"
         android:layout_height="@dimen/image_widget_profile_pic_height"
+        android:onClick="@{() -> viewModel.onProfilePictureClicked()}"
         app:cardCornerRadius="@dimen/image_widget_profile_pic_corner_radius"
         app:flow_verticalAlign="center"
         app:layout_constraintEnd_toEndOf="parent"
