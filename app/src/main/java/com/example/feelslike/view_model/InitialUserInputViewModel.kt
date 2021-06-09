@@ -10,7 +10,7 @@ import com.example.feelslike.model.entity.UserEntity
 import com.example.feelslike.utilities.FeelsLikeRepository
 import kotlinx.coroutines.launch
 
-class InitialUserInputViewModel(application : Application) : AndroidViewModel(application)
+class InitialUserInputViewModel(application : Application) : AndroidViewModel(application){}
 //{
 //    private val TAG = "InitialUserInputViewModel"
 //    private val feelsLikeRepository : FeelsLikeRepository = FeelsLikeRepository(getApplication())

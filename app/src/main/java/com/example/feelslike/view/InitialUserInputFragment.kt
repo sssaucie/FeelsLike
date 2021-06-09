@@ -14,7 +14,7 @@ import com.example.feelslike.view_model.InitialUserInputViewModel
 import com.example.feelslike.view_model.InitialUserInputViewModelFactory
 
 
-class InitialUserInputFragment : Fragment()
+class InitialUserInputFragment : Fragment() {}
 //{
 //    private lateinit var binding: FragmentInitialUserInputBinding
 //

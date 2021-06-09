@@ -2,7 +2,7 @@ package com.example.feelslike.view
 
 import androidx.fragment.app.Fragment
 
-class WidgetMenuProfileFragment : Fragment()
+class WidgetMenuProfileFragment : Fragment(){}
 //{
 //    private lateinit var application : Application
 //
