@@ -4,7 +4,7 @@ import android.app.Activity
 import android.view.View
 import com.example.feelslike.databinding.WidgetMapsInfoBinding
 import com.example.feelslike.view.MapsFragment
-import com.example.feelslike.view_model.RecyclerViewFavoritesViewModel
+import com.example.feelslike.view_model.SharedViewModel
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 
@@ -29,10 +29,10 @@ class MapsInfoWidgetAdapter(val context : Activity) : GoogleMap.InfoWindowAdapte
                 imageView.setImageBitmap(
                     (marker.tag as MapsFragment.PlaceInfo).image)
             }
-            is RecyclerViewFavoritesViewModel.FavoriteMarkerView ->
+            is SharedViewModel.FavoritesMarkerView ->
             {
                 val favoriteView = marker.tag as
-                        RecyclerViewFavoritesViewModel.FavoriteMarkerView
+                        SharedViewModel.FavoritesMarkerView
                 imageView.setImageBitmap(favoriteView.getImage(context))
             }
         }

@@ -15,7 +15,7 @@ import com.example.feelslike.MainActivity
 import com.example.feelslike.R
 import com.example.feelslike.utilities.KEY_LOCATION
 import com.example.feelslike.utilities.MapsInfoWidgetAdapter
-import com.example.feelslike.view_model.RecyclerViewFavoritesViewModel
+import com.example.feelslike.view_model.SharedViewModel
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -49,7 +49,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 
     private var lastKnownLocation : Location? = null
 
-    private val favoritesViewModel by viewModels<RecyclerViewFavoritesViewModel>()
+    private val favoritesViewModel by viewModels<SharedViewModel>()
 
     @DelicateCoroutinesApi
     private val callback = OnMapReadyCallback { googleMap ->
@@ -246,7 +246,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         val marker = map.addMarker(MarkerOptions()
             .position(place.latLng as LatLng)
             .title(place.name)
-            .snippet(place.phoneNumber)
+            .snippet(place.address)
         )
         marker?.tag = PlaceInfo(place, photo)
         marker?.showInfoWindow()
@@ -259,8 +259,11 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         if (placeInfo.place != null)
         {
             GlobalScope.launch {
-                favoritesViewModel.addFavoriteFromPlace(
-                    placeInfo.place, placeInfo.image)
+                placeInfo.image?.let {
+                    favoritesViewModel.addFavoritesBookmarkFromResults(
+                        placeInfo.place, it
+                    )
+                }
             }
         }
         marker.remove()
@@ -279,11 +282,12 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     }
 
     private fun addPlaceMarker(
-        favorite : RecyclerViewFavoritesViewModel.FavoriteMarkerView) : Marker?
+        favorite : SharedViewModel.FavoritesMarkerView) : Marker?
     {
         val marker = map.addMarker(MarkerOptions()
             .position(favorite.location)
             .title(favorite.name)
+            .snippet(favorite.address)
             .icon(BitmapDescriptorFactory.defaultMarker(
                 BitmapDescriptorFactory.HUE_AZURE))
             .alpha(0.8f))
@@ -294,21 +298,20 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     }
 
     private fun displayAllFavorites(
-        favorites : List<RecyclerViewFavoritesViewModel.FavoriteMarkerView>)
+        favorites : List<SharedViewModel.FavoritesMarkerView>)
     {
         favorites.forEach { addPlaceMarker(it) }
     }
 
     private fun createFavoritesMarkerObserver()
     {
-        favoritesViewModel.getFavoriteMarkerViews()?.observe(
+        favoritesViewModel.getFavoritesMarkerViews()?.observe(
             activity, {
                 map.clear()
                 it?.let {
                     displayAllFavorites(it)
                 }
-            }
-        )
+            })
     }
 
     private fun startFavoriteDetails(favoriteId : Long)
