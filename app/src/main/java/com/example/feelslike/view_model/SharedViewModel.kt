@@ -74,7 +74,7 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
 
     fun onCurrentLocationClicked()
     {
-        _navigateToMapFragment.value = true
+        _navigateToResultsFragment.value = true
         Log.i(TAG, "Current Location button clicked.")
     }
 

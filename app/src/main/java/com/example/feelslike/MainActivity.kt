@@ -19,16 +19,10 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback
+class MainActivity : AppCompatActivity()
 {
     private lateinit var linearLayoutManager : LinearLayoutManager
-    private lateinit var map : GoogleMap
     private var position : Int = 0
-
-    override fun onMapReady(googleMap : GoogleMap)
-    {
-        map = googleMap
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +30,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback
         setContentView(R.layout.activity_main)
 
         linearLayoutManager = LinearLayoutManager(this, orientation(), false)
-
-        (supportFragmentManager.findFragmentById(
-            R.id.mapsFragment
-        ) as SupportMapFragment?)?.getMapAsync(this)
 
         if(savedInstanceState != null)
         {
@@ -84,8 +74,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback
 
         db.dummyDao().insert(dummy)
     }
-
-
 
     private fun orientation() : Int = when(
         this.resources.configuration.orientation)

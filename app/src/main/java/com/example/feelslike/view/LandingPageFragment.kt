@@ -5,16 +5,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentLandingPageBinding
+import com.example.feelslike.utilities.LocationPermissions
 import com.example.feelslike.view_model.SharedViewModel
 import com.example.feelslike.view_model.SharedViewModelFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import kotlinx.coroutines.DelicateCoroutinesApi
 
-class LandingPageFragment : Fragment()
+class LandingPageFragment : BaseMapsFragment(), OnMapReadyCallback
 {
+    private lateinit var locationPermissions : LocationPermissions
+
+    @DelicateCoroutinesApi
+    override val callback = OnMapReadyCallback { googleMap ->
+        /**
+         * Manipulates the map once available.
+         * This callback is triggered when the map is ready to be used.
+         * This is where we can add markers or lines, add listeners or move the camera. In this case,
+         * we just add a marker near Sydney, Australia.
+         * If Google Play services is not installed on the device, the user will be prompted to install
+         * it inside the SupportMapFragment. This method will only be triggered once the user has
+         * installed Google Play services and returned to the app.
+         */
+        onMapReady(googleMap)
+    }
+
+    @DelicateCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,15 +60,6 @@ class LandingPageFragment : Fragment()
         binding.landingPageMap.mapsLayout
 
         binding.lifecycleOwner = this
-
-//        landingPageViewModel.navigateToInitialUserInputFragment.observe(viewLifecycleOwner, {
-//            if (it == true)
-//            {
-//                this.findNavController().navigate(
-//                    LandingPageFragmentDirections.actionLandingPageToActivityInitialUserInput())
-//                landingPageViewModel.onNavigated()
-//            }
-//        })
 
         sharedViewModel.navigateToResultsFragment.observe(viewLifecycleOwner, {
             if (it == true)
@@ -87,5 +98,21 @@ class LandingPageFragment : Fragment()
         })
 
         return binding.root
+    }
+
+    @DelicateCoroutinesApi
+    override fun onMapReady(googleMap : GoogleMap)
+    {
+        super.onMapReady(googleMap)
+
+         // set customizations: camera, scale, location, style, markers
+    }
+
+    @DelicateCoroutinesApi
+    override fun onResume()
+    {
+        locationPermissions.getCurrentLocation()
+        getMapAsync(callback)
+        super.onResume()
     }
 }

@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.example.feelslike.view.MapsFragment"
+        android:name="com.example.feelslike.view.BaseMapsFragment"
         android:label="MapsFragment"
         tools:layout="@layout/fragment_maps">
         <action

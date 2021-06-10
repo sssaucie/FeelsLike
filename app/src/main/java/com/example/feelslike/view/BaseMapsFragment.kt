@@ -9,11 +9,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import com.example.feelslike.MainActivity
 import com.example.feelslike.R
 import com.example.feelslike.utilities.KEY_LOCATION
+import com.example.feelslike.utilities.LocationPermissions
 import com.example.feelslike.utilities.MapsInfoWidgetAdapter
 import com.example.feelslike.view_model.SharedViewModel
 import com.google.android.gms.common.api.ApiException
@@ -34,12 +36,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-class MapsFragment : SupportMapFragment(), OnMapReadyCallback
+abstract class BaseMapsFragment : SupportMapFragment(), OnMapReadyCallback
 {
     private lateinit var map: GoogleMap
-    private lateinit var activity : MainActivity
     private lateinit var fusedLocationClient : FusedLocationProviderClient
     private lateinit var placesClient : PlacesClient
+    private lateinit var locationPermissions : LocationPermissions
 
     // A default location (Sydney, Australia) to use when location permission is not granted
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
@@ -52,19 +54,21 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     private val favoritesViewModel by viewModels<SharedViewModel>()
 
     @DelicateCoroutinesApi
-    private val callback = OnMapReadyCallback { googleMap ->
-        map = googleMap
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera. In this case,
-         * we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to install
-         * it inside the SupportMapFragment. This method will only be triggered once the user has
-         * installed Google Play services and returned to the app.
-         */
-        onMapReady(googleMap)
-    }
+    abstract val callback:OnMapReadyCallback
+
+//    private val callback = OnMapReadyCallback { googleMap ->
+//        map = googleMap
+//        /**
+//         * Manipulates the map once available.
+//         * This callback is triggered when the map is ready to be used.
+//         * This is where we can add markers or lines, add listeners or move the camera. In this case,
+//         * we just add a marker near Sydney, Australia.
+//         * If Google Play services is not installed on the device, the user will be prompted to install
+//         * it inside the SupportMapFragment. This method will only be triggered once the user has
+//         * installed Google Play services and returned to the app.
+//         */
+//        onMapReady(googleMap)
+//    }
 
     override fun onCreateView(
         inflater : LayoutInflater,
@@ -100,77 +104,33 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         map = googleMap
         setupMapListeners()
         createFavoritesMarkerObserver()
-        getCurrentLocation()
+        locationPermissions.getCurrentLocation()
+        setMapLongClick(map)
     }
 
-    private fun requestLocationPermission()
-    {
-        ActivityCompat.requestPermissions(activity, arrayOf(
-            Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode : Int,
-        permissions : Array<out String>,
-        grantResults : IntArray)
-    {
-        if (requestCode == REQUEST_LOCATION)
-        {
-            if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            {
-                getCurrentLocation()
-            }
-            else
-            {
-                Log.e(TAG, "Location permission denied")
-            }
-        }
-    }
+    /**
+     * All the permissions logic
+     */
 
     private fun setupLocationClient()
     {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
     }
 
-    private fun getCurrentLocation()
-    {
-        if (context?.let {
-                ActivityCompat.checkSelfPermission(
-                    it,
-                    Manifest.permission.ACCESS_FINE_LOCATION)
-            } != PackageManager.PERMISSION_GRANTED)
-        {
-            requestLocationPermission()
-        }
-        else
-        {
-            map.isMyLocationEnabled = true
-            fusedLocationClient.lastLocation.addOnCompleteListener {
-                val location = it.result
-                if (location != null)
-                {
-                    val latLng = LatLng(location.latitude, location.longitude)
-                    val update = CameraUpdateFactory.newLatLngZoom(latLng, 16.0f)
-                    map.moveCamera(update)
-                }
-                else
-                {
-                    Log.e(TAG, "No location found")
-                }
-            }
-        }
-    }
+    /**
+     * All the Places logic
+     */
 
     private fun setupPlacesClient()
     {
         context?.let { Places.initialize(it, getString(R.string.google_maps_key)) }
-        placesClient = Places.createClient(activity)
+        placesClient = Places.createClient(requireActivity())
     }
 
     companion object
     {
         const val EXTRA_FAVORITE_ID = "com.example.feelslike.EXTRA_FAVORITE_ID"
-        private const val REQUEST_LOCATION = 1
+        internal const val REQUEST_LOCATION = 1
         private const val TAG = "MainActivity"
     }
 
@@ -252,6 +212,10 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         marker?.showInfoWindow()
     }
 
+    /**
+     * Listeners logic
+     */
+
     @DelicateCoroutinesApi
     private fun handleInfoWindowClick(marker : Marker)
     {
@@ -272,7 +236,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     @DelicateCoroutinesApi
     private fun setupMapListeners()
     {
-        map.setInfoWindowAdapter(MapsInfoWidgetAdapter(activity))
+        map.setInfoWindowAdapter(MapsInfoWidgetAdapter(requireActivity()))
         map.setOnPoiClickListener {
             displayPoi(it)
         }
@@ -306,7 +270,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     private fun createFavoritesMarkerObserver()
     {
         favoritesViewModel.getFavoritesMarkerViews()?.observe(
-            activity, {
+            requireActivity(), {
                 map.clear()
                 it?.let {
                     displayAllFavorites(it)
