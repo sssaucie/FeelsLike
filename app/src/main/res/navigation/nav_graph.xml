@@ -18,7 +18,7 @@
             app:destination="@+id/settingsFragment" />
         <action
             android:id="@+id/action_landingPage_to_mapsFragment"
-            app:destination="@+id/map_view" />
+            app:destination="@+id/maps_layout" />
         <action
             android:id="@+id/action_landingPage_to_plannedLocationWidget"
             app:destination="@+id/plannedLocationFragment" />
