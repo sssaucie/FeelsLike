@@ -2,6 +2,7 @@ package com.example.feelslike
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
@@ -45,14 +46,6 @@ class MainActivity : AppCompatActivity()
         if(savedInstanceState != null)
         {
             position = savedInstanceState.getInt(ADAPTER_POSITION)
-        }
-
-        val weatherInterface = WeatherInterface.instance
-        val weatherRepo = WeatherRepo(weatherInterface)
-
-        GlobalScope.launch {
-//            val results = weatherRepo.searchByPlace("Washington, Utah", WEATHER_API_KEY)
-//            Log.i(TAG, "Results = ${results.body()}")
         }
 
         checkFirstRun()
@@ -101,20 +94,62 @@ class MainActivity : AppCompatActivity()
         else -> LinearLayout.VERTICAL
     }
 
+    /**
+     * Search setup for action bar
+     */
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean
     {
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_search, menu)
 
         val searchMenuItem = menu?.findItem(R.id.search_item)
-        val searchView = searchMenuItem?.actionView as SearchView
+        val searchView = searchMenuItem?.actionView as SearchView?
 
         val searchManager = getSystemService(
             Context.SEARCH_SERVICE) as SearchManager
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
 
         return true
     }
+
+    @DelicateCoroutinesApi
+    private fun performSearch(place : String)
+    {
+        val weatherInterface = WeatherInterface.instance
+        val weatherRepo = WeatherRepo(weatherInterface)
+
+        GlobalScope.launch {
+            val results = weatherRepo.searchByPlace(place, WEATHER_API_KEY)
+            Log.i(TAG, "Results = ${results.body()}")
+        }
+    }
+
+    @DelicateCoroutinesApi
+    private fun handleIntent(intent : Intent)
+    {
+        if (Intent.ACTION_SEARCH == intent.action)
+        {
+            val query = intent.getStringExtra(SearchManager.QUERY) ?:
+            return
+            performSearch(query)
+        }
+    }
+
+    @DelicateCoroutinesApi
+    override fun onNewIntent(intent: Intent?)
+    {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        if (intent != null)
+        {
+            handleIntent(intent)
+        }
+    }
+
+    /**
+     * Maps config
+     */
 
     internal fun onOpenMap()
     {
