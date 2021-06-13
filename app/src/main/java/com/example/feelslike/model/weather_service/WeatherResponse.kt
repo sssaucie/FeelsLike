@@ -1,6 +1,6 @@
 package com.example.feelslike.model.weather_service
 
-data class WeatherAPI(
+data class WeatherResponse(
     val coord : Coordinates,
     val weather : List<WeatherParams>,
     val main : BaseWeatherStats

@@ -175,6 +175,7 @@
             app:layout_constraintTop_toBottomOf="@+id/calculated_text_barometric"
             tools:text="123" />
 
+<!--        Nice to have, but cannot implement right now-->
         <ImageButton
             android:id="@+id/button_results_favorite"
             android:layout_width="wrap_content"
@@ -187,7 +188,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/results_guideline_end"
             app:layout_constraintTop_toBottomOf="@id/header_results"
-            app:srcCompat="@drawable/icon_open_heart" />
+            app:srcCompat="@drawable/icon_open_heart"
+            android:visibility="invisible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

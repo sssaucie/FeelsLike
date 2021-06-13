@@ -8,45 +8,57 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.FavoritesEntity
 import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.ImageUtil
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
+import kotlin.coroutines.coroutineContext
 
-class SharedViewModel(application : Application) : AndroidViewModel(application)
-{
-    private val TAG = "SharedViewModel"
-    private val dataRepository : FeelsLikeRepository = FeelsLikeRepository(getApplication())
-    private var bookmarks : LiveData<List<FavoritesMarkerView>>? = null
+class SharedViewModel(application : Application) : AndroidViewModel(application) {
+    private val TAG = SharedViewModel::class.java.simpleName
+    private val dataRepository: FeelsLikeRepository = FeelsLikeRepository(getApplication())
+    private var bookmarks: LiveData<List<FavoritesMarkerView>>? = null
 
-    private val _navigateToResultsFragment = MutableLiveData<Boolean?>()
+    private val _navigateToResultsFragment = MutableLiveData<CalculationsEntity?>()
     private val _navigateToProfileFragment = MutableLiveData<Boolean?>()
     private val _navigateToPlannedLocationFragment = MutableLiveData<Boolean?>()
     private val _navigateToInitialUserInputFragment = MutableLiveData<Boolean?>()
     private val _navigateToMapFragment = MutableLiveData<Boolean?>()
     private val _navigateToRecyclerViewFavorites = MutableLiveData<Boolean?>()
 
-    val navigateToResultsFragment : LiveData<Boolean?>
+    val navigateToResultsFragment: LiveData<CalculationsEntity?>
         get() = _navigateToResultsFragment
 
-    val navigateToProfileFragment : LiveData<Boolean?>
+    val navigateToProfileFragment: LiveData<Boolean?>
         get() = _navigateToProfileFragment
 
-    val navigateToPlannedLocationFragment : LiveData<Boolean?>
+    val navigateToPlannedLocationFragment: LiveData<Boolean?>
         get() = _navigateToPlannedLocationFragment
 
-    val navigateToInitialUserInputFragment : LiveData<Boolean?>
+    val navigateToInitialUserInputFragment: LiveData<Boolean?>
         get() = _navigateToInitialUserInputFragment
 
-    val navigateToMapFragment : LiveData<Boolean?>
+    val navigateToMapFragment: LiveData<Boolean?>
         get() = _navigateToMapFragment
 
-    val navigateToRecyclerViewFavorites : LiveData<Boolean?>
+    val navigateToRecyclerViewFavorites: LiveData<Boolean?>
         get() = _navigateToRecyclerViewFavorites
 
-    fun addFavoritesBookmarkFromResults(place : Place, image : Bitmap)
-    {
+    fun addPlaceFromCalculations(place: CalculationsEntity) {
+        val bookmark = dataRepository.createCalculationsInfo()
+
+        bookmark.calculations_id = place.calculations_id
+        bookmark.latitude = place.latitude
+        bookmark.longitude = place.longitude
+
+        val newId = dataRepository.addCalculation(bookmark)
+
+        Log.i(TAG, "New calculation $newId added to the database.")
+    }
+
+    fun addFavoritesBookmarkFromResults(place: Place, image: Bitmap) {
         val bookmark = dataRepository.createFavorite()
 
         bookmark.favorite_id = place.id
@@ -60,38 +72,32 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
         Log.i(TAG, "New bookmark $newId added to the database.")
     }
 
-    fun onCalculateClicked()
-    {
-        _navigateToResultsFragment.value = true
+    fun onCalculateClicked(selectedPlace: CalculationsEntity) {
+        _navigateToResultsFragment.value = selectedPlace
         Log.i(TAG, "Calculate button clicked.")
     }
 
-    fun onPlannedLocationClicked()
-    {
+    fun onPlannedLocationClicked() {
         _navigateToPlannedLocationFragment.value = true
         Log.i(TAG, "Planned Location button clicked.")
     }
 
-    fun onCurrentLocationClicked()
-    {
+    fun onCurrentLocationClicked() {
         _navigateToMapFragment.value = true
         Log.i(TAG, "Current Location button clicked.")
     }
 
-    fun onProfilePictureClicked()
-    {
+    fun onProfilePictureClicked() {
         _navigateToProfileFragment.value = true
         Log.i(TAG, "Profile picture clicked.")
     }
 
-    fun onFavoriteHeartClicked()
-    {
+    fun onFavoriteHeartClicked() {
         _navigateToRecyclerViewFavorites.value = true
         Log.i(TAG, "Favorites heart clicked ON")
     }
 
-    fun onNavigated()
-    {
+    fun onNavigated() {
         _navigateToResultsFragment.value = null
         _navigateToProfileFragment.value = null
         _navigateToPlannedLocationFragment.value = null
@@ -103,8 +109,9 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
 
     // Helper method that converts a [FavoritesEntity] object from
     // the repository into a [FavoritesMarkerView] object
-    private fun favoritesToMarkerView(bookmark : FavoritesEntity) = FavoritesMarkerView(
-        bookmark.favorites_entity_id, LatLng(bookmark.place_lat, bookmark.place_lon))
+    private fun favoritesToMarkerView(bookmark: FavoritesEntity) = FavoritesMarkerView(
+        bookmark.favorites_entity_id, LatLng(bookmark.place_lat, bookmark.place_lon)
+    )
 
     /**
      * Use the [Transformations] class to dynamically map [FavoritesEntity] objects
@@ -115,11 +122,9 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
      * [Transformations.map] provides a list of [FavoritesEntity] returned from the
      * [FeelsLikeRepository]. The list is stored in the [bookmarks] variable.
      */
-    private fun mapFavoritesToMarkerView()
-    {
+    private fun mapFavoritesToMarkerView() {
         bookmarks = Transformations.map(dataRepository.allFavorites)
-        {
-            repositoryBookmarks ->
+        { repositoryBookmarks ->
             repositoryBookmarks.map { favorite ->
                 favoritesToMarkerView(favorite)
             }
@@ -127,24 +132,22 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
     }
 
     // Initialize and return the bookmarks for favorites.
-    fun getFavoritesMarkerViews() : LiveData<List<FavoritesMarkerView>>?
-    {
-        if (bookmarks == null)
-        {
+    fun getFavoritesMarkerViews(): LiveData<List<FavoritesMarkerView>>? {
+        if (bookmarks == null) {
             mapFavoritesToMarkerView()
         }
         return bookmarks
     }
 
     data class FavoritesMarkerView(
-        var id : Long? = null,
-        var location : LatLng = LatLng(0.0, 0.0),
-        var name : String = "",
-        var address : String = "")
-    {
+        var id: Long? = null,
+        var location: LatLng = LatLng(0.0, 0.0),
+        var name: String = "",
+        var address: String = ""
+    ) {
         // Verify a valid ID, then load the image from the autogenerated filename
         // in FavoritesEntity.
-        fun getImage(context : Context) = id?.let {
+        fun getImage(context: Context) = id?.let {
             ImageUtil.loadBitmapFromFile(context, FavoritesEntity.generateImageFilename(it))
         }
     }

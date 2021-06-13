@@ -7,13 +7,12 @@ import retrofit2.http.Query
 
 interface WeatherInterface
 {
-
     @GET("/data/2.5/weather?")
 
     suspend fun searchWeatherByPlaceName(
         @Query("q") q : String,
         @Query("appid") appId : String) :
-            retrofit2.Response<WeatherAPI>
+            retrofit2.Response<WeatherResponse>
 
     companion object
     {

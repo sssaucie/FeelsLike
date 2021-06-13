@@ -7,6 +7,9 @@
         <variable
             name="viewModelLandingPage"
             type="com.example.feelslike.view_model.SharedViewModel" />
+        <variable
+            name="selectedPlace"
+            type="com.example.feelslike.model.entity.CalculationsEntity" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -32,7 +35,7 @@
             android:text="@string/button_calculate"
             android:textAppearance="@style/errorHeaderMainButtonStyleText"
             android:textColor="@color/black"
-            android:onClick="@{() -> viewModelLandingPage.onCalculateClicked()}"
+            android:onClick="@{() -> viewModelLandingPage.onCalculateClicked(selectedPlace)}"
             app:backgroundTint="@color/light_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

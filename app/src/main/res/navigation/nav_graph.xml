@@ -11,15 +11,6 @@
         android:label="LandingPageFragment"
         tools:layout="@layout/fragment_landing_page">
         <action
-            android:id="@+id/action_landingPage_to_profileFragment"
-            app:destination="@+id/profile_fragment" />
-        <action
-            android:id="@+id/action_landingPage_to_settingsFragment"
-            app:destination="@+id/settingsFragment" />
-        <action
-            android:id="@+id/action_landingPage_to_mapsFragment"
-            app:destination="@+id/maps_layout" />
-        <action
             android:id="@+id/action_landingPage_to_plannedLocationWidget"
             app:destination="@+id/plannedLocationFragment" />
         <action
@@ -31,11 +22,7 @@
         android:id="@+id/mapsFragment"
         android:name="com.example.feelslike.view.MapsFragment"
         android:label="MapsFragment"
-        tools:layout="@layout/fragment_maps">
-        <action
-            android:id="@+id/action_mapsFragment_to_landingPage"
-            app:destination="@+id/landingPage" />
-    </fragment>
+        tools:layout="@layout/fragment_maps"/>
 
     <fragment
         android:id="@+id/plannedLocationFragment"
@@ -55,45 +42,34 @@
         android:name="com.example.feelslike.view.WidgetMenuProfileFragment"
         android:label="WidgetMenuProfileFragment"
         tools:layout="@layout/widget_menu_profile_pic">
-
         <action
-            android:id="@+id/action_profilePic_to_profileFragment"
+            android:id="@+id/action_widgetMenuProfile_to_profileFragment"
             app:destination="@id/profileFragment" />
-
     </fragment>
 
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.feelslike.view.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile">
-
-        <action
-            android:id="@+id/action_profileFragment_to_landingPage"
-            app:destination="@+id/landingPage" />
-    </fragment>
+        tools:layout="@layout/fragment_profile"/>
 
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.feelslike.view.RecyclerViewFavoritesFragment"
         android:label="FavoritesFragment"
-        tools:layout="@layout/fragment_profile">
-
-        <action
-            android:id="@+id/action_favoritesFragment_to_mapsFragment"
-            app:destination="@+id/mapsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_profile"/>
 
     <fragment
         android:id="@+id/resultsFragment"
         android:name="com.example.feelslike.view.ResultsFragment"
         android:label="ResultsFragment"
         tools:layout="@layout/fragment_results">
-
         <action
             android:id="@+id/action_resultsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
-
+        <argument
+            android:name="desiredPlace"
+            app:argType="com.example.feelslike.model.entity.CalculationsEntity" />
     </fragment>
 
     <!--    This is the nice-to-have section-->

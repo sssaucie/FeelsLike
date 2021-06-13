@@ -3,6 +3,7 @@ package com.example.feelslike.view
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,17 +14,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentResultsBinding
+import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.view_model.SharedViewModelFactory
 import com.example.feelslike.view_model.SharedViewModel
 
 class ResultsFragment : Fragment()
 {
+    private lateinit var selectedPlace : CalculationsEntity
+    private var TAG = ResultsFragment::class.java.simpleName
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?
     {
+        selectedPlace = ResultsFragmentArgs.fromBundle(requireArguments()).desiredPlace
+
         val binding : FragmentResultsBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_results, container, false)
 
@@ -36,6 +43,7 @@ class ResultsFragment : Fragment()
                 this, viewModelFactory).get(SharedViewModel::class.java)
 
         binding.viewModel = sharedViewModel
+
         binding.lifecycleOwner = this
 
         sharedViewModel.navigateToRecyclerViewFavorites.observe(viewLifecycleOwner,
@@ -68,5 +76,6 @@ class ResultsFragment : Fragment()
             dialog, _ -> dialog.dismiss()
         }
         builder.create().show()
+        Log.i(TAG, "Favorite created")
     }
 }

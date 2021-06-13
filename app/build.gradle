@@ -78,7 +78,7 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
 
     // Maps
-    implementation "com.google.android.gms:play-services-maps:$maps_version"
+    implementation "com.google.android.gms:play-services-maps:${maps_version}"
         // Location client
     implementation "com.google.android.gms:play-services-location:$location_version"
     // Places

@@ -10,7 +10,7 @@ import com.google.android.libraries.places.api.Places
 
 class PlannedLocationViewModel(application : Application) : AndroidViewModel(application)
 {
-    private val TAG = "PlannedLocationViewModel"
+    private val TAG = PlannedLocationViewModel::class.java.simpleName
     private val dataRepository : FeelsLikeRepository = FeelsLikeRepository(getApplication())
     private val _navigateToLandingPage = MutableLiveData<Boolean?>()
     private val _navigateExitToLandingPage = MutableLiveData<Boolean?>()

@@ -11,18 +11,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.example.feelslike.MainActivity
 import com.example.feelslike.R
+import com.example.feelslike.databinding.FragmentMapsBinding
+import com.example.feelslike.model.entity.CalculationsEntity
+import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.KEY_LOCATION
 import com.example.feelslike.utilities.MapsInfoWidgetAdapter
 import com.example.feelslike.view_model.SharedViewModel
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.*
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -36,10 +38,15 @@ import java.util.*
 
 class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 {
-    private lateinit var map: GoogleMap
+    lateinit var map: GoogleMap
+    private var mapReady = false
+    private lateinit var binding : FragmentMapsBinding
     private lateinit var activity : MainActivity
     private lateinit var fusedLocationClient : FusedLocationProviderClient
     private lateinit var placesClient : PlacesClient
+    private lateinit var viewModel : SharedViewModel
+    private lateinit var selectedPlace : CalculationsEntity
+    private lateinit var dataRepo : FeelsLikeRepository
 
     // A default location (Sydney, Australia) to use when location permission is not granted
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
@@ -52,26 +59,15 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     private val favoritesViewModel by viewModels<SharedViewModel>()
 
     @DelicateCoroutinesApi
-    private val callback = OnMapReadyCallback { googleMap ->
-        map = googleMap
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera. In this case,
-         * we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to install
-         * it inside the SupportMapFragment. This method will only be triggered once the user has
-         * installed Google Play services and returned to the app.
-         */
-        onMapReady(googleMap)
-    }
-
     override fun onCreateView(
         inflater : LayoutInflater,
         container : ViewGroup?,
         savedInstanceState : Bundle?
     ): View?
     {
+        binding = FragmentMapsBinding.inflate(layoutInflater)
+        var rootView = inflater.inflate(R.layout.fragment_maps, container, false)
+
         if (savedInstanceState != null)
         {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)
@@ -80,19 +76,55 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         {
             defaultLocation
         }
+
+        val mapFragment = childFragmentManager
+            .findFragmentById(R.id.map_layout) as? SupportMapFragment
+        mapFragment?.getMapAsync {
+            googleMap -> map = googleMap
+            mapReady = true
+            updateMap()
+        }
+
         setupLocationClient()
-        return inflater.inflate(R.layout.fragment_maps, container, false)
+        setupMap()
+        return rootView
     }
 
-    @DelicateCoroutinesApi
+    override fun onActivityCreated(savedInstanceState: Bundle?)
+    {
+        super.onActivityCreated(savedInstanceState)
+        requireActivity().let {
+            viewModel = ViewModelProviders.of(it)
+                .get(SharedViewModel::class.java)
+        }
+
+        viewModel.navigateToResultsFragment.observe(viewLifecycleOwner, { selectedPlace ->
+            selectedPlace?.let {
+//                this.findNavController().navigate()
+            }
+            updateMap()
+        })
+    }
+
+    private fun updateMap() {
+        if (mapReady && selectedPlace != null)
+        {
+            dataRepo.createCalculationsInfo().longitude = selectedPlace.longitude
+            dataRepo.createCalculationsInfo().latitude = selectedPlace.latitude
+            dataRepo.createCalculationsInfo().calculations_id = selectedPlace.calculations_id
+
+            val marker = LatLng(selectedPlace.latitude, selectedPlace.longitude)
+            map.addMarker(MarkerOptions()
+                .position(marker))
+        }
+    }
+
     override fun onViewCreated(view : View, savedInstanceState : Bundle?)
     {
         super.onViewCreated(view, savedInstanceState)
 
-        val mapFragment = childFragmentManager
-            .findFragmentById(R.id.maps_layout) as SupportMapFragment?
-        mapFragment?.getMapAsync(callback)
         setupPlacesClient()
+        Log.i(TAG, "Map view created.")
     }
 
     @DelicateCoroutinesApi
@@ -101,12 +133,21 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         setupMapListeners()
         createFavoritesMarkerObserver()
         getCurrentLocation()
+        Log.i(TAG, "$map ready.")
+    }
+
+    private fun setupMap()
+    {
+        (childFragmentManager.findFragmentById(R.id.map_layout) as
+                SupportMapFragment?)!!.getMapAsync(this)
+        Log.i(TAG, "childFragmentManager in setupMap")
     }
 
     private fun requestLocationPermission()
     {
         ActivityCompat.requestPermissions(activity, arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION), REQUEST_LOCATION)
+        Log.i(TAG, "Permissions requested.")
     }
 
     override fun onRequestPermissionsResult(
@@ -119,6 +160,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
             if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
                 getCurrentLocation()
+                Log.i(TAG, "Current location accessed.")
             }
             else
             {
@@ -130,11 +172,12 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     private fun setupLocationClient()
     {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity)
+        Log.i(TAG, "Location Client setup")
     }
 
     private fun getCurrentLocation()
     {
-        if (context?.let {
+        if (requireContext().let {
                 ActivityCompat.checkSelfPermission(
                     it,
                     Manifest.permission.ACCESS_FINE_LOCATION)
@@ -152,6 +195,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
                     val latLng = LatLng(location.latitude, location.longitude)
                     val update = CameraUpdateFactory.newLatLngZoom(latLng, 16.0f)
                     map.moveCamera(update)
+                    Log.i(TAG, "Map location set")
                 }
                 else
                 {
@@ -165,13 +209,16 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     {
         context?.let { Places.initialize(it, getString(R.string.google_maps_key)) }
         placesClient = Places.createClient(activity)
+        Log.i(TAG, "Places Client set up")
     }
 
     companion object
     {
         const val EXTRA_FAVORITE_ID = "com.example.feelslike.EXTRA_FAVORITE_ID"
         private const val REQUEST_LOCATION = 1
-        private const val TAG = "MainActivity"
+        private var TAG = MapsFragment::class.java.simpleName
+        var mapFragment : SupportMapFragment?=null
+        fun newInstance() = MapFragment()
     }
 
     private fun displayPoi(pointOfInterest : PointOfInterest)
@@ -265,8 +312,10 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
                     )
                 }
             }
+            Log.i(TAG, "InfoWindow place clicked: ${placeInfo.place}")
         }
         marker.remove()
+        Log.i(TAG, "InfoWindow marker removed")
     }
 
     @DelicateCoroutinesApi
@@ -279,6 +328,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         map.setOnInfoWindowClickListener {
             handleInfoWindowClick(it)
         }
+        Log.i(TAG, "Map Listeners set up")
     }
 
     private fun addPlaceMarker(
@@ -293,6 +343,8 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
             .alpha(0.8f))
 
         marker?.tag = favorite
+
+        Log.i(TAG, "Favorite marker added")
 
         return marker
     }

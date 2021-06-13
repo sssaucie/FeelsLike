@@ -9,7 +9,7 @@ data class CalculationsEntity(
     @PrimaryKey(autoGenerate = true)
     var calculations_entity_id : Long? = null,
 
-    val calculations_id : String? = null,
+    var calculations_id : String? = null,
 
     val clothing : Float = 0.0F,
 
