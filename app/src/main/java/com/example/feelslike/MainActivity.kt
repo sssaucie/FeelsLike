@@ -1,29 +1,22 @@
 package com.example.feelslike
 
-import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
-import android.view.Menu
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.feelslike.BuildConfig.WEATHER_API_KEY
 import com.example.feelslike.databinding.ActivityMainBinding
 import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.model.entity.Dummy
-import com.example.feelslike.model.weather_service.WeatherInterface
 import com.example.feelslike.utilities.ADAPTER_POSITION
 import com.example.feelslike.utilities.FIRST_RUN_KEY
 import com.example.feelslike.utilities.SHARED_PREFS_KEY
-import com.example.feelslike.utilities.WeatherRepo
 import com.example.feelslike.view.MapsFragment
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity()
@@ -41,6 +34,9 @@ class MainActivity : AppCompatActivity()
 
         setContentView(binding.root)
 
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
         linearLayoutManager = LinearLayoutManager(this, orientation(), false)
 
         if(savedInstanceState != null)
@@ -48,7 +44,6 @@ class MainActivity : AppCompatActivity()
             position = savedInstanceState.getInt(ADAPTER_POSITION)
         }
 
-        setupToolbar()
         checkFirstRun()
     }
 
@@ -96,21 +91,6 @@ class MainActivity : AppCompatActivity()
     }
 
     /**
-     * Search intent and toolbar
-     */
-
-    private fun setupToolbar()
-    {
-        setSupportActionBar(binding.toolbar)
-    }
-
-    @DelicateCoroutinesApi
-    override fun onNewIntent(intent: Intent?)
-    {
-        super.onNewIntent(intent)
-        setIntent(intent)
-    }
-    /**
      * Maps config
      */
 
@@ -119,5 +99,12 @@ class MainActivity : AppCompatActivity()
         supportFragmentManager.beginTransaction()
             .replace(R.id.map_layout, MapsFragment())
             .commitNow()
+    }
+
+    @DelicateCoroutinesApi
+    override fun onNewIntent(intent: Intent?)
+    {
+        super.onNewIntent(intent)
+        setIntent(intent)
     }
 }

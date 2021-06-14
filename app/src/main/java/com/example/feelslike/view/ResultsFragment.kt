@@ -29,7 +29,7 @@ class ResultsFragment : Fragment()
         savedInstanceState: Bundle?
     ): View?
     {
-        selectedPlace = ResultsFragmentArgs.fromBundle(requireArguments()).desiredPlace
+//        selectedPlace = ResultsFragmentArgs.fromBundle(requireArguments()).desiredPlace
 
         val binding : FragmentResultsBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_results, container, false)
@@ -50,9 +50,10 @@ class ResultsFragment : Fragment()
             {
                 if (it == true)
                 {
-                    this.findNavController().navigate(
-                        ResultsFragmentDirections.actionResultsFragmentToFavoritesFragment())
-                    sharedViewModel.onNavigated()
+//                    this.findNavController().navigate(
+                        // TODO: Navigate to favorites when we have favorites
+//                    )
+//                    sharedViewModel.onNavigated()
                 }
             })
 

@@ -1,19 +1,21 @@
 package com.example.feelslike.view
 
 import android.app.SearchManager
-import android.content.Context
 import android.content.Context.*
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.AutoCompleteTextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.feelslike.BuildConfig
+import com.example.feelslike.MainActivity
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentLandingPageBinding
 import com.example.feelslike.model.weather_service.WeatherInterface
@@ -29,23 +31,17 @@ import kotlinx.coroutines.launch
 
 class LandingPageFragment : Fragment(), OnMapReadyCallback
 {
-//    private lateinit var map : GoogleMap
-//    private lateinit var mapsFragment : MapsFragment
-    private lateinit var intent : Intent
+    private lateinit var binding : FragmentLandingPageBinding
     private var TAG = LandingPageFragment::class.java.simpleName
+    private var intent = Intent()
 
-    override fun onCreate(savedInstanceState: Bundle?)
-    {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
+    @DelicateCoroutinesApi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding : FragmentLandingPageBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_landing_page, container, false)
 
         val application = requireNotNull(this.activity).application
@@ -59,7 +55,11 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
         val mapFragment = childFragmentManager.findFragmentById(
             R.id.map_layout) as SupportMapFragment?
 
+        val navController = findNavController()
+
         mapFragment?.getMapAsync(this)
+
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
 
         binding.viewModel = sharedViewModel
 
@@ -69,13 +69,23 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
 
         binding.lifecycleOwner = this
 
-        sharedViewModel.navigateToResultsFragment.observe(viewLifecycleOwner, { selectedPlace ->
-        selectedPlace?.let {
-                this.findNavController().navigate(
-                    LandingPageFragmentDirections.actionLandingPageToResultsFragment(selectedPlace))
-                sharedViewModel.onNavigated()
-            }
-        })
+        binding.toolbar.setupWithNavController(navController)
+
+//        sharedViewModel.navigateToResultsFragment.observe(viewLifecycleOwner, { selectedPlace ->
+//        selectedPlace?.let {
+//                this.findNavController().navigate(
+//                    LandingPageFragmentDirections.actionLandingPageToResultsFragment(selectedPlace))
+//                sharedViewModel.onNavigated()
+//            }
+//        })
+
+//        sharedViewModel.navigateToResultsFragment2.observe(viewLifecycleOwner, {
+//            if (it == true) {
+//                this.findNavController().navigate(
+//                    LandingPageFragmentDirections.actionLandingPageToResultsFragment(null))
+//                sharedViewModel.onNavigated()
+//            }
+//        })
 
         sharedViewModel.navigateToPlannedLocationFragment.observe(viewLifecycleOwner, {
             if (it == true)
@@ -85,6 +95,8 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
                 sharedViewModel.onNavigated()
             }
         })
+
+        setHasOptionsMenu(true)
 
         return binding.root
     }
@@ -100,28 +112,25 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
     {
         inflater.inflate(R.menu.menu_search, menu)
-        menu.clear()
 
-        val searchMenuItem = menu.findItem(R.id.search_item)
-        val searchView = searchMenuItem?.actionView as SearchView?
+        val searchItem = menu.findItem(R.id.search_item)
+        val searchView = searchItem.actionView as SearchView?
 
-        val searchManager = requireActivity()
-            .getSystemService(SEARCH_SERVICE) as SearchManager
-//        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                return false
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                return false
-//            }
-//        })
-        searchView?.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+        searchView?.findViewById<AutoCompleteTextView>(R.id.search_src_text)?.threshold = 1
+
+        requireActivity().getSystemService(SEARCH_SERVICE) as SearchManager
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return true
     }
 
     @DelicateCoroutinesApi
     override fun onStart() {
         super.onStart()
+
         if (requireActivity().intent.hasExtra(SearchManager.QUERY))
         {
             handleIntent(intent)
@@ -150,4 +159,11 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
             performSearch(query)
         }
     }
+//
+//    @DelicateCoroutinesApi
+//    private fun onNewIntent(intent: Intent)
+//    {
+//        handleIntent(intent)
+//    }
+
 }

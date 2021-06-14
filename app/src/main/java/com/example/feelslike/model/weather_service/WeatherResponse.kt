@@ -7,35 +7,62 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class WeatherResponse(
-    val coord : Coordinates,
-    val weather : List<WeatherParams>,
-    val main : BaseWeatherStats
+    val base: String,
+    val clouds: Clouds,
+    val cod: Int,
+    val coord: Coord,
+    val dt: Int,
+    val id: Int,
+    val main: Main,
+    val name: String,
+    val sys: Sys,
+    val timezone: Int,
+    val visibility: Int,
+    val weather: List<Weather>,
+    val wind: Wind
 ) : Parcelable
-{
-    @Parcelize
-    data class Coordinates(
-        val lon : Double,
-        val lat : Double
-    ) : Parcelable
-    {
-        val hasCoordinates
-            get() = LatLng(lat, lon)
-    }
 
-    @Parcelize
-    data class WeatherParams(
-        val id : Int,
-        val main : String,
-        val description : String
-    ) : Parcelable
+@Parcelize
+data class Clouds(
+    val all: Int
+) : Parcelable
 
-    @Parcelize
-    data class BaseWeatherStats(
-        val temp : Float,
-        val feels_like : Float,
-        val temp_min : Double,
-        val temp_max : Double,
-        val pressure : Int,
-        val humidity : Int
-    ) : Parcelable
-}
+@Parcelize
+data class Coord(
+    val lat: Double,
+    val lon: Double
+) : Parcelable
+
+@Parcelize
+data class Main(
+    val feels_like: Double,
+    val humidity: Int,
+    val pressure: Int,
+    val temp: Double,
+    val temp_max: Double,
+    val temp_min: Double
+) : Parcelable
+
+@Parcelize
+data class Sys(
+    val country: String,
+    val id: Int,
+    val message: Double,
+    val sunrise: Int,
+    val sunset: Int,
+    val type: Int
+) : Parcelable
+
+@Parcelize
+data class Weather(
+    val description: String,
+    val icon: String,
+    val id: Int,
+    val main: String
+) : Parcelable
+
+@Parcelize
+data class Wind(
+    val deg: Int,
+    val speed: Double
+) : Parcelable

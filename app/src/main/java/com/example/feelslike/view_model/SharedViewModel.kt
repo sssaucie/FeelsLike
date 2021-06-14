@@ -33,6 +33,7 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
     private val _navigateToInitialUserInputFragment = MutableLiveData<Boolean?>()
     private val _navigateToMapFragment = MutableLiveData<Boolean?>()
     private val _navigateToRecyclerViewFavorites = MutableLiveData<Boolean?>()
+    private val _navigateToResultsFragment2 = MutableLiveData<Boolean?>()
 
     val navigateToResultsFragment: LiveData<CalculationsEntity?>
         get() = _navigateToResultsFragment
@@ -51,6 +52,10 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
 
     val navigateToRecyclerViewFavorites: LiveData<Boolean?>
         get() = _navigateToRecyclerViewFavorites
+
+    val navigateToResultsFragment2 : LiveData<Boolean?>
+        get() = _navigateToResultsFragment2
+
 
     fun addPlaceFromCalculations(place: CalculationsEntity)
     {
@@ -80,9 +85,11 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
         Log.i(TAG, "New bookmark $newId added to the database.")
     }
 
-    fun onCalculateClicked(selectedPlace: CalculationsEntity)
+    fun onCalculateClicked()
+//    fun onCalculateClicked(selectedPlace: CalculationsEntity)
     {
-        _navigateToResultsFragment.value = selectedPlace
+        _navigateToResultsFragment2.value = true
+//        _navigateToResultsFragment.value = selectedPlace
         Log.i(TAG, "Calculate button clicked.")
     }
 

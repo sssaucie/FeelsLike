@@ -14,15 +14,19 @@
         <!-- Customize your theme here. -->
         <item name="android:actionMenuTextColor">@color/light_grey</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
-    </style>
-
-    <style name="Theme.FeelsLike.NoActionBar">
-        <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+<!--    <style name="Theme.FeelsLike.NoActionBar">-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
+<!--    </style>-->
+
     <style name="Theme.FeelsLike.AppBarOverlay"
-        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">true</item>
+    </style>
 
     <style name="Theme.FeelsLike.PopupOverlay"
         parent="ThemeOverlay.AppCompat.Light" />

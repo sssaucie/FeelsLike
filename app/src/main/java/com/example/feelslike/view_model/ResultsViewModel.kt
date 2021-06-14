@@ -8,6 +8,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.feelslike.BuildConfig
 import com.example.feelslike.R
+import com.example.feelslike.model.weather_service.Coord
+import com.example.feelslike.model.weather_service.Main
 import com.example.feelslike.model.weather_service.WeatherResponse
 import com.example.feelslike.utilities.WeatherRepo
 
@@ -16,6 +18,7 @@ class ResultsViewModel(weatherResponse : WeatherResponse, application : Applicat
     private val TAG = ResultsViewModel::class.java.simpleName
     private var weatherRepo : WeatherRepo? = null
 
+    lateinit var weatherSummaryViewData: MutableLiveData<WeatherSummaryViewData>
 
     private val _selectedLocation = MutableLiveData<WeatherResponse>()
     val selectedLocation : LiveData<WeatherResponse>
@@ -27,48 +30,52 @@ class ResultsViewModel(weatherResponse : WeatherResponse, application : Applicat
     }
 
     // Trying to recreate what I did in MarsRealEstate App assignment
-    val retrieveLocationCoordinates = Transformations.map(selectedLocation)
-    {
-        application.applicationContext.getText(
-            when (it.coord.hasCoordinates != null)
-            {
-                true -> weatherResponse.coord.hasCoordinates
-                false -> Log.i(TAG, "No coordinates found")
-                else -> Log.e(TAG, "Error retrieving coordinates")
-            })
-    }
+//    val retrieveLocationCoordinates = Transformations.map(selectedLocation)
+//    {
+//        application.applicationContext.getText(
+//            when (it.coord != null)
+//            {
+//                true -> weatherResponse.coord
+//                false -> Log.i(TAG, "No coordinates found")
+//                else -> Log.e(TAG, "Error retrieving coordinates")
+//            })
+//    }
 
-    val displayWeatherData = Transformations.map(selectedLocation)
-    {
-        application.applicationContext.resources(R.id.results_temp)
-    }
+//    val displayWeatherData = Transformations.map(selectedLocation)
+//    {
+//        application.applicationContext.resources(R.id.results_temp)
+//    }
 
     /**
      * All the following code is derived from my Android book
      */
     // Collection of default data necessary for the View
     data class WeatherSummaryViewData(
-        var latitude : Double = 0.0,
-        var longitude : Double = 0.0,
-        var temp : Float? = 0.0F,
-        var feelsLikeTemp : Float? = 0.0F,
-        var baroPressure : Int = 0,
-        var humidity : Int = 0)
+        var latitude: Double = 0.0,
+        var longitude: Double = 0.0,
+        var temp: Double = 0.0,
+        var feelsLikeTemp: Double = 0.0,
+        var baroPressure: Int = 0,
+        var humidity: Int = 0)
 
     // Helper method converting raw model data to view data
-    private fun weatherResponseToWeatherSummaryView(
-        coordinates : WeatherResponse.Coordinates,
-        weather : WeatherResponse.BaseWeatherStats
+    fun weatherResponseToWeatherSummaryView(
+        coordinates : Coord?,
+        weather : Main?
     ) : WeatherSummaryViewData
     {
-        return WeatherSummaryViewData(
-            coordinates.lat,
-            coordinates.lon,
-            weather.temp,
-            weather.feels_like,
-            weather.pressure,
-            weather.humidity
-        )
+        if (coordinates != null && weather != null) {
+            return WeatherSummaryViewData(
+                coordinates.lat,
+                coordinates.lon,
+                weather.temp,
+                weather.feels_like,
+                weather.pressure,
+                weather.humidity
+            )
+        }
+
+        return WeatherSummaryViewData() // what to do if our coordinates or weather are null
     }
 
     // This gets called by the Activity performing the search
@@ -84,18 +91,20 @@ class ResultsViewModel(weatherResponse : WeatherResponse, application : Applicat
             // TODO : Ask Brad for help - How to .map these data class responses
             //  and check for not null or empty
 
-            if (!coordinates.isNullOrEmpty())
-            {
-                if (!baseWeatherStats.isNullOrEmpty())
-                {
-                    return baseWeatherStats.map { base ->
-                        weatherResponseToWeatherSummaryView(coordinates, base)
-                    }
-                }
-                return coordinates.map { latLng ->
-                    weatherResponseToWeatherSummaryView(latLng, baseWeatherStats)
-                }
-            }
+            weatherSummaryViewData.value = weatherResponseToWeatherSummaryView(coordinates, baseWeatherStats)
+
+//            if (!coordinates.isNullOrEmpty())
+//            {
+//                if (!baseWeatherStats.isNullOrEmpty())
+//                {
+//                    return baseWeatherStats.map { base ->
+//                        weatherResponseToWeatherSummaryView(coordinates, base)
+//                    }
+//                }
+//                return coordinates.map { latLng ->
+//                    weatherResponseToWeatherSummaryView(latLng, baseWeatherStats)
+//                }
+//            }
         }
         return emptyList()
     }
