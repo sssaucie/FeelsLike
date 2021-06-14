@@ -8,18 +8,24 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.example.feelslike.BuildConfig.WEATHER_API_KEY
 import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.FavoritesEntity
+import com.example.feelslike.model.weather_service.WeatherResponse
 import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.ImageUtil
+import com.example.feelslike.utilities.WeatherRepo
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
+import java.util.*
 import kotlin.coroutines.coroutineContext
 
-class SharedViewModel(application : Application) : AndroidViewModel(application) {
+class SharedViewModel(application : Application) : AndroidViewModel(application)
+{
     private val TAG = SharedViewModel::class.java.simpleName
     private val dataRepository: FeelsLikeRepository = FeelsLikeRepository(getApplication())
     private var bookmarks: LiveData<List<FavoritesMarkerView>>? = null
+    private var weatherRepo : WeatherRepo? = null
 
     private val _navigateToResultsFragment = MutableLiveData<CalculationsEntity?>()
     private val _navigateToProfileFragment = MutableLiveData<Boolean?>()
@@ -46,7 +52,8 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
     val navigateToRecyclerViewFavorites: LiveData<Boolean?>
         get() = _navigateToRecyclerViewFavorites
 
-    fun addPlaceFromCalculations(place: CalculationsEntity) {
+    fun addPlaceFromCalculations(place: CalculationsEntity)
+    {
         val bookmark = dataRepository.createCalculationsInfo()
 
         bookmark.calculations_id = place.calculations_id
@@ -58,7 +65,8 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
         Log.i(TAG, "New calculation $newId added to the database.")
     }
 
-    fun addFavoritesBookmarkFromResults(place: Place, image: Bitmap) {
+    fun addFavoritesBookmarkFromResults(place: Place, image: Bitmap)
+    {
         val bookmark = dataRepository.createFavorite()
 
         bookmark.favorite_id = place.id
@@ -72,32 +80,38 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
         Log.i(TAG, "New bookmark $newId added to the database.")
     }
 
-    fun onCalculateClicked(selectedPlace: CalculationsEntity) {
+    fun onCalculateClicked(selectedPlace: CalculationsEntity)
+    {
         _navigateToResultsFragment.value = selectedPlace
         Log.i(TAG, "Calculate button clicked.")
     }
 
-    fun onPlannedLocationClicked() {
+    fun onPlannedLocationClicked()
+    {
         _navigateToPlannedLocationFragment.value = true
         Log.i(TAG, "Planned Location button clicked.")
     }
 
-    fun onCurrentLocationClicked() {
+    fun onCurrentLocationClicked()
+    {
         _navigateToMapFragment.value = true
         Log.i(TAG, "Current Location button clicked.")
     }
 
-    fun onProfilePictureClicked() {
+    fun onProfilePictureClicked()
+    {
         _navigateToProfileFragment.value = true
         Log.i(TAG, "Profile picture clicked.")
     }
 
-    fun onFavoriteHeartClicked() {
+    fun onFavoriteHeartClicked()
+    {
         _navigateToRecyclerViewFavorites.value = true
         Log.i(TAG, "Favorites heart clicked ON")
     }
 
-    fun onNavigated() {
+    fun onNavigated()
+    {
         _navigateToResultsFragment.value = null
         _navigateToProfileFragment.value = null
         _navigateToPlannedLocationFragment.value = null
@@ -110,8 +124,7 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
     // Helper method that converts a [FavoritesEntity] object from
     // the repository into a [FavoritesMarkerView] object
     private fun favoritesToMarkerView(bookmark: FavoritesEntity) = FavoritesMarkerView(
-        bookmark.favorites_entity_id, LatLng(bookmark.place_lat, bookmark.place_lon)
-    )
+        bookmark.favorites_entity_id, LatLng(bookmark.place_lat, bookmark.place_lon))
 
     /**
      * Use the [Transformations] class to dynamically map [FavoritesEntity] objects
@@ -122,7 +135,8 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
      * [Transformations.map] provides a list of [FavoritesEntity] returned from the
      * [FeelsLikeRepository]. The list is stored in the [bookmarks] variable.
      */
-    private fun mapFavoritesToMarkerView() {
+    private fun mapFavoritesToMarkerView()
+    {
         bookmarks = Transformations.map(dataRepository.allFavorites)
         { repositoryBookmarks ->
             repositoryBookmarks.map { favorite ->
@@ -132,8 +146,10 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
     }
 
     // Initialize and return the bookmarks for favorites.
-    fun getFavoritesMarkerViews(): LiveData<List<FavoritesMarkerView>>? {
-        if (bookmarks == null) {
+    fun getFavoritesMarkerViews(): LiveData<List<FavoritesMarkerView>>?
+    {
+        if (bookmarks == null)
+        {
             mapFavoritesToMarkerView()
         }
         return bookmarks

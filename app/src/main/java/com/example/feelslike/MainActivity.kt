@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity()
             position = savedInstanceState.getInt(ADAPTER_POSITION)
         }
 
+        setupToolbar()
         checkFirstRun()
     }
 
@@ -95,45 +96,12 @@ class MainActivity : AppCompatActivity()
     }
 
     /**
-     * Search setup for action bar
+     * Search intent and toolbar
      */
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean
+    private fun setupToolbar()
     {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_search, menu)
-
-        val searchMenuItem = menu?.findItem(R.id.search_item)
-        val searchView = searchMenuItem?.actionView as SearchView?
-
-        val searchManager = getSystemService(
-            Context.SEARCH_SERVICE) as SearchManager
-        searchView?.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-
-        return true
-    }
-
-    @DelicateCoroutinesApi
-    private fun performSearch(place : String)
-    {
-        val weatherInterface = WeatherInterface.instance
-        val weatherRepo = WeatherRepo(weatherInterface)
-
-        GlobalScope.launch {
-            val results = weatherRepo.searchByPlace(place, WEATHER_API_KEY)
-            Log.i(TAG, "Results = ${results.body()}")
-        }
-    }
-
-    @DelicateCoroutinesApi
-    private fun handleIntent(intent : Intent)
-    {
-        if (Intent.ACTION_SEARCH == intent.action)
-        {
-            val query = intent.getStringExtra(SearchManager.QUERY) ?:
-            return
-            performSearch(query)
-        }
+        setSupportActionBar(binding.toolbar)
     }
 
     @DelicateCoroutinesApi
@@ -141,12 +109,7 @@ class MainActivity : AppCompatActivity()
     {
         super.onNewIntent(intent)
         setIntent(intent)
-        if (intent != null)
-        {
-            handleIntent(intent)
-        }
     }
-
     /**
      * Maps config
      */

@@ -36,7 +36,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_app"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.FeelsLike">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.SEARCH" />
