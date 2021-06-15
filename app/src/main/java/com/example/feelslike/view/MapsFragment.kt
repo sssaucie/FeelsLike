@@ -17,6 +17,7 @@ import com.example.feelslike.MainActivity
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentMapsBinding
 import com.example.feelslike.model.entity.CalculationsEntity
+import com.example.feelslike.model.entity.setDefaultPlace
 import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.KEY_LOCATION
 import com.example.feelslike.utilities.MapsInfoWidgetAdapter
@@ -65,8 +66,16 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         savedInstanceState : Bundle?
     ): View?
     {
-        binding = FragmentMapsBinding.inflate(layoutInflater)
-        var rootView = inflater.inflate(R.layout.fragment_maps, container, false)
+//        selectedPlace = if (mapReady && selectedPlace != null)
+//        {
+//            MapsFragmentArgs.fromBundle(requireArguments()).selectedPlace
+//        }
+//        else
+//        {
+//            setDefaultPlace()
+//        }
+        
+        val rootView = inflater.inflate(R.layout.fragment_maps, container, false)
 
         if (savedInstanceState != null)
         {
@@ -76,6 +85,8 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         {
             defaultLocation
         }
+
+        binding = FragmentMapsBinding.inflate(layoutInflater)
 
         val mapFragment = childFragmentManager
             .findFragmentById(R.id.map_layout) as? SupportMapFragment

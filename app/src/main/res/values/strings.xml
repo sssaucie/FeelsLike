@@ -66,6 +66,8 @@
 <!--    Map Pin-->
     <string name="calculate_here">Calculate Here!</string>
     <string name="search">Search</string>
+    <string name="description_search_icon">Search icon</string>
+    <string name="empty">"There is nothing here"</string>
 
     <!--        Arrays-->
     <string-array name="menu_array">

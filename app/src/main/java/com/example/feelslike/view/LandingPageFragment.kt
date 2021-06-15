@@ -22,9 +22,15 @@ import com.example.feelslike.model.weather_service.WeatherInterface
 import com.example.feelslike.utilities.WeatherRepo
 import com.example.feelslike.view_model.SharedViewModel
 import com.example.feelslike.view_model.SharedViewModelFactory
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -46,30 +52,51 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
 
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = SharedViewModelFactory(application)
+        val viewModelFactory =
+            binding.viewModel?.intent?.let { SharedViewModelFactory(application, it) }
 
         val sharedViewModel =
-            ViewModelProvider(
-                this, viewModelFactory).get(SharedViewModel::class.java)
+            viewModelFactory?.let {
+                ViewModelProvider(
+                    this, it
+                ).get(SharedViewModel::class.java)
+            }
 
         val mapFragment = childFragmentManager.findFragmentById(
             R.id.map_layout) as SupportMapFragment?
 
-        val navController = findNavController()
-
         mapFragment?.getMapAsync(this)
 
-        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+//        (activity as AppCompatActivity).setSupportActionBar(binding.widgetSearchCustomView)
 
         binding.viewModel = sharedViewModel
 
-        binding.widgetLocationCalculateButtons.viewModelLandingPage = sharedViewModel
+        val searchBar = childFragmentManager.findFragmentById(
+            R.id.widget_search_custom_view_landing_page) as AutocompleteSupportFragment?
 
-        binding.headerLandingPageMenuProfile.viewModel = sharedViewModel
+        searchBar?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
+
+        searchBar?.setOnPlaceSelectedListener(object : PlaceSelectionListener
+        {
+            override fun onPlaceSelected(place : Place)
+            {
+                TODO("Not yet implemented")
+                Log.i(TAG, "Place: ${place.name}, ${place.id}")
+            }
+
+            override fun onError(status : Status) {
+                TODO("Not yet implemented")
+                Log.i(TAG, "An error has occurred: $status")
+            }
+        })
+
+//        binding.widgetLocationCalculateButtons = sharedViewModel
+
+//        binding.headerLandingPageMenuProfile.viewModel = sharedViewModel
 
         binding.lifecycleOwner = this
 
-        binding.toolbar.setupWithNavController(navController)
+//        binding.widgetSearchCustomView.setupWithNavController(navController)
 
 //        sharedViewModel.navigateToResultsFragment.observe(viewLifecycleOwner, { selectedPlace ->
 //        selectedPlace?.let {
@@ -87,13 +114,17 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
 //            }
 //        })
 
-        sharedViewModel.navigateToPlannedLocationFragment.observe(viewLifecycleOwner, {
-            if (it == true)
-            {
+        sharedViewModel?.navigateToPlannedLocationFragment?.observe(viewLifecycleOwner, {
+            if (it == true) {
                 this.findNavController().navigate(
                     LandingPageFragmentDirections.actionLandingPageToPlannedLocationWidget())
                 sharedViewModel.onNavigated()
             }
+        })
+
+        // Observe Intent changes and handle accordingly
+        sharedViewModel?.intent?.get?.observe(viewLifecycleOwner, {
+            handleIntent(intent)
         })
 
         setHasOptionsMenu(true)
@@ -159,6 +190,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
             performSearch(query)
         }
     }
+
 //
 //    @DelicateCoroutinesApi
 //    private fun onNewIntent(intent: Intent)

@@ -2,6 +2,7 @@ package com.example.feelslike.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.android.gms.maps.model.LatLng
 import java.io.Serializable
 
 @Entity(tableName = "calculations_entity")
@@ -21,3 +22,9 @@ data class CalculationsEntity(
 
     val activity_level : Float = 0.0F
 ) : Serializable
+
+// Default Maps location in Sydney, Australia until desired location is set by user
+fun setDefaultPlace(): CalculationsEntity
+{
+    return CalculationsEntity(latitude = -33.8523341, longitude = 151.2106085)
+}

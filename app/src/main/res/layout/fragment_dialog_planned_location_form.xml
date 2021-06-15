@@ -74,7 +74,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_padding_normal"
-            android:onClick="@{() -> viewModel.onSetLocationButtonClicked()}"
             android:text="@string/button_set_destination"
             android:textAppearance="@style/normalButtonText"
             android:textColor="@color/black"

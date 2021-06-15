@@ -86,7 +86,6 @@
                 android:layout_marginStart="@dimen/menu_text_margin_padding"
                 android:elevation="@dimen/button_text_foreground_elevation"
                 android:textAppearance="@style/menuHeaderText"
-                android:onClick="@{() -> clickListener.onClick(favoritePlace)}"
                 app:layout_constraintStart_toStartOf="@id/button_favorites_place"
                 app:layout_constraintTop_toTopOf="@id/button_favorites_place"
                 tools:text="@string/button_favorites_name" />

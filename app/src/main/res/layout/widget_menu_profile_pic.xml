@@ -6,44 +6,45 @@
     <!--    Nice to have, will implement at a later time-->
 
     <data>
+
         <variable
             name="viewModel"
             type="com.example.feelslike.view_model.SharedViewModel" />
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/widget_menu_profile_pic"
-    android:visibility="invisible">
 
-    <ImageButton
-        android:id="@+id/menu_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_padding_small"
-        android:background="@color/clear"
-        android:contentDescription="@string/description_button_menu"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/profile_picture_container"
-        app:srcCompat="@drawable/icon_menu_button" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/widget_menu_profile_pic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/profile_picture_container"
-        android:layout_width="@dimen/image_widget_profile_pic_width"
-        android:layout_height="@dimen/image_widget_profile_pic_height"
-        android:onClick="@{() -> viewModel.onProfilePictureClicked()}"
-        app:cardCornerRadius="@dimen/image_widget_profile_pic_corner_radius"
-        app:flow_verticalAlign="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/profile_picture"
+        <ImageButton
+            android:id="@+id/menu_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/description_profile_picture"
-            tools:srcCompat="@tools:sample/avatars" />
-    </androidx.cardview.widget.CardView>
+            android:layout_marginTop="@dimen/spacing_padding_small"
+            android:background="@color/clear"
+            android:contentDescription="@string/description_button_menu"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/profile_picture_container"
+            app:srcCompat="@drawable/icon_menu_button" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profile_picture_container"
+            android:layout_width="@dimen/image_widget_profile_pic_width"
+            android:layout_height="@dimen/image_widget_profile_pic_height"
+            app:cardCornerRadius="@dimen/image_widget_profile_pic_corner_radius"
+            app:flow_verticalAlign="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/profile_picture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/description_profile_picture"
+                tools:srcCompat="@tools:sample/avatars" />
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

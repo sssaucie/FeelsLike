@@ -11,7 +11,6 @@ import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentResultsBinding
 import com.example.feelslike.model.entity.CalculationsEntity
@@ -36,17 +35,21 @@ class ResultsFragment : Fragment()
 
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = SharedViewModelFactory(application)
+        val viewModelFactory =
+            binding.viewModel?.intent?.let { SharedViewModelFactory(application, it) }
 
         val sharedViewModel =
-            ViewModelProvider(
-                this, viewModelFactory).get(SharedViewModel::class.java)
+            viewModelFactory?.let {
+                ViewModelProvider(
+                    this, it
+                ).get(SharedViewModel::class.java)
+            }
 
         binding.viewModel = sharedViewModel
 
         binding.lifecycleOwner = this
 
-        sharedViewModel.navigateToRecyclerViewFavorites.observe(viewLifecycleOwner,
+        sharedViewModel?.navigateToRecyclerViewFavorites?.observe(viewLifecycleOwner,
             {
                 if (it == true)
                 {

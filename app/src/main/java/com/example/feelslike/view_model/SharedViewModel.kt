@@ -2,6 +2,7 @@ package com.example.feelslike.view_model
 
 import android.app.Application
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -20,7 +21,7 @@ import com.google.android.libraries.places.api.model.Place
 import java.util.*
 import kotlin.coroutines.coroutineContext
 
-class SharedViewModel(application : Application) : AndroidViewModel(application)
+class SharedViewModel(application : Application, intentRepo : FeelsLikeRepository) : AndroidViewModel(application)
 {
     private val TAG = SharedViewModel::class.java.simpleName
     private val dataRepository: FeelsLikeRepository = FeelsLikeRepository(getApplication())
@@ -56,6 +57,7 @@ class SharedViewModel(application : Application) : AndroidViewModel(application)
     val navigateToResultsFragment2 : LiveData<Boolean?>
         get() = _navigateToResultsFragment2
 
+    val intent = intentRepo
 
     fun addPlaceFromCalculations(place: CalculationsEntity)
     {

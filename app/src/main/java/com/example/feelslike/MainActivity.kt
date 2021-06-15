@@ -16,6 +16,7 @@ import com.example.feelslike.utilities.ADAPTER_POSITION
 import com.example.feelslike.utilities.FIRST_RUN_KEY
 import com.example.feelslike.utilities.SHARED_PREFS_KEY
 import com.example.feelslike.view.MapsFragment
+import com.example.feelslike.view_model.SharedViewModel
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.launch
 
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity()
 {
     private lateinit var binding : ActivityMainBinding
     private lateinit var linearLayoutManager : LinearLayoutManager
+    private lateinit var viewModel : SharedViewModel
     private var position : Int = 0
     private val TAG = javaClass.simpleName
 
@@ -34,7 +36,7 @@ class MainActivity : AppCompatActivity()
 
         setContentView(binding.root)
 
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        val toolbar = findViewById<Toolbar>(R.id.widget_search_custom_view)
         setSupportActionBar(toolbar)
 
         linearLayoutManager = LinearLayoutManager(this, orientation(), false)
@@ -102,9 +104,11 @@ class MainActivity : AppCompatActivity()
     }
 
     @DelicateCoroutinesApi
-    override fun onNewIntent(intent: Intent?)
+    override fun onNewIntent(intent : Intent?)
     {
         super.onNewIntent(intent)
-        setIntent(intent)
+        if (intent != null) {
+            viewModel.intent.setIntent(intent)
+        }
     }
 }
