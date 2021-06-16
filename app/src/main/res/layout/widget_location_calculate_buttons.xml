@@ -22,7 +22,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/icon_location_bridge" />
+            app:srcCompat="@drawable/icon_location_bridge"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/button_calculate"
@@ -48,7 +49,7 @@
             android:layout_height="@dimen/check_box_height"
             android:buttonTint="@color/dark_grey"
             android:text="@string/text_complex_calculations"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/button_calculate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -66,7 +67,8 @@
             app:backgroundTint="@color/light_grey"
             app:layout_constraintBottom_toTopOf="@+id/checkbox_complex_calculations"
             app:layout_constraintEnd_toStartOf="@+id/dots_bridge"
-            app:layout_constraintTop_toBottomOf="@+id/dots_bridge" />
+            app:layout_constraintTop_toBottomOf="@+id/dots_bridge"
+            android:visibility="gone"/>
 
         <Button
             android:id="@+id/button_planned_location"
@@ -81,7 +83,8 @@
             app:backgroundTint="@color/light_grey"
             app:layout_constraintBottom_toTopOf="@+id/checkbox_complex_calculations"
             app:layout_constraintStart_toEndOf="@+id/dots_bridge"
-            app:layout_constraintTop_toBottomOf="@+id/dots_bridge" />
+            app:layout_constraintTop_toBottomOf="@+id/dots_bridge"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

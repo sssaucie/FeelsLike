@@ -12,12 +12,10 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
 import com.example.feelslike.MainActivity
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentMapsBinding
 import com.example.feelslike.model.entity.CalculationsEntity
-import com.example.feelslike.model.entity.setDefaultPlace
 import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.KEY_LOCATION
 import com.example.feelslike.utilities.MapsInfoWidgetAdapter
@@ -342,7 +340,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         Log.i(TAG, "Map Listeners set up")
     }
 
-    private fun addPlaceMarker(
+    private fun addFavoritePlaceMarker(
         favorite : SharedViewModel.FavoritesMarkerView) : Marker?
     {
         val marker = map.addMarker(MarkerOptions()
@@ -363,7 +361,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     private fun displayAllFavorites(
         favorites : List<SharedViewModel.FavoritesMarkerView>)
     {
-        favorites.forEach { addPlaceMarker(it) }
+        favorites.forEach { addFavoritePlaceMarker(it) }
     }
 
     private fun createFavoritesMarkerObserver()

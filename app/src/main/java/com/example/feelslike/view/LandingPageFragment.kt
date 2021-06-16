@@ -38,6 +38,7 @@ import kotlinx.coroutines.launch
 class LandingPageFragment : Fragment(), OnMapReadyCallback
 {
     private lateinit var binding : FragmentLandingPageBinding
+    private lateinit var map : GoogleMap
     private var TAG = LandingPageFragment::class.java.simpleName
     private var intent = Intent()
 
@@ -63,7 +64,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
             }
 
         val mapFragment = childFragmentManager.findFragmentById(
-            R.id.map_layout) as SupportMapFragment?
+            R.id.landing_page_map) as SupportMapFragment?
 
         mapFragment?.getMapAsync(this)
 
@@ -132,13 +133,29 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
         return binding.root
     }
 
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//        activity?.let {
+//            val intent = Intent (it, MapsFragment::class.java)
+//            it.startActivity(intent)
+//        }
+//    }
+
+    /**
+     * Map
+     */
+
     @DelicateCoroutinesApi
     override fun onMapReady(googleMap : GoogleMap)
     {
-//        map = googleMap
-//        mapsFragment.onMapReady(map)
+        map = googleMap
         Log.i(TAG, "onMapReady accessed")
     }
+
+    /**
+     * Search bar
+     */
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
     {
