@@ -75,6 +75,8 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         
         val rootView = inflater.inflate(R.layout.fragment_maps, container, false)
 
+//        val dataBit = MainActivity.mapData
+
         if (savedInstanceState != null)
         {
             lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)

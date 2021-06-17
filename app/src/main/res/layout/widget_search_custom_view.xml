@@ -36,26 +36,26 @@
                 app:layout_constraintTop_toTopOf="parent">
 
 
-                <EditText
-                    android:id="@+id/widget_search_custom_view_edit_text"
-                    style="@style/Theme.FeelsLike"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="@dimen/spacing_margin"
-                    android:layout_marginEnd="@dimen/spacing_margin"
-                    android:layout_weight="1"
-                    android:autofillHints="Enter a location to search"
-                    android:background="@color/clear"
-                    android:hint="@string/search"
-                    android:imeOptions="actionSearch"
-                    android:inputType="textAutoComplete"
-                    android:lines="1"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/dark_grey"
-                    android:textSize="@dimen/font_size_normal"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+<!--                <EditText-->
+<!--                    android:id="@+id/widget_search_custom_view_edit_text"-->
+<!--                    style="@style/Theme.FeelsLike"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="@dimen/spacing_margin"-->
+<!--                    android:layout_marginEnd="@dimen/spacing_margin"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:autofillHints="Enter a location to search"-->
+<!--                    android:background="@color/clear"-->
+<!--                    android:hint="@string/search"-->
+<!--                    android:imeOptions="actionSearch"-->
+<!--                    android:inputType="textAutoComplete"-->
+<!--                    android:lines="1"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textColorHint="@color/dark_grey"-->
+<!--                    android:textSize="@dimen/font_size_normal"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
 
             </fragment>
         </androidx.cardview.widget.CardView>

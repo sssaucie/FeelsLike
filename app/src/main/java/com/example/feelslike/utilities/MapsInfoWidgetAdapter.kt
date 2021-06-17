@@ -24,10 +24,10 @@ class MapsInfoWidgetAdapter(val context : Activity) : GoogleMap.InfoWindowAdapte
         val imageView = binding.widgetMapsInfoPhoto
         when (marker.tag)
         {
-            is MapsFragment.PlaceInfo ->
+            is MapsService.PlaceInfo ->
             {
                 imageView.setImageBitmap(
-                    (marker.tag as MapsFragment.PlaceInfo).image)
+                    (marker.tag as MapsService.PlaceInfo).image)
             }
             is SharedViewModel.FavoritesMarkerView ->
             {

@@ -24,9 +24,9 @@
             android:layout_marginStart="@dimen/spacing_padding_large"
             android:layout_marginTop="@dimen/spacing_padding_small"
             android:layout_marginEnd="@dimen/spacing_padding_large"
-            app:layout_constraintEnd_toEndOf="@+id/landing_page_map"
-            app:layout_constraintStart_toStartOf="@+id/landing_page_map"
-            app:layout_constraintTop_toTopOf="@+id/landing_page_map">
+            app:layout_constraintEnd_toEndOf="@+id/landing_page_maps_cardview_wrapper"
+            app:layout_constraintStart_toStartOf="@+id/landing_page_maps_cardview_wrapper"
+            app:layout_constraintTop_toTopOf="@+id/landing_page_maps_cardview_wrapper">
 
         </include>
 

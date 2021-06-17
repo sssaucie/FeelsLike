@@ -1,12 +1,15 @@
 package com.example.feelslike.view
 
 import android.app.SearchManager
+import android.content.Context
 import android.content.Context.*
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.AutoCompleteTextView
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
@@ -16,9 +19,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.feelslike.BuildConfig
 import com.example.feelslike.MainActivity
+import com.example.feelslike.MapServiceAware
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentLandingPageBinding
 import com.example.feelslike.model.weather_service.WeatherInterface
+import com.example.feelslike.utilities.KEY_LOCATION
+import com.example.feelslike.utilities.MapsService
 import com.example.feelslike.utilities.WeatherRepo
 import com.example.feelslike.view_model.SharedViewModel
 import com.example.feelslike.view_model.SharedViewModelFactory
@@ -26,7 +32,11 @@ import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.PointOfInterest
 import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
@@ -35,12 +45,27 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class LandingPageFragment : Fragment(), OnMapReadyCallback
+class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 {
+    private lateinit var calculateButton: Button
     private lateinit var binding : FragmentLandingPageBinding
     private lateinit var map : GoogleMap
+    private lateinit var mapsService : MapsService
+    private lateinit var placesClient: PlacesClient
     private var TAG = LandingPageFragment::class.java.simpleName
     private var intent = Intent()
+    private var mapReady = false
+    private var lastKnownLocation : Location? = null
+    // A default location (Sydney, Australia) to use when location permission is not granted
+    // to display upon first opening the app
+    private val defaultLocation = LatLng(-33.8523341, 151.2106085)
+
+    private lateinit var lastSelectedPlace : Place
+
+    override fun setMapService(mapsService: MapsService)
+    {
+        this.mapsService = mapsService
+    }
 
     @DelicateCoroutinesApi
     override fun onCreateView(
@@ -48,6 +73,9 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+                /**
+         * View bindings and model/factory setup
+         */
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_landing_page, container, false)
 
@@ -66,14 +94,28 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
         val mapFragment = childFragmentManager.findFragmentById(
             R.id.landing_page_map) as SupportMapFragment?
 
-        mapFragment?.getMapAsync(this)
+        mapFragment?.getMapAsync{
+            googleMap -> map = googleMap
+            mapReady = true
+            updateMap(googleMap)
+        }
+
+        this.mapsService = MapsService.getInstance()
+
+        placesClient = mapsService.setupPlacesClient(activity)
+        setupMap()
+        mapsService.setupLocationClient(activity)
+
+        /**
+         * Search bar view setup
+         */
 
 //        (activity as AppCompatActivity).setSupportActionBar(binding.widgetSearchCustomView)
 
         binding.viewModel = sharedViewModel
 
         val searchBar = childFragmentManager.findFragmentById(
-            R.id.widget_search_custom_view_landing_page) as AutocompleteSupportFragment?
+            R.id.widget_search_custom_view_fragment) as AutocompleteSupportFragment?
 
         searchBar?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
 
@@ -81,32 +123,44 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
         {
             override fun onPlaceSelected(place : Place)
             {
-                TODO("Not yet implemented")
+                lastSelectedPlace = place
+                calculateButton.isEnabled = true
+                mapsService.displayPoi(activity, placesClient, place)
                 Log.i(TAG, "Place: ${place.name}, ${place.id}")
             }
 
             override fun onError(status : Status) {
-                TODO("Not yet implemented")
+//                TODO("Not yet implemented")
                 Log.i(TAG, "An error has occurred: $status")
             }
         })
 
-//        binding.widgetLocationCalculateButtons = sharedViewModel
-
-//        binding.headerLandingPageMenuProfile.viewModel = sharedViewModel
 
         binding.lifecycleOwner = this
 
+        /**
+         * Fragment navigation observers
+         */
+
 //        binding.widgetSearchCustomView.setupWithNavController(navController)
 
-//        sharedViewModel.navigateToResultsFragment.observe(viewLifecycleOwner, { selectedPlace ->
-//        selectedPlace?.let {
-//                this.findNavController().navigate(
-//                    LandingPageFragmentDirections.actionLandingPageToResultsFragment(selectedPlace))
-//                sharedViewModel.onNavigated()
-//            }
-//        })
+        calculateButton = binding.widgetLocationCalculateButtons.buttonCalculate
+        calculateButton.isEnabled = false
 
+        calculateButton.setOnClickListener {
+            if (lastSelectedPlace != null) {
+                sharedViewModel?.navigateToResultsFragment?.observe(
+                    viewLifecycleOwner,
+                    { selectedPlace ->
+                        selectedPlace?.let {
+                            this.findNavController().navigate(
+                                LandingPageFragmentDirections.actionLandingPageToResultsFragment()
+                            )
+                            sharedViewModel.onNavigated()
+                        }
+                    })
+            }
+        }
 //        sharedViewModel.navigateToResultsFragment2.observe(viewLifecycleOwner, {
 //            if (it == true) {
 //                this.findNavController().navigate(
@@ -128,29 +182,59 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
             handleIntent(intent)
         })
 
+        /**
+         * View updates and finalization
+         */
+
+        fun checkSavedInstanceState()
+        {
+            if (savedInstanceState != null)
+            {
+                lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION)
+            }
+            else
+            {
+                defaultLocation
+            }
+        }
+
+        checkSavedInstanceState()
+
         setHasOptionsMenu(true)
 
         return binding.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        activity?.let {
-//            val intent = Intent (it, MapsFragment::class.java)
-//            it.startActivity(intent)
-//        }
-//    }
-
     /**
      * Map
      */
 
+    private fun setupMap()
+    {
+        (childFragmentManager.findFragmentById(R.id.landing_page_map
+        ) as SupportMapFragment?)!!.getMapAsync(this)
+        Log.i(TAG, "Map ready.")
+    }
     @DelicateCoroutinesApi
     override fun onMapReady(googleMap : GoogleMap)
     {
-        map = googleMap
+        mapsService.onMapReady(activity, placesClient, googleMap)
         Log.i(TAG, "onMapReady accessed")
+    }
+
+    private fun updateMap(map : GoogleMap) {
+        if (mapReady)
+        {
+//            dataRepo.createCalculationsInfo().longitude = selectedPlace.longitude
+//            dataRepo.createCalculationsInfo().latitude = selectedPlace.latitude
+//            dataRepo.createCalculationsInfo().calculations_id = selectedPlace.calculations_id
+
+            val marker = defaultLocation
+            map.addMarker(
+                MarkerOptions()
+                .position(marker))
+            Log.i(TAG, "Map updated.")
+        }
     }
 
     /**
@@ -169,10 +253,12 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
         requireActivity().getSystemService(SEARCH_SERVICE) as SearchManager
 
         super.onCreateOptionsMenu(menu, inflater)
+        Log.i(TAG, "onCreateOptionsMenu complete.")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return true
+        Log.i(TAG, "$item selected.")
     }
 
     @DelicateCoroutinesApi
@@ -207,12 +293,4 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback
             performSearch(query)
         }
     }
-
-//
-//    @DelicateCoroutinesApi
-//    private fun onNewIntent(intent: Intent)
-//    {
-//        handleIntent(intent)
-//    }
-
 }
