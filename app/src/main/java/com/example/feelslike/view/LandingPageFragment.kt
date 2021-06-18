@@ -127,6 +127,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
                 calculateButton.isEnabled = true
                 mapsService.displayPoi(activity, placesClient, place)
                 placeSelected = true
+                populateMap(map)
                 Log.i(TAG, "Place: ${place.name}, ${place.id}")
                 Log.i(TAG, "$place marker placed.")
             }
@@ -238,13 +239,22 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         }
         if (placeSelected)
         {
-            val latLng : LatLng = lastSelectedPlace.latLng!!
-            map.addMarker(
-                MarkerOptions()
-                    .position(latLng)
-                    .title(lastSelectedPlace.name))
-            val update = CameraUpdateFactory.newLatLngZoom(latLng, 16.0f)
-            map.moveCamera(update)
+            if (lastSelectedPlace.latLng != null)
+            {
+                val latLng: LatLng = lastSelectedPlace.latLng!!
+                map.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                        .title(lastSelectedPlace.name)
+                )
+                val update = CameraUpdateFactory.newLatLngZoom(latLng, 16.0f)
+                map.moveCamera(update)
+                Log.i(TAG, "New place ${lastSelectedPlace.name} located")
+            }
+            else
+            {
+                Log.i(TAG, "LatLng not found with $lastSelectedPlace ${lastSelectedPlace.latLng}")
+            }
         }
     }
 
