@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 import java.lang.RuntimeException
 import java.util.*
 
-class MapsService()
+class MapsService
 {
     companion object
     {
@@ -46,7 +46,7 @@ class MapsService()
         var mapReady = false
 
         /**
-         * Singleton prevents multiple instances of database opening at the same time.
+         * Singleton prevents multiple instances of maps opening at the same time.
          */
 
         @Volatile
@@ -64,14 +64,9 @@ class MapsService()
             }
         }
     }
-    private lateinit var permissions : Permissions
-//    private lateinit var binding : FragmentMapsBinding
+
     private lateinit var map : GoogleMap
     private lateinit var fusedLocationClient : FusedLocationProviderClient
-    //private lateinit var placesClient : PlacesClient
-    //private var application = Application()
-    //private var favoritesViewModel = SharedViewModel(application, FeelsLikeRepository(context))
-    // private var activity = MainActivity()
 
     /**
      * Every fragment with a map included needs to call this function

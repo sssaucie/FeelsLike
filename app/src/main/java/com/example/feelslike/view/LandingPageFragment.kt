@@ -1,7 +1,6 @@
 package com.example.feelslike.view
 
 import android.app.SearchManager
-import android.content.Context
 import android.content.Context.*
 import android.content.Intent
 import android.location.Location
@@ -10,15 +9,12 @@ import android.util.Log
 import android.view.*
 import android.widget.AutoCompleteTextView
 import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.feelslike.BuildConfig
-import com.example.feelslike.MainActivity
 import com.example.feelslike.MapServiceAware
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentLandingPageBinding
@@ -29,18 +25,16 @@ import com.example.feelslike.utilities.WeatherRepo
 import com.example.feelslike.view_model.SharedViewModel
 import com.example.feelslike.view_model.SharedViewModelFactory
 import com.google.android.gms.common.api.Status
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PointOfInterest
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
-import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -52,9 +46,11 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     private lateinit var map : GoogleMap
     private lateinit var mapsService : MapsService
     private lateinit var placesClient: PlacesClient
+    private lateinit var placeHolder : Place
     private var TAG = LandingPageFragment::class.java.simpleName
     private var intent = Intent()
     private var mapReady = false
+    private var placeSelected = false
     private var lastKnownLocation : Location? = null
     // A default location (Sydney, Australia) to use when location permission is not granted
     // to display upon first opening the app
@@ -91,13 +87,17 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
                 ).get(SharedViewModel::class.java)
             }
 
+        /**
+         * Maps and Places initial setup
+         */
+
         val mapFragment = childFragmentManager.findFragmentById(
             R.id.landing_page_map) as SupportMapFragment?
 
         mapFragment?.getMapAsync{
             googleMap -> map = googleMap
             mapReady = true
-            updateMap(googleMap)
+            populateMap(googleMap)
         }
 
         this.mapsService = MapsService.getInstance()
@@ -126,7 +126,9 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
                 lastSelectedPlace = place
                 calculateButton.isEnabled = true
                 mapsService.displayPoi(activity, placesClient, place)
+                placeSelected = true
                 Log.i(TAG, "Place: ${place.name}, ${place.id}")
+                Log.i(TAG, "$place marker placed.")
             }
 
             override fun onError(status : Status) {
@@ -134,7 +136,6 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
                 Log.i(TAG, "An error has occurred: $status")
             }
         })
-
 
         binding.lifecycleOwner = this
 
@@ -222,8 +223,8 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         Log.i(TAG, "onMapReady accessed")
     }
 
-    private fun updateMap(map : GoogleMap) {
-        if (mapReady)
+    private fun populateMap(map : GoogleMap) {
+        if (mapReady && !placeSelected)
         {
 //            dataRepo.createCalculationsInfo().longitude = selectedPlace.longitude
 //            dataRepo.createCalculationsInfo().latitude = selectedPlace.latitude
@@ -235,10 +236,20 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
                 .position(marker))
             Log.i(TAG, "Map updated.")
         }
+        if (placeSelected)
+        {
+            val latLng : LatLng = lastSelectedPlace.latLng!!
+            map.addMarker(
+                MarkerOptions()
+                    .position(latLng)
+                    .title(lastSelectedPlace.name))
+            val update = CameraUpdateFactory.newLatLngZoom(latLng, 16.0f)
+            map.moveCamera(update)
+        }
     }
 
     /**
-     * Search bar
+     * Search bar functions
      */
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
