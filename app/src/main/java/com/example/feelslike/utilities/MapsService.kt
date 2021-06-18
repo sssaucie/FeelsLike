@@ -1,23 +1,13 @@
 package com.example.feelslike.utilities
 
 import android.Manifest
-import android.app.Activity
-import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.location.Location
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.feelslike.MainActivity
 import com.example.feelslike.R
-import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.view_model.SharedViewModel
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -30,8 +20,6 @@ import com.google.android.libraries.places.api.net.FetchPhotoRequest
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.PlacesClient
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import java.lang.RuntimeException
 import java.util.*
 
@@ -164,7 +152,7 @@ class MapsService
         }
     }
 
-    fun displayPoi(placesClient: PlacesClient, pointOfInterest : PointOfInterest)
+    private fun displayPoiNoContext(placesClient: PlacesClient, pointOfInterest : PointOfInterest)
     {
         throw UnsupportedOperationException("need to change to places api")
         // displayPoiGetPlaceStep(placesClient, pointOfInterest)
@@ -249,6 +237,7 @@ class MapsService
             .title(place.name)
             .snippet(place.address)
         )
+        map.moveCamera(CameraUpdateFactory.newLatLng(place.latLng!!))
         marker?.tag = PlaceInfo(place, photo)
         marker?.showInfoWindow()
     }
@@ -278,7 +267,7 @@ class MapsService
     {
 //        map.setInfoWindowAdapter(MapsInfoWidgetAdapter(activity))
         map.setOnPoiClickListener {
-            displayPoi(placesClient, it)
+            displayPoiNoContext(placesClient, it)
         }
         map.setOnInfoWindowClickListener {
             handleInfoWindowClick(it)

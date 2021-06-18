@@ -46,11 +46,9 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     private lateinit var map : GoogleMap
     private lateinit var mapsService : MapsService
     private lateinit var placesClient: PlacesClient
-    private lateinit var placeHolder : Place
     private var TAG = LandingPageFragment::class.java.simpleName
     private var intent = Intent()
     private var mapReady = false
-    private var placeSelected = false
     private var lastKnownLocation : Location? = null
     // A default location (Sydney, Australia) to use when location permission is not granted
     // to display upon first opening the app
@@ -126,8 +124,6 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
                 lastSelectedPlace = place
                 calculateButton.isEnabled = true
                 mapsService.displayPoi(activity, placesClient, place)
-                placeSelected = true
-                populateMap(map)
                 Log.i(TAG, "Place: ${place.name}, ${place.id}")
                 Log.i(TAG, "$place marker placed.")
             }
@@ -225,7 +221,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     }
 
     private fun populateMap(map : GoogleMap) {
-        if (mapReady && !placeSelected)
+        if (mapReady)
         {
 //            dataRepo.createCalculationsInfo().longitude = selectedPlace.longitude
 //            dataRepo.createCalculationsInfo().latitude = selectedPlace.latitude
@@ -237,24 +233,9 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
                 .position(marker))
             Log.i(TAG, "Map updated.")
         }
-        if (placeSelected)
+        else
         {
-            if (lastSelectedPlace.latLng != null)
-            {
-                val latLng: LatLng = lastSelectedPlace.latLng!!
-                map.addMarker(
-                    MarkerOptions()
-                        .position(latLng)
-                        .title(lastSelectedPlace.name)
-                )
-                val update = CameraUpdateFactory.newLatLngZoom(latLng, 16.0f)
-                map.moveCamera(update)
-                Log.i(TAG, "New place ${lastSelectedPlace.name} located")
-            }
-            else
-            {
-                Log.i(TAG, "LatLng not found with $lastSelectedPlace ${lastSelectedPlace.latLng}")
-            }
+            Log.i(TAG, "LatLng not found")
         }
     }
 
