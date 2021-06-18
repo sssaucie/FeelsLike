@@ -174,7 +174,8 @@ class MapsService
             Place.Field.PHONE_NUMBER,
             Place.Field.PHOTO_METADATAS,
             Place.Field.ADDRESS,
-            Place.Field.LAT_LNG)
+            Place.Field.LAT_LNG,
+            Place.Field.VIEWPORT)
         val request = placeId?.let {
             FetchPlaceRequest
                 .builder(it, placeFields)
@@ -238,6 +239,7 @@ class MapsService
             .snippet(place.address)
         )
         map.moveCamera(CameraUpdateFactory.newLatLng(place.latLng!!))
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(place.viewport!!, 0))
         marker?.tag = PlaceInfo(place, photo)
         marker?.showInfoWindow()
     }

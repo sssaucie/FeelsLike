@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.feelslike.view_model.SharedViewModel" />
@@ -38,7 +37,8 @@
             android:layout_marginBottom="@dimen/spacing_padding_normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:viewModel="@{viewModel}"/>
 
         <include
             android:id="@+id/widget_search_custom_view_landing_page"

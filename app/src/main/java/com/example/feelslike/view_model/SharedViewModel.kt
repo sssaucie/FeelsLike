@@ -127,6 +127,7 @@ class SharedViewModel(application : Application, intentRepo : FeelsLikeRepositor
         _navigateToInitialUserInputFragment.value = null
         _navigateToMapFragment.value = null
         _navigateToRecyclerViewFavorites.value = null
+        _navigateToResultsFragment2.value = null
         Log.i(TAG, "All navigation cleared.")
     }
 

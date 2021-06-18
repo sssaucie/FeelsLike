@@ -145,35 +145,36 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         calculateButton = binding.widgetLocationCalculateButtons.buttonCalculate
         calculateButton.isEnabled = false
 
-        calculateButton.setOnClickListener {
-            if (lastSelectedPlace != null) {
-                sharedViewModel?.navigateToResultsFragment?.observe(
-                    viewLifecycleOwner,
-                    { selectedPlace ->
-                        selectedPlace?.let {
-                            this.findNavController().navigate(
-                                LandingPageFragmentDirections.actionLandingPageToResultsFragment()
-                            )
-                            sharedViewModel.onNavigated()
-                        }
-                    })
-            }
-        }
-//        sharedViewModel.navigateToResultsFragment2.observe(viewLifecycleOwner, {
-//            if (it == true) {
-//                this.findNavController().navigate(
-//                    LandingPageFragmentDirections.actionLandingPageToResultsFragment(null))
-//                sharedViewModel.onNavigated()
+//        calculateButton.setOnClickListener {
+//            if (lastSelectedPlace != null) {
+//                sharedViewModel?.navigateToResultsFragment?.observe(
+//                    viewLifecycleOwner,
+//                    { selectedPlace ->
+//                        selectedPlace?.let {
+//                            this.findNavController().navigate(
+//                                LandingPageFragmentDirections.actionLandingPageToResultsFragment()
+//                            )
+//                            sharedViewModel.onNavigated()
+//                        }
+//                    })
 //            }
-//        })
+//        }
 
-        sharedViewModel?.navigateToPlannedLocationFragment?.observe(viewLifecycleOwner, {
+        sharedViewModel?.navigateToResultsFragment2?.observe(viewLifecycleOwner, {
             if (it == true) {
                 this.findNavController().navigate(
-                    LandingPageFragmentDirections.actionLandingPageToPlannedLocationWidget())
+                    LandingPageFragmentDirections.actionLandingPageToResultsFragment())
                 sharedViewModel.onNavigated()
             }
         })
+
+//        sharedViewModel?.navigateToPlannedLocationFragment?.observe(viewLifecycleOwner, {
+//            if (it == true) {
+//                this.findNavController().navigate(
+//                    LandingPageFragmentDirections.actionLandingPageToPlannedLocationWidget())
+//                sharedViewModel.onNavigated()
+//            }
+//        })
 
         // Observe Intent changes and handle accordingly
         sharedViewModel?.intent?.get?.observe(viewLifecycleOwner, {
