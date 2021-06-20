@@ -13,6 +13,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.BuildConfig
 import com.example.feelslike.MapServiceAware
@@ -67,7 +70,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-                /**
+        /**
          * View bindings and model/factory setup
          */
         binding = DataBindingUtil.inflate(
@@ -84,6 +87,15 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
                     this, it
                 ).get(SharedViewModel::class.java)
             }
+
+        binding.viewModel = sharedViewModel
+
+        binding.lifecycleOwner = this
+
+//        val navHostFragment = parentFragmentManager.findFragmentById(
+//            R.id.nav_host_fragment) as NavHostFragment
+//
+//        val navController = navHostFragment.navController
 
         /**
          * Maps and Places initial setup
@@ -110,7 +122,6 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
 //        (activity as AppCompatActivity).setSupportActionBar(binding.widgetSearchCustomView)
 
-        binding.viewModel = sharedViewModel
 
         val searchBar = childFragmentManager.findFragmentById(
             R.id.widget_search_custom_view_fragment) as AutocompleteSupportFragment?
@@ -134,13 +145,9 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
             }
         })
 
-        binding.lifecycleOwner = this
-
         /**
          * Fragment navigation observers
          */
-
-//        binding.widgetSearchCustomView.setupWithNavController(navController)
 
         calculateButton = binding.widgetLocationCalculateButtons.buttonCalculate
         calculateButton.isEnabled = false
