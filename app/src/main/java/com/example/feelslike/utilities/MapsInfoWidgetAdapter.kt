@@ -3,8 +3,7 @@ package com.example.feelslike.utilities
 import android.app.Activity
 import android.view.View
 import com.example.feelslike.databinding.WidgetMapsInfoBinding
-import com.example.feelslike.view.MapsFragment
-import com.example.feelslike.view_model.SharedViewModel
+import com.example.feelslike.view_model.LandingPageViewModel
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
 
@@ -29,10 +28,10 @@ class MapsInfoWidgetAdapter(val context : Activity) : GoogleMap.InfoWindowAdapte
                 imageView.setImageBitmap(
                     (marker.tag as MapsService.PlaceInfo).image)
             }
-            is SharedViewModel.FavoritesMarkerView ->
+            is LandingPageViewModel.FavoritesMarkerView ->
             {
                 val favoriteView = marker.tag as
-                        SharedViewModel.FavoritesMarkerView
+                        LandingPageViewModel.FavoritesMarkerView
                 imageView.setImageBitmap(favoriteView.getImage(context))
             }
         }

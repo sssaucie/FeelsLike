@@ -71,7 +71,10 @@
         <action
             android:id="@+id/action_resultsFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment" />
-<!--        <argument-->
+        <action
+            android:id="@+id/action_resultsFragment_to_landingPage"
+            app:destination="@id/landingPage" />
+        <!--        <argument-->
 <!--            android:name="desiredPlace"-->
 <!--            app:argType="com.example.feelslike.model.entity.CalculationsEntity" />-->
     </fragment>

@@ -19,7 +19,7 @@ import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.KEY_LOCATION
 import com.example.feelslike.utilities.MapsInfoWidgetAdapter
-import com.example.feelslike.view_model.SharedViewModel
+import com.example.feelslike.view_model.LandingPageViewModel
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -43,7 +43,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     private lateinit var activity : MainActivity
     private lateinit var fusedLocationClient : FusedLocationProviderClient
     private lateinit var placesClient : PlacesClient
-    private lateinit var viewModel : SharedViewModel
+    private lateinit var viewModel : LandingPageViewModel
     private lateinit var selectedPlace : CalculationsEntity
     private lateinit var dataRepo : FeelsLikeRepository
 
@@ -55,7 +55,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 
     private var lastKnownLocation : Location? = null
 
-    private val favoritesViewModel by viewModels<SharedViewModel>()
+    private val favoritesViewModel by viewModels<LandingPageViewModel>()
 
     @DelicateCoroutinesApi
     override fun onCreateView(
@@ -106,15 +106,15 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         super.onActivityCreated(savedInstanceState)
         requireActivity().let {
             viewModel = ViewModelProviders.of(it)
-                .get(SharedViewModel::class.java)
+                .get(LandingPageViewModel::class.java)
         }
 
-        viewModel.navigateToResultsFragment.observe(viewLifecycleOwner, { selectedPlace ->
-            selectedPlace?.let {
+//        viewModel.navigateToResultsFragment.observe(viewLifecycleOwner, { selectedPlace ->
+//            selectedPlace?.let {
 //                this.findNavController().navigate()
-            }
-            updateMap()
-        })
+//            }
+//            updateMap()
+//        })
     }
 
     private fun updateMap() {
@@ -343,7 +343,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     }
 
     private fun addFavoritePlaceMarker(
-        favorite : SharedViewModel.FavoritesMarkerView) : Marker?
+        favorite : LandingPageViewModel.FavoritesMarkerView) : Marker?
     {
         val marker = map.addMarker(MarkerOptions()
             .position(favorite.location)
@@ -361,7 +361,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
     }
 
     private fun displayAllFavorites(
-        favorites : List<SharedViewModel.FavoritesMarkerView>)
+        favorites : List<LandingPageViewModel.FavoritesMarkerView>)
     {
         favorites.forEach { addFavoritePlaceMarker(it) }
     }

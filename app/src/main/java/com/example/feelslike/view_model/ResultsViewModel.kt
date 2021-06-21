@@ -11,39 +11,39 @@ import com.example.feelslike.R
 import com.example.feelslike.model.weather_service.Coord
 import com.example.feelslike.model.weather_service.Main
 import com.example.feelslike.model.weather_service.WeatherResponse
+import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.WeatherRepo
 
-class ResultsViewModel(weatherResponse : WeatherResponse, application : Application) : AndroidViewModel(application)
+class ResultsViewModel(application : Application) : AndroidViewModel(application)
 {
     private val TAG = ResultsViewModel::class.java.simpleName
     private var weatherRepo : WeatherRepo? = null
 
+
     lateinit var weatherSummaryViewData: MutableLiveData<WeatherSummaryViewData>
 
+    private val _navigateToLandingPage = MutableLiveData<Boolean?>()
     private val _selectedLocation = MutableLiveData<WeatherResponse>()
+
+    val navigateToLandingPage : LiveData<Boolean?>
+        get() = _navigateToLandingPage
     val selectedLocation : LiveData<WeatherResponse>
         get() = _selectedLocation
 
-    init
+    fun onSearchAgainClicked()
     {
-        _selectedLocation.value = weatherResponse
+        _navigateToLandingPage.value = true
+        Log.i(TAG, "Search Again clicked")
     }
 
-    // Trying to recreate what I did in MarsRealEstate App assignment
-//    val retrieveLocationCoordinates = Transformations.map(selectedLocation)
-//    {
-//        application.applicationContext.getText(
-//            when (it.coord != null)
-//            {
-//                true -> weatherResponse.coord
-//                false -> Log.i(TAG, "No coordinates found")
-//                else -> Log.e(TAG, "Error retrieving coordinates")
-//            })
-//    }
+    fun onNavigated()
+    {
+        _navigateToLandingPage.value = null
+    }
 
-//    val displayWeatherData = Transformations.map(selectedLocation)
+//    init
 //    {
-//        application.applicationContext.resources(R.id.results_temp)
+//        _selectedLocation.value = weatherResponse
 //    }
 
     /**

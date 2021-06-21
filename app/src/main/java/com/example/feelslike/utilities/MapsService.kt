@@ -8,7 +8,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import com.example.feelslike.MainActivity
 import com.example.feelslike.R
-import com.example.feelslike.view_model.SharedViewModel
+import com.example.feelslike.view_model.LandingPageViewModel
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -278,7 +278,7 @@ class MapsService
     }
 
     private fun addFavoritePlaceMarker(
-        favorite : SharedViewModel.FavoritesMarkerView) : Marker?
+        favorite : LandingPageViewModel.FavoritesMarkerView) : Marker?
     {
         val marker = map.addMarker(MarkerOptions()
             .position(favorite.location)
@@ -296,7 +296,7 @@ class MapsService
     }
 
     private fun displayAllFavorites(
-        favorites : List<SharedViewModel.FavoritesMarkerView>)
+        favorites : List<LandingPageViewModel.FavoritesMarkerView>)
     {
         favorites.forEach { addFavoritePlaceMarker(it) }
     }

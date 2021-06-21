@@ -23,7 +23,7 @@ import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.model.entity.Dummy
 import com.example.feelslike.utilities.*
 import com.example.feelslike.view.MapsFragment
-import com.example.feelslike.view_model.SharedViewModel
+import com.example.feelslike.view_model.LandingPageViewModel
 import com.google.android.gms.location.*
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.launch
@@ -36,7 +36,6 @@ interface MapServiceAware
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private lateinit var viewModel: SharedViewModel
     private var fusedLocationProvider: FusedLocationProviderClient? = null
     private var position: Int = 0
     private val TAG = javaClass.simpleName
@@ -124,26 +123,17 @@ class MainActivity : AppCompatActivity() {
         Log.i(TAG, "onOpenMap fulfilled.")
     }
 
-    @DelicateCoroutinesApi
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        if (intent != null) {
-            viewModel.intent.setIntent(intent)
-        }
-        Log.i(TAG, "New intent $intent")
-    }
-
     private var locationCallback: LocationCallback = object : LocationCallback() {
         override fun onLocationResult(locationResult: LocationResult) {
             val locationList = locationResult.locations
             if (locationList.isNotEmpty()) {
                 //The last location in the list is the newest
                 val location = locationList.last()
-//                Toast.makeText(
-//                    this@MainActivity,
-//                    "Got Location: $location",
-//                    Toast.LENGTH_LONG
-//                )
+                Toast.makeText(
+                    this@MainActivity,
+                    "Got Location: $location",
+                    Toast.LENGTH_LONG
+                )
 //                    .show()
             }
         }
@@ -257,7 +247,7 @@ class MainActivity : AppCompatActivity() {
 
                     // permission denied, boo! Disable the
                     // functionality that depends on this permission.
-                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show()
+//                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show()
                 }
                 return
             }

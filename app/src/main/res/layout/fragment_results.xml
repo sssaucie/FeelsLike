@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.feelslike.view_model.SharedViewModel" />
+            type="com.example.feelslike.view_model.ResultsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,16 +35,42 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <include
-            android:id="@+id/map_results"
-            layout="@layout/fragment_maps"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/landing_page_maps_cardview_wrapper"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_margin="@dimen/spacing_padding_normal"
+            android:layout_marginStart="@dimen/spacing_padding_small"
+            android:layout_marginTop="@dimen/spacing_padding_small"
+            android:layout_marginEnd="@dimen/spacing_padding_small"
+            android:layout_marginBottom="@dimen/spacing_padding_small"
+            app:cardCornerRadius="@dimen/dialog_corner_radius"
             app:layout_constraintBottom_toTopOf="@+id/buttons_location_calculate_results"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/results_show_more" />
+            app:layout_constraintTop_toBottomOf="@id/results_show_more">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/map_results"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent"
+                tools:context=".view.MapsFragment"
+                tools:layout="@layout/fragment_maps" />
+        </androidx.cardview.widget.CardView>
+        <!--        <include-->
+        <!--            android:id="@+id/map_results"-->
+        <!--            layout="@layout/fragment_maps"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:layout_margin="@dimen/spacing_padding_normal"-->
+        <!--            app:layout_constraintBottom_toTopOf="@+id/buttons_location_calculate_results"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/results_show_more" />-->
 
         <TextView
             android:id="@+id/results_text_header"
@@ -52,21 +78,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_padding_small"
+            android:layout_marginTop="@dimen/spacing_padding_large"
             android:text="@string/text_results"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header_results" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button_results_email"
+            android:id="@+id/button_results_text"
             style="@style/Widget.AppCompat.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_padding_small"
             android:background="@drawable/button_standard"
-            android:text="@string/button_email_results"
-            android:textColor="@color/black"
+            android:text="@string/button_text_results"
             android:textAppearance="@style/errorHeaderMainButtonStyleText"
+            android:textColor="@color/black"
             app:backgroundTint="@color/light_grey"
             app:layout_constraintBottom_toTopOf="@+id/results_show_more"
             app:layout_constraintEnd_toEndOf="parent"
@@ -80,14 +107,15 @@
             android:layout_marginStart="@dimen/spacing_padding_normal"
             android:text="@string/text_show_more"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/button_results_email" />
+            app:layout_constraintTop_toBottomOf="@+id/button_results_text"
+            android:visibility="gone"/>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/results_guideline_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/button_results_email"
+            app:layout_constraintBottom_toTopOf="@+id/button_results_text"
             app:layout_constraintGuide_percent="0.25"
             app:layout_constraintTop_toBottomOf="@+id/results_text_header" />
 
@@ -96,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@id/button_results_email"
+            app:layout_constraintBottom_toTopOf="@id/button_results_text"
             app:layout_constraintGuide_percent="0.75"
             app:layout_constraintTop_toBottomOf="@+id/results_text_header" />
 
@@ -158,9 +186,9 @@
             style="@style/fontStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/text_humidity"
             android:layout_marginBottom="@dimen/spacing_padding_small"
-            app:layout_constraintBottom_toTopOf="@+id/button_results_email"
+            android:text="@string/text_humidity"
+            app:layout_constraintBottom_toTopOf="@+id/button_results_text"
             app:layout_constraintStart_toEndOf="@id/results_guideline_start"
             app:layout_constraintTop_toBottomOf="@+id/results_barometric" />
 
@@ -170,12 +198,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_padding_small"
-            app:layout_constraintBottom_toTopOf="@id/button_results_email"
+            app:layout_constraintBottom_toTopOf="@id/button_results_text"
             app:layout_constraintEnd_toStartOf="@id/results_guideline_end"
             app:layout_constraintTop_toBottomOf="@+id/calculated_text_barometric"
             tools:text="123" />
 
-<!--        Nice to have, but cannot implement right now-->
+        <!--        Nice to have, but cannot implement right now-->
         <ImageButton
             android:id="@+id/button_results_favorite"
             android:layout_width="wrap_content"
@@ -184,12 +212,12 @@
             android:clickable="true"
             android:contentDescription="@string/description_button_favorites"
             android:focusable="true"
+            android:visibility="invisible"
             app:backgroundTint="@color/clear"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/results_guideline_end"
             app:layout_constraintTop_toBottomOf="@id/header_results"
-            app:srcCompat="@drawable/icon_open_heart"
-            android:visibility="invisible" />
+            app:srcCompat="@drawable/icon_open_heart" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -5,13 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.feelslike.utilities.FeelsLikeRepository
 
-class SharedViewModelFactory (
-    private val application: Application,
-    private val intentRepo : FeelsLikeRepository) : ViewModelProvider.Factory {
+class LandingPageViewModelFactory (
+    private val application: Application) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(SharedViewModel::class.java)) {
-            return SharedViewModel(application, intentRepo) as T
+        if (modelClass.isAssignableFrom(LandingPageViewModel::class.java)) {
+            return LandingPageViewModel(application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

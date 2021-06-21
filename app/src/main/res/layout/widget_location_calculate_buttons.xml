@@ -5,9 +5,6 @@
     
     <data>
         <variable
-            name="viewModel"
-            type="com.example.feelslike.view_model.SharedViewModel" />
-        <variable
             name="selectedPlace"
             type="com.example.feelslike.model.entity.CalculationsEntity" />
     </data>
@@ -36,11 +33,11 @@
             android:text="@string/button_calculate"
             android:textAppearance="@style/errorHeaderMainButtonStyleText"
             android:textColor="@color/black"
-            android:onClick="@{() -> viewModel.onCalculateClicked()}"
             app:backgroundTint="@color/light_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+<!--        android:onClick="@{() -> viewModel.onCalculateClicked()}"-->
 
 <!--        Nice-To-Have feature for the future-->
         <CheckBox
