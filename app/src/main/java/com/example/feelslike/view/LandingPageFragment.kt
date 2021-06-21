@@ -18,7 +18,7 @@ import com.example.feelslike.BuildConfig
 import com.example.feelslike.MapServiceAware
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentLandingPageBinding
-import com.example.feelslike.model.weather_service.WeatherInterface
+import com.example.feelslike.model.weather_service.WeatherApiService
 import com.example.feelslike.utilities.KEY_LOCATION
 import com.example.feelslike.utilities.MapsService
 import com.example.feelslike.utilities.WeatherRepo
@@ -233,7 +233,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     @DelicateCoroutinesApi
     private fun performSearch(place : String)
     {
-        val weatherInterface = WeatherInterface.instance
+        val weatherInterface = WeatherApiService.instance
         val weatherRepo = WeatherRepo(weatherInterface)
 
         GlobalScope.launch {
