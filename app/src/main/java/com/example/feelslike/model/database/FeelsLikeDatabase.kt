@@ -45,24 +45,24 @@ abstract class FeelsLikeDatabase : RoomDatabase()
 
         @Volatile
         private var instance : FeelsLikeDatabase? = null
-        private val LOCK = Any()
+//        private val LOCK = Any()
 
-        operator fun invoke(context : Context) = instance ?: synchronized(LOCK)
-        {
-            instance ?: buildDatabase(context).also {instance = it}
-        }
-
-//        fun getInstance(context : Context) : FeelsLikeDatabase
+//        operator fun invoke(context : Context) = instance ?: synchronized(LOCK)
 //        {
-//            /**
-//             * If the instance is not null, then return it.
-//             * If it is, then create the database.
-//             */
-//            return instance ?: synchronized(this)
-//            {
-//                instance ?: buildDatabase(context).also { instance = it }
-//            }
+//            instance ?: buildDatabase(context).also {instance = it}
 //        }
+
+        fun getInstance(context : Context) : FeelsLikeDatabase
+        {
+            /**
+             * If the instance is not null, then return it.
+             * If it is, then create the database.
+             */
+            return instance ?: synchronized(this)
+            {
+                instance ?: buildDatabase(context).also { instance = it }
+            }
+        }
 
         /**
          * Create and pre-populate the database.
