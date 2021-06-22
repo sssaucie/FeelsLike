@@ -15,7 +15,8 @@ import com.example.feelslike.utilities.DATABASE_NAME
  * The Room database for this app
  */
 
-@Database(entities = [UserEntity::class, Dummy::class, CalculationsEntity::class, FavoritesEntity::class, WeatherResponseEntity::class],
+@Database(entities = [UserEntity::class, Dummy::class, CalculationsEntity::class, FavoritesEntity::class,
+    WeatherResponseEntity::class, WeatherLocation::class],
     version = 1,
     exportSchema = false)
 abstract class FeelsLikeDatabase : RoomDatabase()
@@ -29,6 +30,7 @@ abstract class FeelsLikeDatabase : RoomDatabase()
     abstract fun calculationsDao() : CalculationsDao
     abstract fun favoritesDao() : FavoritesDao
     abstract fun weatherDao() : WeatherDao
+    abstract fun weatherLocationDao() : WeatherLocationDao
 
     /**
      * Defining a companion object allows us to add functions on the FeelsLikeDatabase

@@ -77,6 +77,11 @@ dependencies {
     //Gson
     implementation "com.google.code.gson:gson:$gson_version"
 
+    // Kodein
+    implementation("org.kodein.di:kodein-di:7.3.1")
+    implementation 'org.kodein.di:kodein-di-generic-jvm:6.1.0'
+    implementation 'org.kodein.di:kodein-di-framework-android-x:7.3.1'
+
     // Maps
     implementation "com.google.android.gms:play-services-maps:${maps_version}"
         // Location client

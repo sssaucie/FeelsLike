@@ -1,2 +1,4 @@
 rootProject.name = "FeelsLike"
 include ':app'
+enableFeaturePreview("GRADLE_METADATA")
+
