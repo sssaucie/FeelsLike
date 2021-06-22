@@ -21,11 +21,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.feelslike.databinding.ActivityMainBinding
 import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.model.entity.Dummy
+import com.example.feelslike.model.weather_service.WeatherApiService
 import com.example.feelslike.utilities.*
 import com.example.feelslike.view.MapsFragment
 import com.example.feelslike.view_model.LandingPageViewModel
 import com.google.android.gms.location.*
 import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 interface MapServiceAware

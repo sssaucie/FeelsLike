@@ -1,39 +1,55 @@
 package com.example.feelslike.model.weather_service
 
+import com.example.feelslike.R
+import com.example.feelslike.model.weather_service.response.WeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 private const val baseUrl = "https://api.openweathermap.org"
-
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(baseUrl)
-    .build()
 
 interface WeatherApiService
 {
     @GET("/data/2.5/weather?")
 
     suspend fun searchWeatherByPlaceName(
-        @Query("q") q : String,
+        @Query("q") location : String,
         @Query("appid") appId : String) :
-            Deferred<List<WeatherResponse>>
-}
+            Deferred<WeatherResponse>
 
-object WeatherApi
-{
-    val retrofitService : WeatherApiService by lazy {
-        retrofit.create(WeatherApiService::class.java)
+    companion object
+    {
+        operator fun invoke(): WeatherApiService {
+            val requestInterceptor = Interceptor { chain ->
+                val url = chain.request()
+                    .url()
+                    .newBuilder()
+                    .addQueryParameter("appid", R.string.WEATHER_API_KEY.toString())
+                    .build()
+                val request = chain.request()
+                    .newBuilder()
+                    .url(url)
+                    .build()
+
+                return@Interceptor chain.proceed(request)
+            }
+
+            val okHttpClient = OkHttpClient.Builder()
+                .addInterceptor(requestInterceptor)
+                .build()
+
+            return Retrofit.Builder()
+                .client(okHttpClient)
+                .baseUrl(baseUrl)
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(WeatherApiService::class.java)
+        }
     }
 }

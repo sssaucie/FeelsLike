@@ -28,6 +28,7 @@ import com.example.feelslike.MapServiceAware
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentResultsBinding
 import com.example.feelslike.model.entity.CalculationsEntity
+import com.example.feelslike.model.weather_service.WeatherApiService
 import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.MapsService
 import com.example.feelslike.view_model.ResultsViewModel
@@ -39,6 +40,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.net.PlacesClient
 import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 {
@@ -48,6 +52,7 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     private lateinit var map : GoogleMap
     private lateinit var mapsService : MapsService
     private lateinit var placesClient : PlacesClient
+    private lateinit var viewModel : ResultsViewModel
     // A default location (Sydney, Australia) to use when location permission is not granted
     // to display upon first opening the app
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
@@ -69,9 +74,9 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         val viewModelFactory = ResultsViewModelFactory(application)
 
-        val resultsViewModel = ViewModelProvider(this, viewModelFactory).get(ResultsViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ResultsViewModel::class.java)
 
-        binding.viewModel = resultsViewModel
+        binding.viewModel = viewModel
 
         binding.lifecycleOwner = this
 
@@ -80,23 +85,34 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         searchAgainButton.text = getString(R.string.button_search_again)
 
         searchAgainButton.setOnClickListener {
-            resultsViewModel.onSearchAgainClicked()
+            viewModel.onSearchAgainClicked()
         }
 
-        resultsViewModel.navigateToLandingPage.observe(viewLifecycleOwner, {
+        viewModel.navigateToLandingPage.observe(viewLifecycleOwner, {
             if (it == true) {
                 this.findNavController().navigate(
                     ResultsFragmentDirections.actionResultsFragmentToLandingPage()
                 )
-                resultsViewModel.onNavigated()
+                viewModel.onNavigated()
             }
         })
 
         setupMap()
+        updateMap(map)
 
         mapsService.setupLocationClient(activity)
 
         return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        val apiService = WeatherApiService()
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val currentWeatherResponse = apiService.searchWeatherByPlaceName("Athens", R.string.WEATHER_API_KEY.toString()).await()
+            Log.i(TAG, "Weather response ${currentWeatherResponse.weather}")
+        }
     }
 
     /**

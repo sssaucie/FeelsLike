@@ -70,6 +70,8 @@
     <string name="empty">"There is nothing here"</string>
     <string name="button_text_results">Text Results</string>
     <string name="button_search_again">Search Again</string>
+    <string name="text_feelslike_temp">FeelsLike Temp:</string>
+    <string name="text_forecast">Forecast:</string>
 
     <!--        Arrays-->
     <string-array name="menu_array">
