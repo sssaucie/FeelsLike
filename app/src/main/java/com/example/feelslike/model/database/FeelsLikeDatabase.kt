@@ -7,21 +7,15 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.example.feelslike.model.dao.CalculationsDao
-import com.example.feelslike.model.dao.DummyDao
-import com.example.feelslike.model.dao.FavoritesDao
-import com.example.feelslike.model.dao.UserDao
-import com.example.feelslike.model.entity.CalculationsEntity
-import com.example.feelslike.model.entity.Dummy
-import com.example.feelslike.model.entity.FavoritesEntity
-import com.example.feelslike.model.entity.UserEntity
+import com.example.feelslike.model.dao.*
+import com.example.feelslike.model.entity.*
 import com.example.feelslike.utilities.DATABASE_NAME
 
 /**
  * The Room database for this app
  */
 
-@Database(entities = [UserEntity::class, Dummy::class, CalculationsEntity::class, FavoritesEntity::class],
+@Database(entities = [UserEntity::class, Dummy::class, CalculationsEntity::class, FavoritesEntity::class, WeatherResponseEntity::class],
     version = 1,
     exportSchema = false)
 abstract class FeelsLikeDatabase : RoomDatabase()
@@ -34,6 +28,7 @@ abstract class FeelsLikeDatabase : RoomDatabase()
     abstract fun dummyDao() : DummyDao
     abstract fun calculationsDao() : CalculationsDao
     abstract fun favoritesDao() : FavoritesDao
+    abstract fun weatherDao() : WeatherDao
 
     /**
      * Defining a companion object allows us to add functions on the FeelsLikeDatabase
@@ -50,18 +45,24 @@ abstract class FeelsLikeDatabase : RoomDatabase()
 
         @Volatile
         private var instance : FeelsLikeDatabase? = null
+        private val LOCK = Any()
 
-        fun getInstance(context : Context) : FeelsLikeDatabase
+        operator fun invoke(context : Context) = instance ?: synchronized(LOCK)
         {
-            /**
-             * If the instance is not null, then return it.
-             * If it is, then create the database.
-             */
-            return instance ?: synchronized(this)
-            {
-                instance ?: buildDatabase(context).also { instance = it }
-            }
+            instance ?: buildDatabase(context).also {instance = it}
         }
+
+//        fun getInstance(context : Context) : FeelsLikeDatabase
+//        {
+//            /**
+//             * If the instance is not null, then return it.
+//             * If it is, then create the database.
+//             */
+//            return instance ?: synchronized(this)
+//            {
+//                instance ?: buildDatabase(context).also { instance = it }
+//            }
+//        }
 
         /**
          * Create and pre-populate the database.
