@@ -5,6 +5,7 @@ import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.model.network.*
 import com.example.feelslike.model.repository.WeatherRepository
 import com.example.feelslike.model.repository.WeatherRepositoryImpl
+import com.example.feelslike.view_model.ResultsViewModelFactory
 import kotlinx.coroutines.DelicateCoroutinesApi
 import org.kodein.di.*
 import org.kodein.di.android.x.androidXModule
@@ -20,5 +21,10 @@ class WeatherApplication : Application(), DIAware {
         bind() from singleton { WeatherApiService(instance()) }
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImpl(instance()) }
         bind<WeatherRepository>() with singleton { WeatherRepositoryImpl(instance(), instance()) }
+        bind() from provider { ResultsViewModelFactory(instance(), instance()) }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
     }
 }

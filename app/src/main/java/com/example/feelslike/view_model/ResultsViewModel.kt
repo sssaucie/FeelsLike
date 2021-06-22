@@ -8,83 +8,94 @@ import androidx.lifecycle.MutableLiveData
 import com.example.feelslike.model.weather_service.response.Coord
 import com.example.feelslike.model.weather_service.response.Main
 import com.example.feelslike.model.entity.WeatherResponseEntity
+import com.example.feelslike.model.repository.WeatherRepository
 import com.example.feelslike.model.weather_service.WeatherRepo
+import com.example.feelslike.utilities.UnitSystem
+import com.example.feelslike.utilities.lazyDeferred
+import kotlinx.coroutines.DelicateCoroutinesApi
 
-class ResultsViewModel(application : Application) : AndroidViewModel(application)
+class ResultsViewModel(application : Application, weatherRepository : WeatherRepository) : AndroidViewModel(application)
 {
     private val TAG = ResultsViewModel::class.java.simpleName
-    private var weatherRepo : WeatherRepo? = null
 
-    lateinit var locationSummaryViewData: MutableLiveData<LocationSummaryViewData>
-    lateinit var weatherSummaryViewData: MutableLiveData<WeatherSummaryViewData>
+    private val unitSystem = UnitSystem.METRIC//get from Settings later
+    val isMetric : Boolean
+        get() = unitSystem == UnitSystem.METRIC
+    @DelicateCoroutinesApi
+    val weather by lazyDeferred {
+        weatherRepository.getWeather(isMetric)
+    }
 
-    private val _navigateToLandingPage = MutableLiveData<Boolean?>()
-    private val _selectedLocation = MutableLiveData<WeatherResponseEntity>()
+        lateinit var locationSummaryViewData: MutableLiveData<LocationSummaryViewData>
+        lateinit var weatherSummaryViewData: MutableLiveData<WeatherSummaryViewData>
 
-    val navigateToLandingPage : LiveData<Boolean?>
+        private val _navigateToLandingPage = MutableLiveData<Boolean?>()
+        private val _selectedLocation = MutableLiveData<WeatherResponseEntity>()
+
+        val navigateToLandingPage : LiveData<Boolean?>
         get() = _navigateToLandingPage
-    val selectedLocation : LiveData<WeatherResponseEntity>
+        val selectedLocation : LiveData<WeatherResponseEntity>
         get() = _selectedLocation
 
-    fun onSearchAgainClicked()
-    {
-        _navigateToLandingPage.value = true
-        Log.i(TAG, "Search Again clicked")
-    }
+        fun onSearchAgainClicked()
+        {
+            _navigateToLandingPage.value = true
+            Log.i(TAG, "Search Again clicked")
+        }
 
-    fun onNavigated()
-    {
-        _navigateToLandingPage.value = null
-    }
+        fun onNavigated()
+        {
+            _navigateToLandingPage.value = null
+        }
 
 //    init
 //    {
 //        _selectedLocation.value = weatherResponse
 //    }
 
-    /**
-     * All the following code is derived from my Android book
-     */
-    // Collection of default data necessary for the View
+        /**
+         * All the following code is derived from my Android book
+         */
+        // Collection of default data necessary for the View
 
-    data class LocationSummaryViewData(
-        var latitude: Double = 0.0,
-        var longitude: Double = 0.0,
-    )
-    data class WeatherSummaryViewData(
-        var temp: Double = 0.0,
-        var feelsLikeTemp: Double = 0.0,
-        var baroPressure: Int = 0,
-        var humidity: Int = 0)
+        data class LocationSummaryViewData(
+            var latitude: Double = 0.0,
+            var longitude: Double = 0.0,
+        )
+        data class WeatherSummaryViewData(
+            var temp: Double = 0.0,
+            var feelsLikeTemp: Double = 0.0,
+            var baroPressure: Int = 0,
+            var humidity: Int = 0)
 
-    // Helper method converting raw model data to view data
-    private fun locationResponsetoWeatherSummaryView(
-        coordinates : Coord?
-    ) : LocationSummaryViewData
-    {
-        if (coordinates != null) {
-            return LocationSummaryViewData(
-                coordinates.lat,
-                coordinates.lon,
-            )
+        // Helper method converting raw model data to view data
+        private fun locationResponsetoWeatherSummaryView(
+            coordinates : Coord?
+        ) : LocationSummaryViewData
+        {
+            if (coordinates != null) {
+                return LocationSummaryViewData(
+                    coordinates.lat,
+                    coordinates.lon,
+                )
+            }
+            return LocationSummaryViewData() // what to do if our coordinates or weather are null
         }
-        return LocationSummaryViewData() // what to do if our coordinates or weather are null
-    }
 
-    private fun weatherResponseToWeatherSummaryView(
-    weather : Main?) : WeatherSummaryViewData {
-        if (weather != null) {
-            return WeatherSummaryViewData(
-                weather.temp,
-                weather.feels_like,
-                weather.pressure,
-                weather.humidity
-            )
+        private fun weatherResponseToWeatherSummaryView(
+            weather : Main?) : WeatherSummaryViewData {
+            if (weather != null) {
+                return WeatherSummaryViewData(
+                    weather.temp,
+                    weather.feels_like,
+                    weather.pressure,
+                    weather.humidity
+                )
+            }
+            return WeatherSummaryViewData()
         }
-        return WeatherSummaryViewData()
-    }
 
-    // This gets called by the Activity performing the search
+        // This gets called by the Activity performing the search
 //    suspend fun searchTemperature(location : String) : List<WeatherSummaryViewData>
 //    {
 //        val results = weatherRepo?.searchByPlace(location, BuildConfig.WEATHER_API_KEY)
@@ -116,4 +127,4 @@ class ResultsViewModel(application : Application) : AndroidViewModel(application
 //        }
 //        return emptyList()
 //    }
-}
+    }

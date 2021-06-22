@@ -3,6 +3,7 @@ package com.example.feelslike.model.network
 import com.example.feelslike.R
 import com.example.feelslike.model.entity.WeatherResponseEntity
 import com.example.feelslike.model.network.ConnectivityInterceptor
+import com.example.feelslike.model.weather_service.response.CurrentWeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
@@ -23,7 +24,7 @@ interface WeatherApiService
         @Query("appid") appId : String,
         @Query("units") measurementUnits : String,
         @Query("lang") language : String) :
-            Deferred<WeatherResponseEntity>
+            Deferred<CurrentWeatherResponse>
 
     companion object
     {

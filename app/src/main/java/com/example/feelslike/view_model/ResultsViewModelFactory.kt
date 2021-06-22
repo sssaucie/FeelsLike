@@ -3,17 +3,19 @@ package com.example.feelslike.view_model
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.feelslike.model.repository.WeatherRepository
 
 /**
  * Simple ViewModel factory that provides the MarsProperty and context to the ViewModel.
  */
 class ResultsViewModelFactory(
-    private val application: Application
+    private val application: Application,
+    private val weatherRepository: WeatherRepository
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ResultsViewModel::class.java)) {
-            return ResultsViewModel(application) as T
+            return ResultsViewModel(application, weatherRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

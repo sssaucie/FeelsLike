@@ -23,11 +23,15 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.MapServiceAware
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentResultsBinding
 import com.example.feelslike.model.entity.CalculationsEntity
+import com.example.feelslike.model.network.ConnectivityInterceptorImpl
+import com.example.feelslike.model.network.WeatherNetworkDataSource
+import com.example.feelslike.model.repository.WeatherRepository
 import com.example.feelslike.model.weather_service.WeatherApiService
 import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.MapsService
@@ -43,9 +47,13 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.kodein.di.DI
+import org.kodein.di.DIAware
+import org.kodein.di.android.x.closestDI
 
-class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
+class ResultsFragment : ScopedFragment(), OnMapReadyCallback, MapServiceAware, DIAware
 {
+    override val di by closestDI()
     private lateinit var binding : FragmentResultsBinding
     private lateinit var selectedPlace : CalculationsEntity
     private lateinit var dataRepo : FeelsLikeRepository
@@ -53,11 +61,13 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     private lateinit var mapsService : MapsService
     private lateinit var placesClient : PlacesClient
     private lateinit var viewModel : ResultsViewModel
+    private lateinit var weatherRepository : WeatherRepository
     // A default location (Sydney, Australia) to use when location permission is not granted
     // to display upon first opening the app
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
     private var TAG = ResultsFragment::class.java.simpleName
     private var mapReady = false
+    private val viewModelFactory : ResultsViewModelFactory by instance()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +82,9 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = ResultsViewModelFactory(application)
+        val dataSource = weatherRepository
+
+        val viewModelFactory = ResultsViewModelFactory(application, dataSource)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(ResultsViewModel::class.java)
 
@@ -107,12 +119,10 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        val apiService = WeatherApiService()
 
-        GlobalScope.launch(Dispatchers.Main) {
-            val currentWeatherResponse = apiService.searchWeatherByPlaceName("Athens", R.string.WEATHER_API_KEY.toString()).await()
-            Log.i(TAG, "Weather response ${currentWeatherResponse.weather}")
-        }
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(ResultsViewModel::class.java)
+
+        bindUI()
     }
 
     /**
@@ -209,5 +219,13 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
     override fun setMapService(mapsService: MapsService) {
         this.mapsService = mapsService
+    }
+
+    private fun bindUI() launch {
+        val currentWeather = viewModel.weather.await()
+        currentWeather.observe(this, Observer {
+            if (it == null) return@Observer
+            textView.text = it.toString()
+        })
     }
 }
