@@ -1,7 +1,8 @@
-package com.example.feelslike.model.weather_service
+package com.example.feelslike.model.network
 
 import com.example.feelslike.R
 import com.example.feelslike.model.entity.WeatherResponseEntity
+import com.example.feelslike.model.network.ConnectivityInterceptor
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
@@ -26,7 +27,9 @@ interface WeatherApiService
 
     companion object
     {
-        operator fun invoke(): WeatherApiService {
+        operator fun invoke(
+            connectivityInterceptor : ConnectivityInterceptor
+        ): WeatherApiService {
             val requestInterceptor = Interceptor { chain ->
                 val url = chain.request()
                     .url()
@@ -44,6 +47,7 @@ interface WeatherApiService
 
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(requestInterceptor)
+                .addInterceptor(connectivityInterceptor)
                 .build()
 
             return Retrofit.Builder()

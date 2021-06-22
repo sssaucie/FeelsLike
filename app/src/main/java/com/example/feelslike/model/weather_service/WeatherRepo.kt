@@ -1,12 +1,12 @@
 package com.example.feelslike.model.weather_service
 
 import com.example.feelslike.R
-import com.example.feelslike.model.weather_service.WeatherApiService
+import com.example.feelslike.model.network.WeatherApiService
 
 class WeatherRepo(private val weatherInterface : WeatherApiService)
 {
     val weatherApiKey = R.string.WEATHER_API_KEY
 
     suspend fun searchByPlace(placeName : String, appId : String) =
-        weatherInterface.searchWeatherByPlaceName(placeName, appId)
+        weatherInterface.searchWeatherByPlaceName(placeName, appId, "", "en")
 }

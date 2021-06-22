@@ -8,6 +8,7 @@ import androidx.lifecycle.Transformations
 import com.example.feelslike.model.dao.CalculationsDao
 import com.example.feelslike.model.dao.FavoritesDao
 import com.example.feelslike.model.dao.UserDao
+import com.example.feelslike.model.dao.WeatherDao
 import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.FavoritesEntity
@@ -19,6 +20,7 @@ class FeelsLikeRepository(context : Context)
     private val userDao : UserDao = database.userDao()
     private val calculationsDao : CalculationsDao = database.calculationsDao()
     private val favoritesDao : FavoritesDao = database.favoritesDao()
+    private val weatherDao : WeatherDao = database.weatherDao()
     private val _intent = MutableLiveData<Intent>()
 
     fun addUser(user : UserEntity) : Long?
