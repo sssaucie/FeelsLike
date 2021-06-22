@@ -89,15 +89,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/results_recycler_view_container"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/default_image_height"
-            android:scrollbars="vertical"
-            app:layout_constraintTop_toBottomOf="@id/results_text_header"
-            app:layout_constraintStart_toEndOf="@id/results_guideline_start"
-            app:layout_constraintEnd_toStartOf="@id/results_guideline_end"
-            app:layout_constraintBottom_toTopOf="@id/button_results_text" >
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/results_recycler_view_container"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="@dimen/default_image_height"-->
+<!--            android:scrollbars="vertical"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/results_text_header"-->
+<!--            app:layout_constraintStart_toEndOf="@id/results_guideline_start"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/results_guideline_end"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/button_results_text" >-->
         <include
             android:id="@+id/widget_search_results"
             layout="@layout/widget_search_results_data"
@@ -107,7 +107,7 @@
             app:layout_constraintStart_toEndOf="@id/results_guideline_start"
             app:layout_constraintEnd_toStartOf="@id/results_guideline_end"
             app:layout_constraintBottom_toTopOf="@id/button_results_text" />
-        </androidx.recyclerview.widget.RecyclerView>
+<!--        </androidx.recyclerview.widget.RecyclerView>-->
         <TextView
             android:id="@+id/results_show_more"
             style="@style/fontStyleNormal"

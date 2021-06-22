@@ -1,7 +1,7 @@
 package com.example.feelslike.model.weather_service
 
 import com.example.feelslike.R
-import com.example.feelslike.model.weather_service.response.WeatherResponse
+import com.example.feelslike.model.entity.WeatherResponseEntity
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
@@ -19,8 +19,10 @@ interface WeatherApiService
 
     suspend fun searchWeatherByPlaceName(
         @Query("q") location : String,
-        @Query("appid") appId : String) :
-            Deferred<WeatherResponse>
+        @Query("appid") appId : String,
+        @Query("units") measurementUnits : String,
+        @Query("lang") language : String) :
+            Deferred<WeatherResponseEntity>
 
     companion object
     {
@@ -30,6 +32,7 @@ interface WeatherApiService
                     .url()
                     .newBuilder()
                     .addQueryParameter("appid", R.string.WEATHER_API_KEY.toString())
+                    .addQueryParameter("lang", "en")
                     .build()
                 val request = chain.request()
                     .newBuilder()
