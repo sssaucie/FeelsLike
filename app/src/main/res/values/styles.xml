@@ -10,7 +10,7 @@
 
     <style name="errorHeaderMainButtonStyleText" parent="fontStyleNormal">
         <item name="android:textSize">@dimen/font_size_calculate_button_error_text</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@drawable/button_text_color</item>
     </style>
 
     <style name="normalButtonText" parent="fontStyleNormal">

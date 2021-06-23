@@ -12,7 +12,7 @@ import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.FavoritesEntity
 import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.ImageUtil
-import com.example.feelslike.utilities.WeatherRepo
+import com.example.feelslike.model.weather_service.WeatherRepo
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
 

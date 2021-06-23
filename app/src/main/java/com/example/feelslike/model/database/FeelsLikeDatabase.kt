@@ -7,21 +7,19 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.example.feelslike.model.dao.CalculationsDao
-import com.example.feelslike.model.dao.DummyDao
-import com.example.feelslike.model.dao.FavoritesDao
-import com.example.feelslike.model.dao.UserDao
+import com.example.feelslike.model.dao.*
 import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.Dummy
 import com.example.feelslike.model.entity.FavoritesEntity
 import com.example.feelslike.model.entity.UserEntity
+import com.example.feelslike.model.entity.WeatherEntity
 import com.example.feelslike.utilities.DATABASE_NAME
 
 /**
  * The Room database for this app
  */
 
-@Database(entities = [UserEntity::class, Dummy::class, CalculationsEntity::class, FavoritesEntity::class],
+@Database(entities = [UserEntity::class, Dummy::class, CalculationsEntity::class, FavoritesEntity::class, WeatherEntity::class],
     version = 1,
     exportSchema = false)
 abstract class FeelsLikeDatabase : RoomDatabase()
@@ -34,6 +32,7 @@ abstract class FeelsLikeDatabase : RoomDatabase()
     abstract fun dummyDao() : DummyDao
     abstract fun calculationsDao() : CalculationsDao
     abstract fun favoritesDao() : FavoritesDao
+    abstract fun weatherDao() : WeatherDao
 
     /**
      * Defining a companion object allows us to add functions on the FeelsLikeDatabase

@@ -5,14 +5,11 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import com.example.feelslike.BuildConfig
-import com.example.feelslike.R
-import com.example.feelslike.model.weather_service.Coord
-import com.example.feelslike.model.weather_service.Main
-import com.example.feelslike.model.weather_service.WeatherResponse
-import com.example.feelslike.utilities.FeelsLikeRepository
-import com.example.feelslike.utilities.WeatherRepo
+import com.example.feelslike.model.entity.Coord
+import com.example.feelslike.model.entity.Main
+import com.example.feelslike.model.entity.WeatherEntity
+import com.example.feelslike.model.weather_service.WeatherRepo
 
 class ResultsViewModel(application : Application) : AndroidViewModel(application)
 {
@@ -23,11 +20,11 @@ class ResultsViewModel(application : Application) : AndroidViewModel(application
     lateinit var weatherSummaryViewData: MutableLiveData<WeatherSummaryViewData>
 
     private val _navigateToLandingPage = MutableLiveData<Boolean?>()
-    private val _selectedLocation = MutableLiveData<WeatherResponse>()
+    private val _selectedLocation = MutableLiveData<WeatherEntity>()
 
     val navigateToLandingPage : LiveData<Boolean?>
         get() = _navigateToLandingPage
-    val selectedLocation : LiveData<WeatherResponse>
+    val selectedLocation : LiveData<WeatherEntity>
         get() = _selectedLocation
 
     fun onSearchAgainClicked()

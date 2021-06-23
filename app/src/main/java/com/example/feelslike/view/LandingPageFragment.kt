@@ -3,6 +3,7 @@ package com.example.feelslike.view
 import android.app.SearchManager
 import android.content.Context.*
 import android.content.Intent
+import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +22,7 @@ import com.example.feelslike.databinding.FragmentLandingPageBinding
 import com.example.feelslike.model.weather_service.WeatherApiService
 import com.example.feelslike.utilities.KEY_LOCATION
 import com.example.feelslike.utilities.MapsService
-import com.example.feelslike.utilities.WeatherRepo
+import com.example.feelslike.model.weather_service.WeatherRepo
 import com.example.feelslike.view_model.LandingPageViewModel
 import com.example.feelslike.view_model.LandingPageViewModelFactory
 import com.google.android.gms.common.api.Status
@@ -91,6 +92,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
                     this.findNavController().navigate(
                         LandingPageFragmentDirections.actionLandingPageToResultsFragment()
                     )
+                    lastSelectedPlace.name?.let { it1 -> performSearch(it1) }
                     landingPageViewModel.onNavigated()
                 }
             })
@@ -155,10 +157,6 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     private fun populateMap(map : GoogleMap) {
         if (mapReady)
         {
-//            dataRepo.createCalculationsInfo().longitude = selectedPlace.longitude
-//            dataRepo.createCalculationsInfo().latitude = selectedPlace.latitude
-//            dataRepo.createCalculationsInfo().calculations_id = selectedPlace.calculations_id
-
             val marker = defaultLocation
             map.addMarker(
                 MarkerOptions()

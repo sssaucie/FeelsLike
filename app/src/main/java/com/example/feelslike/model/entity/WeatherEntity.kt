@@ -1,12 +1,15 @@
-package com.example.feelslike.model.weather_service
+package com.example.feelslike.model.entity
 
 import android.os.Parcelable
-import com.google.android.gms.maps.model.LatLng
-import kotlinx.parcelize.IgnoredOnParcel
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
+private const val ONE_ID_ONLY = 0
+@Entity(tableName = "weather_results")
 @Parcelize
-data class WeatherResponse(
+data class WeatherEntity(
+    @PrimaryKey val oneId: Int = ONE_ID_ONLY,
     val base: String,
     val clouds: Clouds,
     val cod: Int,

@@ -1,4 +1,4 @@
-package com.example.feelslike.utilities
+package com.example.feelslike.model.weather_service
 
 import com.example.feelslike.R
 import com.example.feelslike.model.weather_service.WeatherApiService
