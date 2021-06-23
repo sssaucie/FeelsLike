@@ -5,12 +5,7 @@ import androidx.room.PrimaryKey
 import com.example.feelslike.utilities.ONE_ID_ONLY
 import java.io.Serializable
 
-@Entity
 data class Coord(
     val lat: Double,
     val lon: Double
 ): Serializable
-{
-    @PrimaryKey(autoGenerate = false)
-    val oneId: Int = ONE_ID_ONLY
-}

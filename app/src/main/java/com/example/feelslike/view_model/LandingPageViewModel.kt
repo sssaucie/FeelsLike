@@ -8,13 +8,19 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
+import com.example.feelslike.BuildConfig
 import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.FavoritesEntity
+import com.example.feelslike.model.weather_service.WeatherApi
 import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.ImageUtil
 import com.example.feelslike.model.weather_service.WeatherRepo
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class LandingPageViewModel(application : Application) : AndroidViewModel(application)
 {
@@ -23,14 +29,18 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
     private var bookmarks: LiveData<List<FavoritesMarkerView>>? = null
     private var weatherRepo : WeatherRepo? = null
 
-    private val _navigateToResultsFragment = MutableLiveData<Boolean?>()
+    private val _navigateToResultsFragment = MutableLiveData<Place?>()
     private val _navigateToProfileFragment = MutableLiveData<Boolean?>()
     private val _navigateToPlannedLocationFragment = MutableLiveData<Boolean?>()
     private val _navigateToInitialUserInputFragment = MutableLiveData<Boolean?>()
     private val _navigateToMapFragment = MutableLiveData<Boolean?>()
     private val _navigateToRecyclerViewFavorites = MutableLiveData<Boolean?>()
 
-    val navigateToResultsFragment: LiveData<Boolean?>
+
+    private var viewModelJob = Job()
+    private val coroutineScope = CoroutineScope(viewModelJob+ Dispatchers.Main)
+
+    val navigateToResultsFragment: LiveData<Place?>
         get() = _navigateToResultsFragment
 
     val navigateToProfileFragment: LiveData<Boolean?>
@@ -52,18 +62,18 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
         _navigateToResultsFragment.value = null
     }
 
-    fun addPlaceFromCalculations(place: CalculationsEntity)
-    {
-        val bookmark = dataRepository.createCalculationsInfo()
-
-        bookmark.calculations_id = place.calculations_id
-        bookmark.latitude = place.latitude
-        bookmark.longitude = place.longitude
-
-        val newId = dataRepository.addCalculation(bookmark)
-
-        Log.i(TAG, "New calculation $newId added to the database.")
-    }
+//    fun addPlaceFromCalculations(place: CalculationsEntity)
+//    {
+//        val bookmark = dataRepository.createCalculationsInfo()
+//
+//        bookmark.calculations_id = place.calculations_id
+//        bookmark.latitude = place.latitude
+//        bookmark.longitude = place.longitude
+//
+//        val newId = dataRepository.addCalculation(bookmark)
+//
+//        Log.i(TAG, "New calculation $newId added to the database.")
+//    }
 
     fun addFavoritesBookmarkFromResults(place: Place, image: Bitmap)
     {
@@ -80,10 +90,10 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
         Log.i(TAG, "New bookmark $newId added to the database.")
     }
 
-    fun onCalculateClicked()
+    fun onCalculateClicked(lastSelectedLocation : Place)
     {
         Log.i(TAG, "Calculate button clicked.")
-        _navigateToResultsFragment.value = true
+        _navigateToResultsFragment.value = lastSelectedLocation
     }
 
     fun onPlannedLocationClicked()
@@ -167,5 +177,15 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
         fun getImage(context: Context) = id?.let {
             ImageUtil.loadBitmapFromFile(context, FavoritesEntity.generateImageFilename(it))
         }
+    }
+
+    fun getWeatherResults(location:String)
+    {
+        coroutineScope.launch {
+            var getWatherDeferred = WeatherApi.retrofitService.searchWeatherByPlaceName(location,
+                BuildConfig.WEATHER_API_KEY)
+
+        }
+
     }
 }

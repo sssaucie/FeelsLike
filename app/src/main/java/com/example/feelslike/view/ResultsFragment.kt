@@ -16,7 +16,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.feelslike.MapServiceAware
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentResultsBinding
-import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.MapsService
 import com.example.feelslike.view_model.ResultsViewModel
@@ -31,9 +30,8 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 
 class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 {
+    private lateinit var lastSelectedPlace : LatLng
     private lateinit var binding : FragmentResultsBinding
-    private lateinit var selectedPlace : CalculationsEntity
-    private lateinit var dataRepo : FeelsLikeRepository
     private lateinit var map : GoogleMap
     private lateinit var mapsService : MapsService
     private lateinit var placesClient : PlacesClient
@@ -43,15 +41,22 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     private var TAG = ResultsFragment::class.java.simpleName
     private var mapReady = false
 
+    override fun setMapService(mapsService: MapsService)
+    {
+        this.mapsService = mapsService
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?
     {
+        lastSelectedPlace = ResultsFragmentArgs.fromBundle(requireArguments()).selectedPlace
         /**
          * View bindings and model/factory setup
          */
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_results, container, false)
 
         val application = requireNotNull(this.activity).application
@@ -70,6 +75,8 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         searchAgainButton.text = getString(R.string.button_search_again)
 
+        searchAgainButton.setTextColor(resources.getColor(R.color.black))
+
         sendResultsButton.setOnClickListener {
             shareResultsDialog(resultsList().toString())
         }
@@ -86,9 +93,15 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
             }
         })
 
-        setupMap()
 
+//        sharedViewModel.getLastSelectedPosition().observe(viewLifecycleOwner,{
+//            populateMap(map, it)
+//        })
+
+        setupMap()
         mapsService.setupLocationClient(activity)
+        updateMap(map)
+        resultsViewModel.getWeatherResults("Washington, Utah")
 
         return binding.root
     }
@@ -108,13 +121,9 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
      */
 
     private fun updateMap(map: GoogleMap) {
-        if (MapsService.mapReady && selectedPlace != null)
+        if (MapsService.mapReady)
         {
-            dataRepo.createCalculationsInfo().longitude = selectedPlace.longitude
-            dataRepo.createCalculationsInfo().latitude = selectedPlace.latitude
-            dataRepo.createCalculationsInfo().calculations_id = selectedPlace.calculations_id
-
-            val marker = LatLng(selectedPlace.latitude, selectedPlace.longitude)
+            val marker = lastSelectedPlace
             map.addMarker(
                 MarkerOptions()
                 .position(marker))
@@ -132,7 +141,7 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         mapFragment?.getMapAsync{
                 googleMap -> map = googleMap
             mapReady = true
-            populateMap(googleMap)
+            populateMap(googleMap, lastSelectedPlace)
         }
 
         this.mapsService = MapsService.getInstance()
@@ -146,17 +155,16 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         Log.i(TAG, "onMapReady accessed")
     }
 
-    private fun populateMap(map : GoogleMap) {
+    private fun populateMap(map : GoogleMap, location: LatLng) {
         if (mapReady)
         {
 //            dataRepo.createCalculationsInfo().longitude = selectedPlace.longitude
 //            dataRepo.createCalculationsInfo().latitude = selectedPlace.latitude
 //            dataRepo.createCalculationsInfo().calculations_id = selectedPlace.calculations_id
 
-            val marker = defaultLocation
             map.addMarker(
                 MarkerOptions()
-                    .position(marker))
+                    .position(location))
             Log.i(TAG, "Map updated.")
         }
         else
@@ -183,10 +191,6 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         }
         builder.create().show()
         Log.i(TAG, "Favorite created")
-    }
-
-    override fun setMapService(mapsService: MapsService) {
-        this.mapsService = mapsService
     }
 
     private fun resultsList() {

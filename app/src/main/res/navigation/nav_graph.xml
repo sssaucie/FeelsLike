@@ -74,6 +74,8 @@
         <action
             android:id="@+id/action_resultsFragment_to_landingPage"
             app:destination="@id/landingPage" />
+        <argument android:name="selectedPlace"
+            app:argType="com.google.android.gms.maps.model.LatLng" />
         <!--        <argument-->
 <!--            android:name="desiredPlace"-->
 <!--            app:argType="com.example.feelslike.model.entity.CalculationsEntity" />-->

@@ -154,8 +154,8 @@ class MapsService
 
     private fun displayPoiNoContext(placesClient: PlacesClient, pointOfInterest : PointOfInterest)
     {
-        throw UnsupportedOperationException("need to change to places api")
-        // displayPoiGetPlaceStep(placesClient, pointOfInterest)
+//        throw UnsupportedOperationException("need to change to places api")
+//         displayPoiGetPlaceStep(placesClient, pointOfInterest)
     }
 
     fun displayPoi(context : Context?, placesClient: PlacesClient, place : Place)
@@ -176,6 +176,7 @@ class MapsService
             Place.Field.ADDRESS,
             Place.Field.LAT_LNG,
             Place.Field.VIEWPORT)
+        Log.i("map_testing","displayPoiGetPlaceStep Place Fields: $placeFields")
         val request = placeId?.let {
             FetchPlaceRequest
                 .builder(it, placeFields)

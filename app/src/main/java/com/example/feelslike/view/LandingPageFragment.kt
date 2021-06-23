@@ -3,7 +3,6 @@ package com.example.feelslike.view
 import android.app.SearchManager
 import android.content.Context.*
 import android.content.Intent
-import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -15,14 +14,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.feelslike.BuildConfig
 import com.example.feelslike.MapServiceAware
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentLandingPageBinding
-import com.example.feelslike.model.weather_service.WeatherApiService
 import com.example.feelslike.utilities.KEY_LOCATION
 import com.example.feelslike.utilities.MapsService
-import com.example.feelslike.model.weather_service.WeatherRepo
 import com.example.feelslike.view_model.LandingPageViewModel
 import com.example.feelslike.view_model.LandingPageViewModelFactory
 import com.google.android.gms.common.api.Status
@@ -36,8 +32,6 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 {
@@ -46,6 +40,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     private lateinit var map : GoogleMap
     private lateinit var mapsService : MapsService
     private lateinit var placesClient: PlacesClient
+    private lateinit var landingPageViewModel:LandingPageViewModel
     private var TAG = LandingPageFragment::class.java.simpleName
     private var intent = Intent()
     private var mapReady = false
@@ -72,7 +67,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         val viewModelFactory = LandingPageViewModelFactory(application)
 
-        val landingPageViewModel = ViewModelProvider(this, viewModelFactory).get(LandingPageViewModel::class.java)
+        landingPageViewModel = ViewModelProvider(this, viewModelFactory).get(LandingPageViewModel::class.java)
 
         binding.viewModel = landingPageViewModel
 
@@ -82,21 +77,32 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         calculateButton.isEnabled = false
 
-        calculateButton.setOnClickListener {
-            Log.e("Tag","Calculate button clicked")
-            landingPageViewModel.onCalculateClicked()
+        if (calculateButton.isEnabled)
+        {
+            calculateButton.setTextColor(resources.getColor(R.color.black))
+        }
+        else
+        {
+            calculateButton.setTextColor(resources.getColor(R.color.dark_grey))
         }
 
+        calculateButton.setOnClickListener {
+            Log.e("Tag","Calculate button clicked")
+            landingPageViewModel.onCalculateClicked(lastSelectedPlace)
+        }
+
+        if (lastSelectedPlace.latLng != null) {
             landingPageViewModel.navigateToResultsFragment.observe(viewLifecycleOwner, {
-                if (it == true) {
+                lastSelectedPlace.latLng.let {
                     this.findNavController().navigate(
-                        LandingPageFragmentDirections.actionLandingPageToResultsFragment()
+                        LandingPageFragmentDirections.actionLandingPageToResultsFragment(
+                            lastSelectedPlace.latLng!!
+                        )
                     )
-                    lastSelectedPlace.name?.let { it1 -> performSearch(it1) }
                     landingPageViewModel.onNavigated()
                 }
             })
-
+        }
 
         /**
          * View updates and finalization
@@ -231,13 +237,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     @DelicateCoroutinesApi
     private fun performSearch(place : String)
     {
-        val weatherInterface = WeatherApiService.instance
-        val weatherRepo = WeatherRepo(weatherInterface)
 
-        GlobalScope.launch {
-            val results = weatherRepo.searchByPlace(place, BuildConfig.WEATHER_API_KEY)
-            Log.i(TAG, "Results = ${results.body()}")
-        }
     }
 
     @DelicateCoroutinesApi

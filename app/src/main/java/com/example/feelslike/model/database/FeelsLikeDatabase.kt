@@ -12,14 +12,13 @@ import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.Dummy
 import com.example.feelslike.model.entity.FavoritesEntity
 import com.example.feelslike.model.entity.UserEntity
-import com.example.feelslike.model.entity.WeatherEntity
 import com.example.feelslike.utilities.DATABASE_NAME
 
 /**
  * The Room database for this app
  */
 
-@Database(entities = [UserEntity::class, Dummy::class, CalculationsEntity::class, FavoritesEntity::class, WeatherEntity::class],
+@Database(entities = [UserEntity::class, Dummy::class, CalculationsEntity::class, FavoritesEntity::class],
     version = 1,
     exportSchema = false)
 abstract class FeelsLikeDatabase : RoomDatabase()
@@ -32,7 +31,6 @@ abstract class FeelsLikeDatabase : RoomDatabase()
     abstract fun dummyDao() : DummyDao
     abstract fun calculationsDao() : CalculationsDao
     abstract fun favoritesDao() : FavoritesDao
-    abstract fun weatherDao() : WeatherDao
 
     /**
      * Defining a companion object allows us to add functions on the FeelsLikeDatabase
