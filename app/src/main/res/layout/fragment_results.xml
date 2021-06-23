@@ -160,6 +160,7 @@
             style="@style/fontStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{Double.toString(viewModel.weatherResults.main.temp)}"
             app:layout_constraintEnd_toStartOf="@+id/results_guideline_end"
             app:layout_constraintTop_toBottomOf="@+id/calculated_text_date"
             tools:text="123" />
@@ -178,8 +179,10 @@
             style="@style/fontStyleNormal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{viewModel.weatherResults.main.pressure}"
             app:layout_constraintEnd_toStartOf="@+id/results_guideline_end"
-            app:layout_constraintTop_toBottomOf="@+id/calculated_text_temperature" />
+            app:layout_constraintTop_toBottomOf="@+id/calculated_text_temperature"
+            tools:text="123"/>
 
         <TextView
             android:id="@+id/results_humidity"
@@ -198,6 +201,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_padding_small"
+            android:text="@{viewModel.weatherResults.main.humidity}"
             app:layout_constraintBottom_toTopOf="@id/button_results_text"
             app:layout_constraintEnd_toStartOf="@id/results_guideline_end"
             app:layout_constraintTop_toBottomOf="@+id/calculated_text_barometric"

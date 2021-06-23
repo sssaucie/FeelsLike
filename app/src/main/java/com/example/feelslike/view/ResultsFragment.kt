@@ -20,17 +20,20 @@ import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.MapsService
 import com.example.feelslike.view_model.ResultsViewModel
 import com.example.feelslike.view_model.ResultsViewModelFactory
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.net.PlacesClient
 import kotlinx.coroutines.DelicateCoroutinesApi
+import java.util.*
 
 class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 {
-    private lateinit var lastSelectedPlace : LatLng
+    private lateinit var selectedPlace : Place
     private lateinit var binding : FragmentResultsBinding
     private lateinit var map : GoogleMap
     private lateinit var mapsService : MapsService
@@ -52,7 +55,8 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         savedInstanceState: Bundle?
     ): View?
     {
-        lastSelectedPlace = ResultsFragmentArgs.fromBundle(requireArguments()).selectedPlace
+        selectedPlace = ResultsFragmentArgs.fromBundle(requireArguments()).selectedPlace
+
         /**
          * View bindings and model/factory setup
          */
@@ -61,13 +65,15 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         val application = requireNotNull(this.activity).application
 
-        val viewModelFactory = ResultsViewModelFactory(application)
+        val viewModelFactory = ResultsViewModelFactory(selectedPlace, application)
 
         val resultsViewModel = ViewModelProvider(this, viewModelFactory).get(ResultsViewModel::class.java)
 
         binding.viewModel = resultsViewModel
 
         binding.lifecycleOwner = this
+
+        resultsViewModel.getWeatherResults(selectedPlace.name.toString())
 
         val searchAgainButton = binding.buttonsLocationCalculateResults.buttonCalculate
 
@@ -83,6 +89,10 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         searchAgainButton.setOnClickListener {
             resultsViewModel.onSearchAgainClicked()
         }
+
+        val dateText = binding.calculatedTextDate
+
+        dateText.text = Calendar.getInstance().time.toString()
 
         resultsViewModel.navigateToLandingPage.observe(viewLifecycleOwner, {
             if (it == true) {
@@ -100,8 +110,6 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         setupMap()
         mapsService.setupLocationClient(activity)
-        updateMap(map)
-        resultsViewModel.getWeatherResults("Washington, Utah")
 
         return binding.root
     }
@@ -123,7 +131,7 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     private fun updateMap(map: GoogleMap) {
         if (MapsService.mapReady)
         {
-            val marker = lastSelectedPlace
+            val marker = selectedPlace.latLng!!
             map.addMarker(
                 MarkerOptions()
                 .position(marker))
@@ -141,7 +149,8 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         mapFragment?.getMapAsync{
                 googleMap -> map = googleMap
             mapReady = true
-            populateMap(googleMap, lastSelectedPlace)
+            populateMap(googleMap, selectedPlace.latLng!!)
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(selectedPlace.latLng!!))
         }
 
         this.mapsService = MapsService.getInstance()

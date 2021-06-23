@@ -85,7 +85,7 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
         bookmark.place_lon = place.latLng?.longitude ?: 0.0
 
         val newId = dataRepository.addFavorite(bookmark)
-        image?.let { bookmark.setImage(it, getApplication()) }
+        image.let { bookmark.setImage(it, getApplication()) }
 
         Log.i(TAG, "New bookmark $newId added to the database.")
     }

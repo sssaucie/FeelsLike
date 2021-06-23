@@ -49,7 +49,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
     // to display upon first opening the app
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
 
-    private lateinit var lastSelectedPlace : Place
+    private var lastSelectedPlace : Place? = null
 
     override fun setMapService(mapsService: MapsService)
     {
@@ -88,21 +88,19 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         calculateButton.setOnClickListener {
             Log.e("Tag","Calculate button clicked")
-            landingPageViewModel.onCalculateClicked(lastSelectedPlace)
+            lastSelectedPlace?.let { it1 -> landingPageViewModel.onCalculateClicked(it1) }
         }
 
-        if (lastSelectedPlace.latLng != null) {
-            landingPageViewModel.navigateToResultsFragment.observe(viewLifecycleOwner, {
-                lastSelectedPlace.latLng.let {
+        landingPageViewModel.navigateToResultsFragment.observe(viewLifecycleOwner,
+            {
+                if (lastSelectedPlace != null) {
                     this.findNavController().navigate(
                         LandingPageFragmentDirections.actionLandingPageToResultsFragment(
-                            lastSelectedPlace.latLng!!
+                            lastSelectedPlace!!
                         )
                     )
-                    landingPageViewModel.onNavigated()
                 }
             })
-        }
 
         /**
          * View updates and finalization
@@ -184,7 +182,7 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         val searchBar = childFragmentManager.findFragmentById(
             R.id.widget_search_custom_view_fragment) as AutocompleteSupportFragment?
 
-        searchBar?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME))
+        searchBar?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS, Place.Field.PHOTO_METADATAS))
 
         searchBar?.setOnPlaceSelectedListener(object : PlaceSelectionListener
         {
