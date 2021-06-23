@@ -71,6 +71,7 @@
     <string name="button_text_results">Text Results</string>
     <string name="button_search_again">Search Again</string>
     <string name="button_text_share_results">Share Results</string>
+    <string name="text_send_to">Send to:</string>
 
     <!--        Arrays-->
     <string-array name="menu_array">

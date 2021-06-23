@@ -1,25 +1,14 @@
 package com.example.feelslike.view
 
-import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.provider.Telephony
-import android.telephony.SmsManager
 import android.text.InputType
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -77,8 +66,13 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         val searchAgainButton = binding.buttonsLocationCalculateResults.buttonCalculate
 
+        val sendResultsButton = binding.buttonResultsText
+
         searchAgainButton.text = getString(R.string.button_search_again)
 
+        sendResultsButton.setOnClickListener {
+            shareResultsDialog(resultsList().toString())
+        }
         searchAgainButton.setOnClickListener {
             resultsViewModel.onSearchAgainClicked()
         }
@@ -193,5 +187,19 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
     override fun setMapService(mapsService: MapsService) {
         this.mapsService = mapsService
+    }
+
+    private fun resultsList() {
+        binding.calculatedTextBarometric.toString()
+        binding.calculatedTextHumidity.toString()
+        binding.calculatedTextTemperature.toString()
+    }
+
+    private fun shareResultsDialog(text: String) {
+        val shareIntent = Intent()
+        shareIntent.action = Intent.ACTION_SEND
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text)
+        context?.startActivity(Intent.createChooser(shareIntent, getString(R.string.text_send_to)))
     }
 }

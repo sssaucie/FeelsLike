@@ -16,7 +16,6 @@ class ResultsViewModel(application : Application) : AndroidViewModel(application
     private val TAG = ResultsViewModel::class.java.simpleName
     private var weatherRepo : WeatherRepo? = null
 
-
     lateinit var weatherSummaryViewData: MutableLiveData<WeatherSummaryViewData>
 
     private val _navigateToLandingPage = MutableLiveData<Boolean?>()

@@ -1,0 +1,43 @@
+{
+    "coord": {
+        "lon": -77.0366,
+        "lat": 38.895
+    },
+    "weather": [
+        {
+            "id": 800,
+            "main": "Clear",
+            "description": "clear sky",
+            "icon": "01n"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 288.48,
+        "feels_like": 288.31,
+        "temp_min": 286.27,
+        "temp_max": 290.64,
+        "pressure": 1015,
+        "humidity": 86
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 0,
+        "deg": 0
+    },
+    "clouds": {
+        "all": 1
+    },
+    "dt": 1624416570,
+    "sys": {
+        "type": 2,
+        "id": 2040304,
+        "country": "US",
+        "sunrise": 1624354998,
+        "sunset": 1624408621
+    },
+    "timezone": -14400,
+    "id": 4366164,
+    "name": "Washington DC.",
+    "cod": 200
+}

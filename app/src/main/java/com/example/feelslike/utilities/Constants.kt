@@ -15,6 +15,9 @@ const val KEY_LOCATION = "location"
 
 const val ADAPTER_POSITION = "adapter_position"
 
+// Only one ID is necessary for weather calls, as nothing is stored in a database
+const val ONE_ID_ONLY = 0
+
 const val CELSIUS_TO_KELVIN = 273.15F
 const val CP_VAPOR = 1805.0F // Specific heat capacity water vapor
 const val CP_WATER = 4186 // Specific heat capacity water liquid
