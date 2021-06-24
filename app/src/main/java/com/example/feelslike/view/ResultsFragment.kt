@@ -2,6 +2,7 @@ package com.example.feelslike.view
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -9,15 +10,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.feelslike.MapServiceAware
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentResultsBinding
-import com.example.feelslike.utilities.FeelsLikeRepository
-import com.example.feelslike.utilities.MapsService
 import com.example.feelslike.view_model.ResultsViewModel
 import com.example.feelslike.view_model.ResultsViewModelFactory
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -27,53 +26,52 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.net.PlacesClient
 import kotlinx.coroutines.DelicateCoroutinesApi
-import java.util.*
+import java.time.LocalDate
 
-class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
+class ResultsFragment : Fragment(), OnMapReadyCallback
 {
     private lateinit var selectedPlace : Place
     private lateinit var binding : FragmentResultsBinding
     private lateinit var map : GoogleMap
-    private lateinit var mapsService : MapsService
-    private lateinit var placesClient : PlacesClient
+    private lateinit var resultsViewModel : ResultsViewModel
     // A default location (Sydney, Australia) to use when location permission is not granted
     // to display upon first opening the app
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
     private var TAG = ResultsFragment::class.java.simpleName
     private var mapReady = false
 
-    override fun setMapService(mapsService: MapsService)
-    {
-        this.mapsService = mapsService
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        selectedPlace = ResultsFragmentArgs.fromBundle(requireArguments()).selectedPlace
+
+        val application = requireNotNull(this.activity).application
+
+        val viewModelFactory = ResultsViewModelFactory(selectedPlace, application)
+
+        resultsViewModel = ViewModelProvider(this, viewModelFactory).get(ResultsViewModel::class.java)
+
+        resultsViewModel.getWeatherResults(selectedPlace.name.toString())
+
+        Log.i(TAG, "onCreate complete")
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View?
     {
-        selectedPlace = ResultsFragmentArgs.fromBundle(requireArguments()).selectedPlace
-
         /**
-         * View bindings and model/factory setup
+         * View bindings
          */
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_results, container, false)
 
-        val application = requireNotNull(this.activity).application
-
-        val viewModelFactory = ResultsViewModelFactory(selectedPlace, application)
-
-        val resultsViewModel = ViewModelProvider(this, viewModelFactory).get(ResultsViewModel::class.java)
-
         binding.viewModel = resultsViewModel
 
         binding.lifecycleOwner = this
-
-        resultsViewModel.getWeatherResults(selectedPlace.name.toString())
 
         val searchAgainButton = binding.buttonsLocationCalculateResults.buttonCalculate
 
@@ -92,7 +90,11 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         val dateText = binding.calculatedTextDate
 
-        dateText.text = Calendar.getInstance().time.toString()
+        val currentDate = LocalDate.now()
+
+        dateText.text = currentDate.toString()
+
+        Log.i(TAG, "View bindings set")
 
         resultsViewModel.navigateToLandingPage.observe(viewLifecycleOwner, {
             if (it == true) {
@@ -103,77 +105,50 @@ class ResultsFragment : Fragment(), OnMapReadyCallback, MapServiceAware
             }
         })
 
-
-//        sharedViewModel.getLastSelectedPosition().observe(viewLifecycleOwner,{
-//            populateMap(map, it)
-//        })
-
-        setupMap()
-        mapsService.setupLocationClient(activity)
-
         return binding.root
     }
 
-    /**
-     * Text message - opens default SMS application.
-     */
-
-    private fun openSMS()
-    {
-//        val sendIntent = Intent(Intent.ACTION_VIEW)
-//        sendIntent.data = Uri.parse("sms:"+issue.number)
-//        ActivityCompat.startActivity(requireContext(), sendIntent, null)
-    }
     /**
      * Maps
      */
 
     private fun updateMap(map: GoogleMap) {
-        if (MapsService.mapReady)
+        if (mapReady)
         {
             val marker = selectedPlace.latLng!!
-            map.addMarker(
-                MarkerOptions()
-                .position(marker))
+            populateMap(map, marker)
+            map.moveCamera(CameraUpdateFactory.newLatLng(marker))
+            Log.i(TAG, "Map marker placed at: $marker")
         }
     }
 
     private fun setupMap()
     {
-        (childFragmentManager.findFragmentById(R.id.map_results) as SupportMapFragment?)!!.getMapAsync(this)
-        Log.i(TAG, "Map ready.")
-
         val mapFragment = childFragmentManager.findFragmentById(
             R.id.map_results) as SupportMapFragment?
 
         mapFragment?.getMapAsync{
                 googleMap -> map = googleMap
             mapReady = true
-            populateMap(googleMap, selectedPlace.latLng!!)
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(selectedPlace.latLng!!))
+            updateMap(map)
         }
 
-        this.mapsService = MapsService.getInstance()
-
-        placesClient = mapsService.setupPlacesClient(activity)
+        Log.i(TAG, "Map ready.")
     }
     @DelicateCoroutinesApi
     override fun onMapReady(googleMap : GoogleMap)
     {
-        mapsService.onMapReady(activity, placesClient, googleMap)
+        setupMap()
         Log.i(TAG, "onMapReady accessed")
     }
 
     private fun populateMap(map : GoogleMap, location: LatLng) {
         if (mapReady)
         {
-//            dataRepo.createCalculationsInfo().longitude = selectedPlace.longitude
-//            dataRepo.createCalculationsInfo().latitude = selectedPlace.latitude
-//            dataRepo.createCalculationsInfo().calculations_id = selectedPlace.calculations_id
-
             map.addMarker(
                 MarkerOptions()
                     .position(location))
+                map.moveCamera(CameraUpdateFactory.newLatLng(location))
             Log.i(TAG, "Map updated.")
         }
         else

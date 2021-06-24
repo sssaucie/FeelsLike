@@ -2,7 +2,6 @@ package com.example.feelslike.model.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.android.gms.maps.model.LatLng
 import java.io.Serializable
 
 @Entity(tableName = "calculations_entity")

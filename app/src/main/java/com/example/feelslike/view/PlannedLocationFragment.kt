@@ -1,23 +1,19 @@
 package com.example.feelslike.view
 
-import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentDialogPlannedLocationFormBinding
-import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.view_model.PlannedLocationViewModel
 import com.example.feelslike.view_model.PlannedLocationViewModelFactory
 import com.google.android.gms.common.api.Status
-import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener

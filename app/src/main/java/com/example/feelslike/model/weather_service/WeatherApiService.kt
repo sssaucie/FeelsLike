@@ -1,11 +1,9 @@
 package com.example.feelslike.model.weather_service
 
-import com.example.feelslike.model.entity.weather.Main
 import com.example.feelslike.model.entity.weather.WeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import kotlinx.coroutines.Deferred
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -29,6 +27,7 @@ interface WeatherApiService
 
     suspend fun searchWeatherByPlaceName(
         @Query("q") q : String,
+        @Query("units") units : String,
         @Query("appid") appId : String) :
             WeatherResponse
 }

@@ -28,7 +28,7 @@
     <string name="text_feet">Feet:</string>
     <string name="text_first_name">First Name:</string>
     <string name="text_height">Height</string>
-    <string name="text_hint_search">Perceived Temperature location</string>
+    <string name="text_hint_search">Search by City</string>
     <string name="text_humidity">Humidity:</string>
     <string name="text_imperial">Imperial (US)</string>
     <string name="text_inches">Inches:</string>
@@ -72,6 +72,11 @@
     <string name="button_search_again">Search Again</string>
     <string name="button_text_share_results">Share Results</string>
     <string name="text_send_to">Send to:</string>
+    <string name="text_results_feelslike">FeelsLike:</string>
+
+<!--    Chosen weather unit of measurement-->
+    <string name="unit_imperial">imperial</string>
+    <string name="unit_metric">metric</string>
 
     <!--        Arrays-->
     <string-array name="menu_array">

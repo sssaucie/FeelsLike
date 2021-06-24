@@ -6,15 +6,20 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.feelslike.BuildConfig
-import com.example.feelslike.model.entity.weather.*
+import com.example.feelslike.R.*
+import com.example.feelslike.model.entity.weather.WeatherResponse
 import com.example.feelslike.model.weather_service.WeatherApi
 import com.google.android.libraries.places.api.model.Place
-import kotlinx.coroutines.*
-import java.lang.Exception
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class ResultsViewModel(selectedPlace : Place, application: Application) : AndroidViewModel(application)
 {
     private val TAG = ResultsViewModel::class.java.simpleName
+
+    private val unitOfMeasurement : String = "imperial"
 
     private val _navigateToLandingPage = MutableLiveData<Boolean?>()
     private val _selectedLocation = MutableLiveData<Place>()
@@ -58,7 +63,7 @@ class ResultsViewModel(selectedPlace : Place, application: Application) : Androi
     fun getWeatherResults(location : String)
 {
         coroutineScope.launch {
-            val getWeatherDeferred = WeatherApi.retrofitService.searchWeatherByPlaceName(location, BuildConfig.WEATHER_API_KEY)
+            val getWeatherDeferred = WeatherApi.retrofitService.searchWeatherByPlaceName(location, unitOfMeasurement, BuildConfig.WEATHER_API_KEY)
             try {
                 val listResult = getWeatherDeferred
                 _weatherResults.value = listResult

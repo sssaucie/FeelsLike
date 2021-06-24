@@ -1,13 +1,5 @@
 package com.example.feelslike.utilities
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.util.Log
-import androidx.core.app.ActivityCompat
-import com.example.feelslike.MainActivity
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
-
 class Permissions
 {
 //    private val TAG = Permissions::class.java.simpleName

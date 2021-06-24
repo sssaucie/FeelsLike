@@ -3,7 +3,6 @@ package com.example.feelslike.view_model
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.feelslike.utilities.FeelsLikeRepository
 
 class LandingPageViewModelFactory (
     private val application: Application) : ViewModelProvider.Factory {

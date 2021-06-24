@@ -1,7 +1,7 @@
 package com.example.feelslike.view
 
 import android.app.SearchManager
-import android.content.Context.*
+import android.content.Context.SEARCH_SERVICE
 import android.content.Intent
 import android.location.Location
 import android.os.Bundle
@@ -76,15 +76,6 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         calculateButton = binding.widgetLocationCalculateButtons.buttonCalculate
 
         calculateButton.isEnabled = false
-
-        if (calculateButton.isEnabled)
-        {
-            calculateButton.setTextColor(resources.getColor(R.color.black))
-        }
-        else
-        {
-            calculateButton.setTextColor(resources.getColor(R.color.dark_grey))
-        }
 
         calculateButton.setOnClickListener {
             Log.e("Tag","Calculate button clicked")
@@ -184,12 +175,15 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         searchBar?.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG, Place.Field.ADDRESS, Place.Field.PHOTO_METADATAS))
 
+        searchBar?.setHint(resources.getString(R.string.text_hint_search))
+
         searchBar?.setOnPlaceSelectedListener(object : PlaceSelectionListener
         {
             override fun onPlaceSelected(place : Place)
             {
                 lastSelectedPlace = place
                 calculateButton.isEnabled = true
+                calculateButton.setTextColor(resources.getColor(R.color.black))
                 mapsService.displayPoi(activity, placesClient, place)
                 Log.i(TAG, "Place: ${place.name}, ${place.id}")
                 Log.i(TAG, "$place marker placed.")

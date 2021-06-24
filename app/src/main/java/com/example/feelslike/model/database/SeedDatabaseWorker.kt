@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.example.feelslike.model.entity.UserEntity
-import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.STANDARD_USER_DATA_FILENAME
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

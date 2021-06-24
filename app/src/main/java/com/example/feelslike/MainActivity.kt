@@ -2,7 +2,6 @@ package com.example.feelslike
 
 import android.Manifest
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Build
@@ -23,7 +22,6 @@ import com.example.feelslike.model.database.FeelsLikeDatabase
 import com.example.feelslike.model.entity.Dummy
 import com.example.feelslike.utilities.*
 import com.example.feelslike.view.MapsFragment
-import com.example.feelslike.view_model.LandingPageViewModel
 import com.google.android.gms.location.*
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.launch

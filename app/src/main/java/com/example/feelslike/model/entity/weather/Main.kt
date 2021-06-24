@@ -1,10 +1,5 @@
 package com.example.feelslike.model.entity.weather
 
-import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.example.feelslike.utilities.ONE_ID_ONLY
-import kotlinx.parcelize.Parcelize
 import java.io.Serializable
 
 data class Main(

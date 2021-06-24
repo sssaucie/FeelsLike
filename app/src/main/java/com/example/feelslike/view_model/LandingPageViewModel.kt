@@ -9,12 +9,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.feelslike.BuildConfig
-import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.FavoritesEntity
 import com.example.feelslike.model.weather_service.WeatherApi
+import com.example.feelslike.model.weather_service.WeatherRepo
 import com.example.feelslike.utilities.FeelsLikeRepository
 import com.example.feelslike.utilities.ImageUtil
-import com.example.feelslike.model.weather_service.WeatherRepo
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.libraries.places.api.model.Place
 import kotlinx.coroutines.CoroutineScope
@@ -177,15 +176,5 @@ class LandingPageViewModel(application : Application) : AndroidViewModel(applica
         fun getImage(context: Context) = id?.let {
             ImageUtil.loadBitmapFromFile(context, FavoritesEntity.generateImageFilename(it))
         }
-    }
-
-    fun getWeatherResults(location:String)
-    {
-        coroutineScope.launch {
-            var getWatherDeferred = WeatherApi.retrofitService.searchWeatherByPlaceName(location,
-                BuildConfig.WEATHER_API_KEY)
-
-        }
-
     }
 }

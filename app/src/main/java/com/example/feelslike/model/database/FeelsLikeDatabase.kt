@@ -7,7 +7,10 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import com.example.feelslike.model.dao.*
+import com.example.feelslike.model.dao.CalculationsDao
+import com.example.feelslike.model.dao.DummyDao
+import com.example.feelslike.model.dao.FavoritesDao
+import com.example.feelslike.model.dao.UserDao
 import com.example.feelslike.model.entity.CalculationsEntity
 import com.example.feelslike.model.entity.Dummy
 import com.example.feelslike.model.entity.FavoritesEntity
