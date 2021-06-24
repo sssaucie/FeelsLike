@@ -39,7 +39,7 @@ class ResultsFragment : Fragment(), OnMapReadyCallback
     // to display upon first opening the app
     private val defaultLocation = LatLng(-33.8523341, 151.2106085)
     private var TAG = ResultsFragment::class.java.simpleName
-    private var mapReady = false
+//    private var mapReady = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +94,8 @@ class ResultsFragment : Fragment(), OnMapReadyCallback
 
         dateText.text = currentDate.toString()
 
+        setupMap()
+
         Log.i(TAG, "View bindings set")
 
         resultsViewModel.navigateToLandingPage.observe(viewLifecycleOwner, {
@@ -113,15 +115,17 @@ class ResultsFragment : Fragment(), OnMapReadyCallback
      */
 
     private fun updateMap(map: GoogleMap) {
-        if (mapReady)
-        {
+//        if (mapReady)
+//        {
             val marker = selectedPlace.latLng!!
+            val zoom = 6.0F
             populateMap(map, marker)
-            map.moveCamera(CameraUpdateFactory.newLatLng(marker))
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, zoom))
             Log.i(TAG, "Map marker placed at: $marker")
-        }
+//        }
     }
 
+    @DelicateCoroutinesApi
     private fun setupMap()
     {
         val mapFragment = childFragmentManager.findFragmentById(
@@ -129,8 +133,7 @@ class ResultsFragment : Fragment(), OnMapReadyCallback
 
         mapFragment?.getMapAsync{
                 googleMap -> map = googleMap
-            mapReady = true
-            updateMap(map)
+            onMapReady(googleMap)
         }
 
         Log.i(TAG, "Map ready.")
@@ -138,23 +141,17 @@ class ResultsFragment : Fragment(), OnMapReadyCallback
     @DelicateCoroutinesApi
     override fun onMapReady(googleMap : GoogleMap)
     {
-        setupMap()
+        updateMap(googleMap)
         Log.i(TAG, "onMapReady accessed")
     }
 
     private fun populateMap(map : GoogleMap, location: LatLng) {
-        if (mapReady)
-        {
+
             map.addMarker(
                 MarkerOptions()
                     .position(location))
                 map.moveCamera(CameraUpdateFactory.newLatLng(location))
             Log.i(TAG, "Map updated.")
-        }
-        else
-        {
-            Log.i(TAG, "LatLng not found")
-        }
     }
 
     private fun showCreateFavoriteDialog()
