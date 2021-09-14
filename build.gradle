@@ -8,20 +8,20 @@ buildscript {
         targetSdkVersion = 30
 
         // App dependencies
-        activity_version = '1.2.3'
-        app_compat_version = '1.3.0'
+        activity_version = '1.3.1'
+        app_compat_version = '1.3.1'
         assisted_inject_version = '0.6.0'
-        constraint_layout_version = '2.1.0-beta02'
+        constraint_layout_version = '2.1.0'
         core_testing_version = '2.0.0'
-        core_version = '1.5.0'
-        coroutines_version = '1.5.0-native-mt'
+        core_version = '1.6.0'
+        coroutines_version = '1.5.2-native-mt'
         espresso_version = '3.1.1'
-        fragment_version = '1.3.5'
+        fragment_version = '1.3.6'
         google_services_version = '4.3.8'
-        gradle_version = '4.2.1'
-        gson_version = '2.8.7'
+        gradle_version = '7.0.2'
+        gson_version = '2.8.8'
         junit_version = '4.12'
-        kotlin_version = '1.5.10'
+        kotlin_version = '1.5.30'
         lifecycle_version = '2.3.1'
         location_version = '18.0.0'
         maps_version = '17.0.1'
@@ -34,7 +34,7 @@ buildscript {
         retrofit_version = '2.9.0'
         room_version = '2.3.0'
         test_ext_junit_version = '1.1.0'
-        work_version = '2.7.0-alpha04'
+        work_version = '2.7.0-beta01'
     }
 
     repositories {
