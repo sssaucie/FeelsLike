@@ -20,8 +20,8 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField('String', "WEATHER_API_KEY", WEATHER_API_KEY)
-        buildConfigField('String', "GOOGLE_MAPS_KEY", GOOGLE_MAPS_KEY)
+        buildConfigField('String', "WEATHER_API_KEY", "WEATHER_API_KEY")
+        buildConfigField('String', "GOOGLE_MAPS_KEY", "GOOGLE_MAPS_KEY")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
