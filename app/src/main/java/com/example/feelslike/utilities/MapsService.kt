@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import com.example.feelslike.BuildConfig
 import com.example.feelslike.MainActivity
 import com.example.feelslike.R
 import com.example.feelslike.view_model.LandingPageViewModel
@@ -139,8 +140,7 @@ class MapsService
         try
         {
             context.let {
-                var apiKey = context.getString(R.string.google_maps_key)
-                Places.initialize(it, apiKey)
+                Places.initialize(it, BuildConfig.MAPS_API_KEY)
             }
             val placesClient = Places.createClient(context)
             Log.i(TAG, "Places Client set up")

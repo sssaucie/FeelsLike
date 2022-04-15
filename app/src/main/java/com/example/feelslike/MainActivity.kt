@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         maxWaitTime = 60
     }
 
-    @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

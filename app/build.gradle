@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.parcelize")
     id 'androidx.navigation.safeargs.kotlin'
     id("org.jetbrains.kotlin.kapt")
-    id 'com.google.secrets_gradle_plugin' version '0.5'
+    id 'com.google.secrets_gradle_plugin' version '0.6.1'
 }
 
 apply plugin: 'kotlin-kapt'
@@ -15,13 +15,10 @@ android {
 
     defaultConfig {
         applicationId "com.example.feelslike"
-        minSdkVersion 24
+        minSdkVersion 26
         targetSdkVersion 32
         versionCode 1
         versionName "1.0"
-
-        buildConfigField('String', "WEATHER_API_KEY", "WEATHER_API_KEY")
-        buildConfigField('String', "GOOGLE_MAPS_KEY", "GOOGLE_MAPS_KEY")
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

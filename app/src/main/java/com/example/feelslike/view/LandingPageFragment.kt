@@ -56,7 +56,6 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         this.mapsService = mapsService
     }
 
-    @DelicateCoroutinesApi
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         /**
          * View bindings and model/factory setup
@@ -142,7 +141,6 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
 
         placesClient = mapsService.setupPlacesClient(activity)
     }
-    @DelicateCoroutinesApi
     override fun onMapReady(googleMap : GoogleMap)
     {
         mapsService.onMapReady(activity, placesClient, googleMap)
@@ -216,7 +214,6 @@ class LandingPageFragment : Fragment(), OnMapReadyCallback, MapServiceAware
         Log.i(TAG, "$item selected.")
     }
 
-    @DelicateCoroutinesApi
     override fun onStart() {
         super.onStart()
 

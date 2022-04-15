@@ -98,14 +98,14 @@ class ResultsFragment : Fragment(), OnMapReadyCallback
 
         Log.i(TAG, "View bindings set")
 
-        resultsViewModel.navigateToLandingPage.observe(viewLifecycleOwner, {
+        resultsViewModel.navigateToLandingPage.observe(viewLifecycleOwner) {
             if (it == true) {
                 this.findNavController().navigate(
                     ResultsFragmentDirections.actionResultsFragmentToLandingPage()
                 )
                 resultsViewModel.onNavigated()
             }
-        })
+        }
 
         return binding.root
     }
@@ -138,7 +138,6 @@ class ResultsFragment : Fragment(), OnMapReadyCallback
 
         Log.i(TAG, "Map ready.")
     }
-    @DelicateCoroutinesApi
     override fun onMapReady(googleMap : GoogleMap)
     {
         updateMap(googleMap)

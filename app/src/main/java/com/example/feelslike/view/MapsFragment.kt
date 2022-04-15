@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
+import com.example.feelslike.BuildConfig
 import com.example.feelslike.MainActivity
 import com.example.feelslike.R
 import com.example.feelslike.databinding.FragmentMapsBinding
@@ -57,12 +58,11 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 
     private val favoritesViewModel by viewModels<LandingPageViewModel>()
 
-    @DelicateCoroutinesApi
     override fun onCreateView(
         inflater : LayoutInflater,
         container : ViewGroup?,
         savedInstanceState : Bundle?
-    ): View?
+    ): View
     {
 //        selectedPlace = if (mapReady && selectedPlace != null)
 //        {
@@ -138,7 +138,6 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         Log.i(TAG, "Map view created.")
     }
 
-    @DelicateCoroutinesApi
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         setupMapListeners()
@@ -218,7 +217,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 
     private fun setupPlacesClient()
     {
-        context?.let { Places.initialize(it, getString(R.string.google_maps_key)) }
+        context?.let { Places.initialize(it, BuildConfig.MAPS_API_KEY) }
         placesClient = Places.createClient(activity)
         Log.i(TAG, "Places Client set up")
     }
