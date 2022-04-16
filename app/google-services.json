@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1085859256845:android:b06b868a0659eec3f25344",
         "android_client_info": {
-          "package_name": "com.example.feelslike"
+          "package_name": "com.emilycodes.feelslike"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "1085859256845-4a81fs6kr9r9bdn84dijf10jdeigfdac.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.feelslike",
+            "package_name": "com.emilycodes.feelslike",
             "certificate_hash": "39e2fe47d376530e85d012f8fe7ea917f921d84b"
           }
         },
@@ -25,7 +25,7 @@
           "client_id": "1085859256845-4emgfu4j1bfu6ic9m4hfgnrpt2bn4cfq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.feelslike",
+            "package_name": "com.emilycodes.feelslike",
             "certificate_hash": "1506275417df103aea182d4fa181e613fcc7d8f2"
           }
         },

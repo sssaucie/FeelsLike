@@ -19,6 +19,7 @@ import com.emilycodes.feelslike.model.entity.CalculationsEntity
 import com.emilycodes.feelslike.utilities.FeelsLikeRepository
 import com.emilycodes.feelslike.utilities.KEY_LOCATION
 import com.emilycodes.feelslike.utilities.MapsInfoWidgetAdapter
+import com.emilycodes.feelslike.R
 import com.emilycodes.feelslike.view_model.LandingPageViewModel
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
