@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.feelslike.view_model.ResultsViewModel" />
+            type="com.emilycodes.feelslike.view_model.ResultsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

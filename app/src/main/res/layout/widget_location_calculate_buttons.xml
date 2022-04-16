@@ -6,7 +6,7 @@
     <data>
         <variable
             name="selectedPlace"
-            type="com.example.feelslike.model.entity.CalculationsEntity" />
+            type="com.emilycodes.feelslike.model.entity.CalculationsEntity" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

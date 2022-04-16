@@ -3,7 +3,7 @@
     xmlns:app="http://scemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    tools:context="com.example.feelslike.LandingPageFragment">
+    tools:context="com.emilycodes.feelslike.LandingPageFragment">
 
     <item android:id="@+id/search_item"
         android:title="@string/search"

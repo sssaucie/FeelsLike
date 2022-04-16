@@ -1,4 +1,4 @@
-package com.example.feelslike.view
+package com.emilycodes.feelslike.view
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -12,15 +12,14 @@ import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProviders
-import com.example.feelslike.BuildConfig
-import com.example.feelslike.MainActivity
-import com.example.feelslike.R
-import com.example.feelslike.databinding.FragmentMapsBinding
-import com.example.feelslike.model.entity.CalculationsEntity
-import com.example.feelslike.utilities.FeelsLikeRepository
-import com.example.feelslike.utilities.KEY_LOCATION
-import com.example.feelslike.utilities.MapsInfoWidgetAdapter
-import com.example.feelslike.view_model.LandingPageViewModel
+import com.emilycodes.feelslike.BuildConfig
+import com.emilycodes.feelslike.MainActivity
+import com.emilycodes.feelslike.databinding.FragmentMapsBinding
+import com.emilycodes.feelslike.model.entity.CalculationsEntity
+import com.emilycodes.feelslike.utilities.FeelsLikeRepository
+import com.emilycodes.feelslike.utilities.KEY_LOCATION
+import com.emilycodes.feelslike.utilities.MapsInfoWidgetAdapter
+import com.emilycodes.feelslike.view_model.LandingPageViewModel
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -58,12 +57,11 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 
     private val favoritesViewModel by viewModels<LandingPageViewModel>()
 
-    @DelicateCoroutinesApi
     override fun onCreateView(
         inflater : LayoutInflater,
         container : ViewGroup?,
         savedInstanceState : Bundle?
-    ): View?
+    ): View
     {
 //        selectedPlace = if (mapReady && selectedPlace != null)
 //        {
@@ -139,7 +137,6 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
         Log.i(TAG, "Map view created.")
     }
 
-    @DelicateCoroutinesApi
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
         setupMapListeners()
@@ -219,7 +216,7 @@ class MapsFragment : SupportMapFragment(), OnMapReadyCallback
 
     private fun setupPlacesClient()
     {
-        context?.let { Places.initialize(it, R.string.google_maps_key) }
+        context?.let { Places.initialize(it, BuildConfig.MAPS_API_KEY) }
         placesClient = Places.createClient(activity)
         Log.i(TAG, "Places Client set up")
     }

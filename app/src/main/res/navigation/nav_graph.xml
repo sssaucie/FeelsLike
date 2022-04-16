@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/landingPage"
-        android:name="com.example.feelslike.view.LandingPageFragment"
+        android:name="com.emilycodes.feelslike.view.LandingPageFragment"
         android:label="LandingPageFragment"
         tools:layout="@layout/fragment_landing_page">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="com.example.feelslike.view.MapsFragment"
+        android:name="com.emilycodes.feelslike.view.MapsFragment"
         android:label="MapsFragment"
         tools:layout="@layout/fragment_maps">
 <!--        <argument-->
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/plannedLocationFragment"
-        android:name="com.example.feelslike.view.PlannedLocationFragment"
+        android:name="com.emilycodes.feelslike.view.PlannedLocationFragment"
         android:label="PlannedLocationFragment"
         tools:layout="@layout/fragment_dialog_planned_location_form">
         <action
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/widgetMenuProfile"
-        android:name="com.example.feelslike.view.WidgetMenuProfileFragment"
+        android:name="com.emilycodes.feelslike.view.WidgetMenuProfileFragment"
         android:label="WidgetMenuProfileFragment"
         tools:layout="@layout/widget_menu_profile_pic">
         <action
@@ -53,19 +53,19 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.feelslike.view.ProfileFragment"
+        android:name="com.emilycodes.feelslike.view.ProfileFragment"
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
 
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.example.feelslike.view.RecyclerViewFavoritesFragment"
+        android:name="com.emilycodes.feelslike.view.RecyclerViewFavoritesFragment"
         android:label="FavoritesFragment"
         tools:layout="@layout/fragment_profile"/>
 
     <fragment
         android:id="@+id/resultsFragment"
-        android:name="com.example.feelslike.view.ResultsFragment"
+        android:name="com.emilycodes.feelslike.view.ResultsFragment"
         android:label="ResultsFragment"
         tools:layout="@layout/fragment_results">
         <action

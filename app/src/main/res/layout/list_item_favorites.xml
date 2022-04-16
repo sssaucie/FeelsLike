@@ -7,11 +7,11 @@
 
         <variable
             name="favoritePlace"
-            type="com.example.feelslike.utilities.FeelsLikeRepository" />
+            type="com.emilycodes.feelslike.utilities.FeelsLikeRepository" />
 
         <variable
             name="clickListener"
-            type="com.example.feelslike.utilities.FavoritesClickListener" />
+            type="com.emilycodes.feelslike.utilities.FavoritesClickListener" />
     </data>
 
 <!--    android:onClick="@{clickListener}"-->

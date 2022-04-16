@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.feelslike.view_model.LandingPageViewModel" />
+            type="com.emilycodes.feelslike.view_model.LandingPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
